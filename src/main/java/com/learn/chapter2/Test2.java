@@ -1,13 +1,9 @@
 package com.learn.chapter2;
 
 import com.deepoove.poi.XWPFTemplate;
-import com.deepoove.poi.data.HyperLinkTextRenderData;
 import com.deepoove.poi.data.PictureRenderData;
-import com.deepoove.poi.data.TextRenderData;
 import com.deepoove.poi.util.BytePictureUtils;
 
-import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
