@@ -1,22 +1,19 @@
 package com.learn.chapter2;
 
 import com.deepoove.poi.XWPFTemplate;
-import com.deepoove.poi.data.MiniTableRenderData;
 import com.deepoove.poi.data.NumbericRenderData;
-import com.deepoove.poi.data.RowRenderData;
 import com.deepoove.poi.data.TextRenderData;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * @author ：Kristen
  * @date ：2022/6/7
- * @description :
+ * @description : poi-tl 操作列表
  */
 public class Test4 {
     public static void main(String[] args) throws IOException {
