@@ -6,6 +6,11 @@ import com.deepoove.poi.template.ElementTemplate;
 import com.deepoove.poi.template.run.RunTemplate;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 
+/**
+ * @author ：Kristen
+ * @date ：2022/6/7
+ * @description :
+ */
 public class HelloWorldRenderPolicy implements RenderPolicy {
     @Override
     public void render(ElementTemplate eleTemplate, Object data, XWPFTemplate template) {
