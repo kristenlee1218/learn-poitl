@@ -12,7 +12,6 @@ import java.util.List;
  * @description :
  */
 public class ResumeData {
-
     private PictureRenderData portrait;
     private String name;
     private String job;
@@ -23,7 +22,7 @@ public class ResumeData {
     private String email;
     private String address;
     private String english;
-    private String University;
+    private String university;
     private String rank;
     private String education;
     private String profession;
@@ -112,12 +111,12 @@ public class ResumeData {
         return this.english;
     }
 
-    public void setUniversity(String University) {
-        this.University = University;
+    public void setUniversity(String university) {
+        this.university = university;
     }
 
     public String getUniversity() {
-        return this.University;
+        return this.university;
     }
 
     public void setRank(String rank) {

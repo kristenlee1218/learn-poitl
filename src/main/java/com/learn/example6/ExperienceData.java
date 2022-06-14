@@ -1,6 +1,7 @@
 package com.learn.example6;
 
 import com.deepoove.poi.data.NumbericRenderData;
+
 /**
  * @author ：Kristen
  * @date ：2022/6/14
@@ -52,5 +53,4 @@ public class ExperienceData {
     public void setResponsibility(NumbericRenderData responsibility) {
         this.responsibility = responsibility;
     }
-
 }
