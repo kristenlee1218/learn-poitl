@@ -1,5 +1,10 @@
 package com.learn.example3;
 
+/**
+ * @author ：Kristen
+ * @date ：2022/6/14
+ * @description :
+ */
 public class User {
     private String name;
     private String depart;
@@ -19,5 +24,4 @@ public class User {
     public void setDepart(String depart) {
         this.depart = depart;
     }
-
 }

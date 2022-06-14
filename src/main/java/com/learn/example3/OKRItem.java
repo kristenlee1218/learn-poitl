@@ -1,5 +1,10 @@
 package com.learn.example3;
 
+/**
+ * @author ：Kristen
+ * @date ：2022/6/14
+ * @description :
+ */
 public class OKRItem {
     int index;
     Objective object;
@@ -46,5 +51,4 @@ public class OKRItem {
     public void setIndex(int index) {
         this.index = index;
     }
-
 }

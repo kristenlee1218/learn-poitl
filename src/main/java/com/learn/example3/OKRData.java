@@ -2,6 +2,11 @@ package com.learn.example3;
 
 import java.util.List;
 
+/**
+ * @author ：Kristen
+ * @date ：2022/6/14
+ * @description :
+ */
 public class OKRData {
 
     private User user;
@@ -42,7 +47,6 @@ public class OKRData {
     public void setManageObjectives(List<OKRItem> manageObjectives) {
         this.manageObjectives = manageObjectives;
     }
-
 }
 
 

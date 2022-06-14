@@ -1,5 +1,10 @@
 package com.learn.example3;
 
+/**
+ * @author ：Kristen
+ * @date ：2022/6/14
+ * @description :
+ */
 public class Objective {
     private String desc;
     private String progress;
@@ -24,5 +29,4 @@ public class Objective {
     public void setProgress(String progress) {
         this.progress = progress;
     }
-
 }
