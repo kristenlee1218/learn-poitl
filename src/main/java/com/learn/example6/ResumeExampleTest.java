@@ -23,7 +23,7 @@ import com.deepoove.poi.data.style.Style;
  * @description :
  */
 @DisplayName("Example for Resume")
-public class ResumeExample {
+public class ResumeExampleTest {
     ResumeData data = new ResumeData();
 
     @BeforeEach

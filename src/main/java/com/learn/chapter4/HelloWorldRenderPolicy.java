@@ -15,7 +15,6 @@ public class HelloWorldRenderPolicy implements RenderPolicy {
     @Override
     public void render(ElementTemplate eleTemplate, Object data, XWPFTemplate template) {
         XWPFRun run = ((RunTemplate) eleTemplate).getRun();
-        // String thing = String.valueOf(data);
         String thing = "Hello, world";
         run.setText(thing, 0);
     }

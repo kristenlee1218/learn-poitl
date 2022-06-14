@@ -46,7 +46,7 @@ import io.swagger.parser.SwaggerParser;
  * @description :
  */
 @DisplayName("Swagger to Word Example")
-public class SwaggerToWordExample {
+public class SwaggerToWordExampleTest {
 
     String location = "D:\\test-poitl\\petstore.json";
 

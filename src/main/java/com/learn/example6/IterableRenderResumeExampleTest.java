@@ -20,7 +20,7 @@ import java.util.List;
  * @description :
  */
 @DisplayName("Foreach resume example")
-public class IterableRenderResumeExample {
+public class IterableRenderResumeExampleTest {
 
     ResumeData data = new ResumeData();
 

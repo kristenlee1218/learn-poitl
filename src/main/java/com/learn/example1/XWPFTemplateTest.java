@@ -52,7 +52,6 @@ public class XWPFTemplateTest {
 
         XWPFTemplate template = XWPFTemplate.compile("D:\\test-poitl\\template1.docx")
                 .render(data);
-
         FileOutputStream out = new FileOutputStream("D:\\test-poitl\\out_template1.docx");
         template.write(out);
         out.flush();

@@ -22,7 +22,7 @@ import java.util.Map;
  * @description : 野生动物
  */
 @DisplayName("AnimalExmample test case")
-public class AnimalExample {
+public class AnimalExampleTest {
 
     @Test
     public void testChart() throws Exception {

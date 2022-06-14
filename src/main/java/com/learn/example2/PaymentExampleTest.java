@@ -23,7 +23,7 @@ import com.deepoove.poi.data.style.TableStyle;
  * @description : 付款说明书
  */
 @DisplayName("Example for Table")
-public class PaymentExample {
+public class PaymentExampleTest {
 
     String resource = "D:\\test-poitl\\template2.docx";
     PaymentData data = new PaymentData();

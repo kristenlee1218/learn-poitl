@@ -14,9 +14,8 @@ import java.util.Map;
  * @date ：2022/6/14
  * @description : 证书
  */
-public class CertificateExample {
+public class CertificateExampleTest {
 
-    @SuppressWarnings("serial")
     @Test
     public void testRenderTextBox() throws Exception {
         Map<String, Object> data = new HashMap<String, Object>() {

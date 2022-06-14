@@ -14,7 +14,7 @@ import com.deepoove.poi.XWPFTemplate;
  * @description : OKR
  */
 @DisplayName("Example for OKR")
-public class OKRExample {
+public class OKRExampleTest {
 
     @Test
     public void testOKRExample() throws Exception {
