@@ -1,4 +1,4 @@
-package com.learn.example;
+package com.learn.example1;
 
 import com.deepoove.poi.XWPFTemplate;
 import com.deepoove.poi.data.*;
@@ -24,7 +24,7 @@ public class XWPFTemplateTest {
         RowRenderData row3 = RowRenderData.build("OpenOffice", "需要安装OpenOffice软件",
                 "复杂，需要了解OpenOffice的API");
         RowRenderData row4 = RowRenderData.build("Jacob、winlib", "Windows平台", "复杂，不推荐使用");
-        final List<RowRenderData> tableDatas = Arrays.asList(row0, row1, row2, row3, row4);
+        final List<RowRenderData> tableData = Arrays.asList(row0, row1, row2, row3, row4);
         Map<String, Object> data = new HashMap<String, Object>() {
             {
                 put("header", "Deeply love what you love.");
@@ -37,7 +37,7 @@ public class XWPFTemplateTest {
                 put("introduce", new HyperLinkTextRenderData("http://www.deepoove.com", "http://www.deepoove.com"));
                 put("portrait", new PictureRenderData(60, 60, "src/test/resources/sayi.png"));
 
-                put("solution_compare", new MiniTableRenderData(header, tableDatas,
+                put("solution_compare", new MiniTableRenderData(header, tableData,
                         MiniTableRenderData.WIDTH_A4_FULL));
 
                 put("feature", new NumbericRenderData(new ArrayList<TextRenderData>() {
