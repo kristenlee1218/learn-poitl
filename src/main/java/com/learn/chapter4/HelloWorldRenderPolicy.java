@@ -11,6 +11,7 @@ import org.apache.poi.xwpf.usermodel.XWPFRun;
  * @date ：2022/6/7
  * @description :
  */
+
 public class HelloWorldRenderPolicy implements RenderPolicy {
     @Override
     public void render(ElementTemplate eleTemplate, Object data, XWPFTemplate template) {
