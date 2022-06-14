@@ -19,7 +19,7 @@ import java.util.Map;
 /**
  * @author ：Kristen
  * @date ：2022/6/14
- * @description :
+ * @description : 野生动物
  */
 @DisplayName("AnimalExmample test case")
 public class AnimalExample {

@@ -11,7 +11,7 @@ import com.deepoove.poi.XWPFTemplate;
 /**
  * @author ：Kristen
  * @date ：2022/6/14
- * @description :
+ * @description : OKR
  */
 @DisplayName("Example for OKR")
 public class OKRExample {
