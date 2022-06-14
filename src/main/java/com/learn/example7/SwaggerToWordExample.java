@@ -48,7 +48,7 @@ import io.swagger.parser.SwaggerParser;
 @DisplayName("Swagger to Word Example")
 public class SwaggerToWordExample {
 
-    String location = "src/test/resources/swagger/petstore.json";
+    String location = "D:\\test-poitl\\petstore.json";
 
     @Test
     public void testSwaggerToWord() throws IOException {
@@ -58,8 +58,8 @@ public class SwaggerToWordExample {
 
         HackLoopTableRenderPolicy hackLoopTableRenderPolicy = new HackLoopTableRenderPolicy();
         Configure config = Configure.newBuilder().bind("parameters", hackLoopTableRenderPolicy).bind("responses", hackLoopTableRenderPolicy).bind("properties", hackLoopTableRenderPolicy).addPlugin('>', new BookmarkRenderPolicy()).setElMode(ELMode.SPEL_MODE).build();
-        XWPFTemplate template = XWPFTemplate.compile("src/test/resources/swagger/swagger.docx", config).render(viewData);
-        template.writeToFile("out_example_swagger.docx");
+        XWPFTemplate template = XWPFTemplate.compile("D:\\test-poitl\\swagger.docx", config).render(viewData);
+        template.writeToFile("D:\\test-poitl\\swagger_out.docx");
     }
 
     @SuppressWarnings("rawtypes")
@@ -117,7 +117,6 @@ public class SwaggerToWordExample {
                                 schema.addAll(formatProperty(items));
                             }
 
-                            // parameter type or array
                             if (StringUtils.isNotBlank(type)) {
                                 schema.add(new TextRenderData(type));
                             }
@@ -161,7 +160,6 @@ public class SwaggerToWordExample {
                 }
                 endpoints.add(endpoint);
             });
-
         });
 
         swagger.getTags().forEach(tag -> {
