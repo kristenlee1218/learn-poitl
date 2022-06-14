@@ -62,7 +62,6 @@ public class SwaggerToWordExampleTest {
         template.writeToFile("D:\\test-poitl\\swagger_out.docx");
     }
 
-    @SuppressWarnings("rawtypes")
     private SwaggerView convert(Swagger swagger) {
         SwaggerView view = new SwaggerView();
         view.setInfo(swagger.getInfo());
