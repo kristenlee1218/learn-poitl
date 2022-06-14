@@ -13,7 +13,7 @@ import com.deepoove.poi.util.TableTools;
 /**
  * @author ：Kristen
  * @date ：2022/6/13
- * @description :
+ * @description : 渲染策略
  */
 public class DetailTablePolicy extends DynamicTableRenderPolicy {
 
@@ -55,5 +55,4 @@ public class DetailTablePolicy extends DynamicTableRenderPolicy {
             }
         }
     }
-
 }
