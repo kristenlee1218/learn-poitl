@@ -15,7 +15,6 @@ import java.util.Map;
  * @description : 证书
  */
 public class CertificateExampleTest {
-
     @Test
     public void testRenderTextBox() throws Exception {
         Map<String, Object> data = new HashMap<String, Object>() {
@@ -28,8 +27,6 @@ public class CertificateExampleTest {
                 put("img", new PictureRenderData(120, 120, ".png", Files.newInputStream(Paths.get("D:\\test-poitl\\lu.png"))));
             }
         };
-
         XWPFTemplate.compile("D:\\test-poitl\\template5.docx").render(data).writeToFile("D:\\test-poitl\\template5_out.docx");
-
     }
 }

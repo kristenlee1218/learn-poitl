@@ -41,7 +41,7 @@ public class JSONRenderPolicy extends AbstractRenderPolicy<String> {
 
     ObjectMapper objectMapper = new ObjectMapper();
 
-    private String defaultColor;
+    private final String defaultColor;
 
     public JSONRenderPolicy() {
         this("000000");
@@ -142,7 +142,6 @@ public class JSONRenderPolicy extends AbstractRenderPolicy<String> {
             }
             result.add(new TextRenderData(defaultColor, cindent + "}"));
         }
-
         return result;
     }
 }
