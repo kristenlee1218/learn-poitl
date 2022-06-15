@@ -18,18 +18,17 @@ import java.util.HashMap;
 public class Test2 {
     public static void main(String[] args) throws IOException {
         // 编译模板、渲染数据
-        XWPFTemplate template = XWPFTemplate.compile("D:\\test-poitl\\template.docx").render(
-                new HashMap<String, Object>() {{
-                    // 本地图片
-                    put("local", new PictureRenderData(80, 100, "D:\\test-poitl\\1.png"));
-                    // 图片流
-                    put("localbyte", new PictureRenderData(80, 100, ".png", Files.newInputStream(Paths.get("D:\\test-poitl\\2.png"))));
-                    // 网络图片(注意网络耗时对系统可能的性能影响)
-                    put("urlpicture", new PictureRenderData(50, 50, ".png", BytePictureUtils.getUrlBufferedImage("http://deepoove.com/images/icecream.png")));
-                    // java 图片
-                    // put("bufferimage", new PictureRenderData(80, 100, ".png", bufferImage)));
-                }});
-        FileOutputStream out = new FileOutputStream("D:\\test-poitl\\output.docx");
+        XWPFTemplate template = XWPFTemplate.compile("src/main/resources/charpter2/template2.docx").render(new HashMap<String, Object>() {{
+            // 本地图片
+            put("local", new PictureRenderData(80, 100, "src/main/resources/charpter2/1.png"));
+            // 图片流
+            put("localbyte", new PictureRenderData(80, 100, ".png", Files.newInputStream(Paths.get("src/main/resources/charpter2/2.png"))));
+            // 网络图片(注意网络耗时对系统可能的性能影响)
+            put("urlpicture", new PictureRenderData(50, 50, ".png", BytePictureUtils.getUrlBufferedImage("http://deepoove.com/images/icecream.png")));
+            // java 图片
+            // put("bufferimage", new PictureRenderData(80, 100, ".png", bufferImage)));
+        }});
+        FileOutputStream out = new FileOutputStream("src/main/resources/charpter2/template2_out.docx");
         // 输出到流
         template.write(out);
         out.flush();

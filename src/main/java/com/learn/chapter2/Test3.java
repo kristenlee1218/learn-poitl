@@ -25,10 +25,10 @@ public class Test3 {
         RowRenderData row1 = RowRenderData.build("李四", "博士");
 
         data.put("table", new MiniTableRenderData(header, Arrays.asList(row0, row1)));
-        XWPFTemplate template = XWPFTemplate.compile("D:\\test-poitl\\template.docx")
+        XWPFTemplate template = XWPFTemplate.compile("src/main/resources/charpter2/template3.docx")
                 .render(data);
         FileOutputStream out;
-        out = new FileOutputStream("D:\\test-poitl\\output.docx");
+        out = new FileOutputStream("src/main/resources/charpter2/template3.docx");
         template.write(out);
         out.flush();
         out.close();

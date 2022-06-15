@@ -7,22 +7,22 @@ import com.deepoove.poi.data.TextRenderData;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author ：Kristen
- * @date ：2022/6/7
- * @description : poi-tl 操作文字等
+ * @date ：2022/6/15
+ * @description :
  */
-public class Test1 {
+public class Test1_1 {
     public static void main(String[] args) throws IOException {
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", "Sayi");
+        map.put("author", new TextRenderData("000000", "Sayi"));
+        map.put("link", new HyperLinkTextRenderData("website", "http://deepoove.com"));
+        map.put("anchor", new HyperLinkTextRenderData("anchortxt", "anchor:appendix1"));
         // 编译模板、渲染数据
-        XWPFTemplate template = XWPFTemplate.compile("src/main/resources/charpter2/template1.docx").render(
-                new HashMap<String, Object>() {{
-                    put("name", "Sayi");
-                    put("author", new TextRenderData("000000", "Sayi"));
-                    put("link", new HyperLinkTextRenderData("website", "http://deepoove.com"));
-                    put("anchor", new HyperLinkTextRenderData("anchortxt", "anchor:appendix1"));
-                }});
+        XWPFTemplate template = XWPFTemplate.compile("src/main/resources/charpter2/template1.docx").render(map);
         FileOutputStream out = new FileOutputStream("src/main/resources/charpter2/template1_out.docx");
         // 输出到流
         template.write(out);

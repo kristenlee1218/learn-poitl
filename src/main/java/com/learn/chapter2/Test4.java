@@ -25,10 +25,10 @@ public class Test4 {
                 add(new TextRenderData("Not just templates"));
             }
         }));
-        XWPFTemplate template = XWPFTemplate.compile("D:\\test-poitl\\template.docx")
+        XWPFTemplate template = XWPFTemplate.compile("src/main/resources/charpter2/template4.docx")
                 .render(data);
         FileOutputStream out;
-        out = new FileOutputStream("D:\\test-poitl\\output.docx");
+        out = new FileOutputStream("src/main/resources/charpter2/template4.docx");
         template.write(out);
         out.flush();
         out.close();
