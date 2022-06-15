@@ -187,7 +187,7 @@ public class SwaggerToWordExampleTest {
                         properties.add(property);
                     });
                     definition.setProperties(properties);
-                    Map map = valueOfModel(swagger.getDefinitions(), model, new HashSet<>());
+                    Map<String, Object> map = valueOfModel(swagger.getDefinitions(), model, new HashSet<>());
                     try {
                         String writeValueAsString = objectMapper.writeValueAsString(map);
                         JsonNode readTree = objectMapper.readTree(writeValueAsString);
