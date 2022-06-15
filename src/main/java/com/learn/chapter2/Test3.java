@@ -28,7 +28,7 @@ public class Test3 {
         XWPFTemplate template = XWPFTemplate.compile("src/main/resources/charpter2/template3.docx")
                 .render(data);
         FileOutputStream out;
-        out = new FileOutputStream("src/main/resources/charpter2/template3.docx");
+        out = new FileOutputStream("src/main/resources/charpter2/template3_out.docx");
         template.write(out);
         out.flush();
         out.close();
