@@ -16,18 +16,17 @@ import java.util.Map;
  * @date ：2022/6/7
  * @description : pot-tl 操作表格
  */
-public class Test3 {
+public class Test3_1 {
     public static void main(String[] args) throws IOException {
+        Map<String, Object> data = new HashMap<>();
         RowRenderData header = RowRenderData.build(new TextRenderData("FF0000", "姓名"), new TextRenderData("FF0000", "学历"));
 
         RowRenderData row0 = RowRenderData.build("张三", "研究生");
         RowRenderData row1 = RowRenderData.build("李四", "博士");
 
-        //data.put("table", new MiniTableRenderData(header, Arrays.asList(row0, row1)));
+        data.put("table", new MiniTableRenderData(header, Arrays.asList(row0, row1)));
         XWPFTemplate template = XWPFTemplate.compile("src/main/resources/charpter2/template3.docx")
-                .render(new HashMap<String, Object>() {{
-                    put("table", new MiniTableRenderData(header, Arrays.asList(row0, row1)));
-                }});
+                .render(data);
         FileOutputStream out;
         out = new FileOutputStream("src/main/resources/charpter2/template3_out.docx");
         template.write(out);
