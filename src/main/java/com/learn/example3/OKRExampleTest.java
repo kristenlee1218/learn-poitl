@@ -25,7 +25,7 @@ public class OKRExampleTest {
         user.setDepart("百度CEO");
         data.setUser(user);
 
-        List<OKRItem> objectives = new ArrayList<OKRItem>();
+        List<OKRItem> objectives = new ArrayList<>();
         OKRItem item = new OKRItem();
         item.setIndex(1);
         item.setObject(new Objective("打造一个空前繁荣、强大的百度移动生态", "4%"));
@@ -43,7 +43,7 @@ public class OKRExampleTest {
         objectives.add(item);
         data.setObjectives(objectives);
 
-        List<OKRItem> manageObjectives = new ArrayList<OKRItem>();
+        List<OKRItem> manageObjectives = new ArrayList<>();
         item = new OKRItem();
         item.setIndex(1);
         item.setObject(new Objective("提升百度的组织能力，有效支撑住业务规模的高速增长，不拖战略的后腿", "1%"));
@@ -52,9 +52,7 @@ public class OKRExampleTest {
         item.setKr3(new KeyResult("建立合理的管理人员新陈代谢机制，打造出不少于2名业界公认的优秀领军人物", "1%"));
         manageObjectives.add(item);
         data.setManageObjectives(manageObjectives);
-
         data.setDate("2020-01-31");
-
         XWPFTemplate template = XWPFTemplate.compile("D:\\test-poitl\\template3.docx").render(data);
         template.writeToFile("D:\\test-poitl\\template3_out.docx");
     }

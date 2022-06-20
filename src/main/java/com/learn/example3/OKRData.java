@@ -11,9 +11,7 @@ public class OKRData {
 
     private User user;
     private List<OKRItem> objectives;
-
     private List<OKRItem> manageObjectives;
-
     private String date;
 
     public User getUser() {
