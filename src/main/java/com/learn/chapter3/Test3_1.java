@@ -23,8 +23,8 @@ public class Test3_1 {
         Map<String, Object> map = new HashMap<>();
         map.put("pieChart", pie);
         // 编译模板、渲染数据
-        XWPFTemplate template = XWPFTemplate.compile("D:\\test-poitl\\template.docx").render(map);
-        FileOutputStream out = new FileOutputStream("D:\\test-poitl\\output.docx");
+        XWPFTemplate template = XWPFTemplate.compile("src/main/resources/charpter3/template3.docx").render(map);
+        FileOutputStream out = new FileOutputStream("src/main/resources/charpter3/template3_out.docx");
         // 输出到流
         template.write(out);
         out.flush();

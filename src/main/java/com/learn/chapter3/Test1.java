@@ -17,11 +17,11 @@ import java.util.HashMap;
 public class Test1 {
     public static void main(String[] args) throws IOException {
         // 编译模板、渲染数据
-        XWPFTemplate template = XWPFTemplate.compile("D:\\test-poitl\\template.docx").render(
+        XWPFTemplate template = XWPFTemplate.compile("src/main/resources/charpter3/template1.docx").render(
                 new HashMap<String, Object>() {{
                     put("img", new PictureRenderData(0, 0, ".png", Files.newInputStream(Paths.get("D:\\test-poitl\\2.png"))));
                 }});
-        FileOutputStream out = new FileOutputStream("D:\\test-poitl\\output.docx");
+        FileOutputStream out = new FileOutputStream("src/main/resources/charpter3/template1_out.docx");
         // 输出到流
         template.write(out);
         out.flush();

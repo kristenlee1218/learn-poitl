@@ -28,8 +28,8 @@ public class Test2_1 {
         chart.setSeriesDatas(seriesRenderData);
         map.put("barChart", chart);
         // 编译模板、渲染数据
-        XWPFTemplate template = XWPFTemplate.compile("D:\\test-poitl\\template.docx").render(map);
-        FileOutputStream out = new FileOutputStream("D:\\test-poitl\\output.docx");
+        XWPFTemplate template = XWPFTemplate.compile("src/main/resources/charpter3/template2.docx").render(map);
+        FileOutputStream out = new FileOutputStream("src/main/resources/charpter3/template2_out.docx");
         // 输出到流
         template.write(out);
         out.flush();

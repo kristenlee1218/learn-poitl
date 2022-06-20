@@ -18,7 +18,7 @@ import java.util.List;
 public class Test2 {
     public static void main(String[] args) throws IOException {
         // 编译模板、渲染数据
-        XWPFTemplate template = XWPFTemplate.compile("D:\\test-poitl\\template.docx").render(
+        XWPFTemplate template = XWPFTemplate.compile("src/main/resources/charpter3/template2.docx").render(
                 new HashMap<String, Object>() {{
                     ChartMultiSeriesRenderData chart = new ChartMultiSeriesRenderData();
                     chart.setChartTitle("MyChart");
@@ -29,7 +29,7 @@ public class Test2 {
                     chart.setSeriesDatas(seriesRenderData);
                     put("barChart", chart);
                 }});
-        FileOutputStream out = new FileOutputStream("D:\\test-poitl\\output.docx");
+        FileOutputStream out = new FileOutputStream("src/main/resources/charpter3/template2_out.docx");
         // 输出到流
         template.write(out);
         out.flush();

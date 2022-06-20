@@ -16,7 +16,7 @@ import java.util.HashMap;
 public class Test3 {
     public static void main(String[] args) throws IOException {
         // 编译模板、渲染数据
-        XWPFTemplate template = XWPFTemplate.compile("D:\\test-poitl\\template.docx").render(
+        XWPFTemplate template = XWPFTemplate.compile("src/main/resources/charpter3/template3.docx").render(
                 new HashMap<String, Object>() {{
                     ChartSingleSeriesRenderData pie = new ChartSingleSeriesRenderData();
                     pie.setChartTitle("ChartTitle");
@@ -24,7 +24,7 @@ public class Test3 {
                     pie.setSeriesData(new SeriesRenderData("countries", new Integer[]{17098242, 9984670, 9826675, 9596961}));
                     put("pieChart", pie);
                 }});
-        FileOutputStream out = new FileOutputStream("D:\\test-poitl\\output.docx");
+        FileOutputStream out = new FileOutputStream("src/main/resources/charpter3/template3_out.docx");
         // 输出到流
         template.write(out);
         out.flush();
