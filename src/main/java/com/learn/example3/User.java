@@ -3,7 +3,7 @@ package com.learn.example3;
 /**
  * @author ：Kristen
  * @date ：2022/6/14
- * @description :
+ * @description : OKR
  */
 public class User {
     private String name;

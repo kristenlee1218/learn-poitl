@@ -36,7 +36,6 @@ public class DetailTablePolicy extends DynamicTableRenderPolicy {
                 for (int j = 0; j < 7; j++) {
                     insertNewTableRow.createCell();
                 }
-
                 // 合并单元格
                 TableTools.mergeCellsHorizonal(table, laborsStartRow, 0, 3);
                 MiniTableRenderPolicy.Helper.renderRow(table, laborsStartRow, labor);
