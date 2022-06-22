@@ -26,7 +26,6 @@ public class AnimalExampleTest {
 
     @Test
     public void testChart() throws Exception {
-
         Configure configure = Configure.newBuilder().bind("chart", new MultiSeriesChartTemplateRenderPolicy()).build();
         HashMap<String, Object> data1 = new HashMap<String, Object>() {
             {
@@ -34,7 +33,7 @@ public class AnimalExampleTest {
                 ChartMultiSeriesRenderData chart = new ChartMultiSeriesRenderData();
                 chart.setChartTitle("大象生存现状");
                 chart.setCategories(new String[]{"2018年", "2019年", "2020年"});
-                List<SeriesRenderData> seriesRenderData = new ArrayList<SeriesRenderData>();
+                List<SeriesRenderData> seriesRenderData = new ArrayList<>();
                 SeriesRenderData s0 = new SeriesRenderData();
                 s0.setName("成年象");
                 s0.setValues(new Integer[]{500, 600, 700});

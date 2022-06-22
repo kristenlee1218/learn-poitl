@@ -1,11 +1,11 @@
-package com.learn.test;
+package com.learn.test1;
 
 /**
  * @author ：Kristen
  * @date ：2022/6/20
- * @description : 票种类型与合计
+ * @description :
  */
-public class Type {
+public class Group {
     public String A1A2A3;
     public String B;
     public String C;
