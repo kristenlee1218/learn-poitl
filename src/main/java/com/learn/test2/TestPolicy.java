@@ -23,6 +23,9 @@ public class TestPolicy extends AbstractRenderPolicy<Object> {
 
     public static final String[] group = new String[]{"政治思想建设", "企业发展质量", "党建工作质量", "作风建设成效"};
     public static final String[] item = new String[]{"政治忠诚", "政治担当", "社会责任", "改革创新", "经营效益", "管理效能", "风险管控", "选人用人", "基层党建", "党风廉政", "团结协作", "联系群众"};
+    public static final String[] value1 = new String[]{"101.0", "102.0", "103.0", "104.0", "105.0", "106.0", "107.0", "108.0", "109.0", "110.0", "111.0", "112.0"};
+    public static final String[] value2 = new String[]{"111.0", "112.0", "113.0", "114.0", "115.0", "116.0"};
+    public static final String[] totalValue = new String[]{"1110.0", "1120.0", "1130.0", "1140.0", "1150.0", "1160.0"};
 
     @Override
     protected void afterRender(RenderContext<Object> renderContext) {
@@ -52,13 +55,14 @@ public class TestPolicy extends AbstractRenderPolicy<Object> {
         // 分别给以上几个 TextRenderData 设置合并单元格
         TableTools.mergeCellsHorizonal(table, 1, 0, 1);
         TableTools.mergeCellsHorizonal(table, 2, 0, 1);
+        TableTools.mergeCellsVertically(table, 11, 1, 2);
+        TableTools.mergeCellsVertically(table, 9, 1, 2);
         TableTools.mergeCellsVertically(table, 0, 1, 2);
 
         TableTools.mergeCellsHorizonal(table, 1, 1, 8);
 
         TableTools.mergeCellsHorizonal(table, 1, 2, 3);
         TableTools.mergeCellsHorizonal(table, 2, 9, 10);
-        TableTools.mergeCellsVertically(table, 4, 1, 2);
 
         TableTools.mergeCellsHorizonal(table, 1, 3, 4);
         TableTools.mergeCellsHorizonal(table, 2, 10, 11);
@@ -159,5 +163,22 @@ public class TestPolicy extends AbstractRenderPolicy<Object> {
         TableTools.mergeCellsVertically(table, 13, 10, 12);
         TableTools.mergeCellsVertically(table, 13, 13, 14);
 
+        // 最后一行的加权总得分
+        RowRenderData total = RowRenderData.build(new TextRenderData("加权汇总得分"));
+        MiniTableRenderPolicy.Helper.renderRow(table, 15, total);
+        TableTools.mergeCellsHorizonal(table, 15, 0, 1);
+        TableTools.mergeCellsHorizonal(table, 15, 1, 2);
+        TableTools.mergeCellsHorizonal(table, 15, 2, 3);
+        TableTools.mergeCellsHorizonal(table, 15, 3, 4);
+        TableTools.mergeCellsHorizonal(table, 15, 4, 5);
+        TableTools.mergeCellsHorizonal(table, 15, 5, 6);
+        TableTools.mergeCellsHorizonal(table, 15, 6, 7);
+
+        RowRenderData lineValue1 = RowRenderData.build(new TextRenderData(""), new TextRenderData(""), new TextRenderData(value1[0]), new TextRenderData(value1[1]), new TextRenderData(value1[2]), new TextRenderData(value1[3]), new TextRenderData(value1[4]), new TextRenderData(value1[5]), new TextRenderData(value1[6]), new TextRenderData(value1[7]), new TextRenderData(value1[8]), new TextRenderData(value1[9]), new TextRenderData(value1[10]), new TextRenderData(value1[11]));
+        MiniTableRenderPolicy.Helper.renderRow(table, 3, lineValue1);
+        RowRenderData lineValue2 = RowRenderData.build(new TextRenderData(""), new TextRenderData(""), new TextRenderData(value2[0]), new TextRenderData(""), new TextRenderData(value2[1]), new TextRenderData(""), new TextRenderData(value2[2]), new TextRenderData(""), new TextRenderData(value2[3]), new TextRenderData(""), new TextRenderData(value2[4]), new TextRenderData(""), new TextRenderData(value2[5]), new TextRenderData(""));
+        MiniTableRenderPolicy.Helper.renderRow(table, 4, lineValue2);
+        RowRenderData lineValueLast = RowRenderData.build(new TextRenderData(""), new TextRenderData(totalValue[0]), new TextRenderData(totalValue[1]), new TextRenderData(totalValue[2]), new TextRenderData(totalValue[3]), new TextRenderData(totalValue[4]), new TextRenderData(totalValue[5]));
+        MiniTableRenderPolicy.Helper.renderRow(table, 15, lineValueLast);
     }
 }
