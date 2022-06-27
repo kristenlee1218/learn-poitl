@@ -32,7 +32,7 @@ public class TestPolicy extends AbstractRenderPolicy<Object> {
 //    public static String[][] innerEvaluate = new String[][]{{"领导班子成员A1、A2、A3票", "中层测评B票", "职工代表C票"}};
 //
 //    public static int year = 2022;
-//    public static String depart = "信息中心中心";
+//    public static String depart = "信息中心";
 
 //    第二种测试情况（上海大区公司_2021年第1批综合考核评价统计表）
 //    public static String[] group = new String[]{"政治思想建设", "企业发展质量", "党建工作质量", "作风建设成效"};
@@ -42,7 +42,7 @@ public class TestPolicy extends AbstractRenderPolicy<Object> {
 //    public static String[][] innerEvaluate = new String[][]{{"董事长(A1)", "总经理(A2)", "其他领导(A3)"}, {"本单位领导班子成员(B1、B2)", "中层经理人(C)", "员工(D)"}};
 //
 //    public static int year = 2022;
-//    public static String depart = "信息中心中心";
+//    public static String depart = "信息中心";
 
     // 第三种测试情况（上海_2021年第1批综合考核评价统计报表(1646623484403)）
     public static String[] group = new String[]{"政治思想建设", "企业发展质量", "党建工作质量", "作风建设成效"};
@@ -52,7 +52,7 @@ public class TestPolicy extends AbstractRenderPolicy<Object> {
     public static String[][] innerEvaluate = new String[][]{{}};
 
     public static int year = 2022;
-    public static String depart = "信息中心中心";
+    public static String depart = "信息中心";
 
     // 计算行
     int row = count(item) + 4;
