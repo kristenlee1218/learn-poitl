@@ -50,7 +50,8 @@ public class TestPolicy extends AbstractRenderPolicy<Object> {
 
         RowRenderData header0 = RowRenderData.build(new TextRenderData("信息中心领导班子2020年度综合测评汇总表"));
         TableTools.mergeCellsHorizonal(table, 0, 0, col - 1);
-
+        //String[] str = new String[]{"评价", "内部", "外部", "全体"};
+        //RowRenderData header1 = RowRenderData.build(str);
         RowRenderData header1 = RowRenderData.build(new TextRenderData("评价内容"), new TextRenderData("内部测评"), new TextRenderData("外部董事"), new TextRenderData("全体"));
         // 分别给以上几个 TextRenderData 设置合并单元格
         TableTools.mergeCellsHorizonal(table, 1, 0, 1);
