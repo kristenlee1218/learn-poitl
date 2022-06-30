@@ -54,6 +54,7 @@ public class TestPolicy extends AbstractRenderPolicy<Object> {
     public static int year = 2022;
     public static String depart = "信息中心";
 
+
     // 计算行
     int row = count(item) + 4;
     // 计算列、先判断有无外部董事
@@ -184,10 +185,10 @@ public class TestPolicy extends AbstractRenderPolicy<Object> {
             if (isHaveWBDS) {
                 // 水平合并“外部董事”
                 TableTools.mergeCellsHorizonal(table, 1, voteTypeGroup.length + 1, voteTypeGroup.length + 2);
-                TableTools.mergeCellsHorizonal(table, 2, col - voteTypeGroup.length - 2 - 1 - 1, col - voteTypeGroup.length - 1 - 1 - 1);
+                TableTools.mergeCellsHorizonal(table, 2, col - voteTypeGroup.length - 4, col - voteTypeGroup.length - 3);
                 // 水平合并“全体”
                 TableTools.mergeCellsHorizonal(table, 1, voteTypeGroup.length + 2, voteTypeGroup.length + 3);
-                TableTools.mergeCellsHorizonal(table, 2, col - voteTypeGroup.length - 2 - 1, col - voteTypeGroup.length - 1 - 1);
+                TableTools.mergeCellsHorizonal(table, 2, col - voteTypeGroup.length - 3, col - voteTypeGroup.length - 2);
             } else {
                 TableTools.mergeCellsHorizonal(table, 1, voteTypeGroup.length + 1, voteTypeGroup.length + 2);
                 TableTools.mergeCellsHorizonal(table, 2, col - voteTypeGroup.length - 1, col - voteTypeGroup.length);
