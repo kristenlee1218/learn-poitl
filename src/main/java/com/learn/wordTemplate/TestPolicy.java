@@ -24,12 +24,9 @@ import java.util.Set;
  */
 public class TestPolicy extends AbstractRenderPolicy<Object> {
 
-//    第一种测试情况（信息中心_2020年第1批综合测评统计报表(1655863588387)）
+    //    第一种测试情况（信息中心_2020年第1批综合测评统计报表(1655863588387)）
     public static String[] group = new String[]{"政治思想建设", "企业发展质量", "党建工作质量", "作风建设成效"};
     public static String[][] item = new String[][]{{"政治忠诚", "政治担当", "社会责任"}, {"改革创新", "经营效益", "管理效能", "风险管控"}, {"选人用人", "基层党建", "党风廉政"}, {"团结协作", "联系群众"}};
-    public static String[] value1 = new String[]{"101.0", "102.0", "103.0", "104.0", "105.0", "106.0", "107.0", "108.0", "109.0", "110.0", "111.0", "112.0"};
-    public static String[] value2 = new String[]{"111.0", "112.0", "113.0", "114.0", "115.0", "116.0"};
-    public static String[] totalValue = new String[]{"1110.0", "1120.0", "1130.0", "1140.0", "1150.0", "1160.0"};
     public static String[] voteType = new String[]{"领导班子成员A1、A2、A3票", "中层测评B票", "职工代表C票", "外部董事A4票"};
     public static String[] voteTypeGroup = new String[]{"内部测评"};
     public static String[][] innerEvaluate = new String[][]{{"领导班子成员A1、A2、A3票", "中层测评B票", "职工代表C票"}};
