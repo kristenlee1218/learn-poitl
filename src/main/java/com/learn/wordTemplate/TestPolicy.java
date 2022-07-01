@@ -14,6 +14,9 @@ import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.STJc;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * @author ：Kristen
  * @date ：2022/6/22
@@ -22,25 +25,25 @@ import org.openxmlformats.schemas.wordprocessingml.x2006.main.STJc;
 public class TestPolicy extends AbstractRenderPolicy<Object> {
 
 //    第一种测试情况（信息中心_2020年第1批综合测评统计报表(1655863588387)）
-//    public static String[] group = new String[]{"政治思想建设", "企业发展质量", "党建工作质量", "作风建设成效"};
-//    public static String[][] item = new String[][]{{"政治忠诚", "政治担当", "社会责任"}, {"改革创新", "经营效益", "管理效能", "风险管控"}, {"选人用人", "基层党建", "党风廉政"}, {"团结协作", "联系群众"}};
-//    public static String[] value1 = new String[]{"101.0", "102.0", "103.0", "104.0", "105.0", "106.0", "107.0", "108.0", "109.0", "110.0", "111.0", "112.0"};
-//    public static String[] value2 = new String[]{"111.0", "112.0", "113.0", "114.0", "115.0", "116.0"};
-//    public static String[] totalValue = new String[]{"1110.0", "1120.0", "1130.0", "1140.0", "1150.0", "1160.0"};
-//    public static String[] voteType = new String[]{"领导班子成员A1、A2、A3票", "中层测评B票", "职工代表C票", "外部董事A4票"};
-//    public static String[] voteTypeGroup = new String[]{"内部测评"};
-//    public static String[][] innerEvaluate = new String[][]{{"领导班子成员A1、A2、A3票", "中层测评B票", "职工代表C票"}};
-//    public static int year = 2022;
-//    public static String depart = "信息中心";
-//    public static String[] value = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11",
-//        "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26",
-//        "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41",
-//        "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56",
-//        "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67", "68", "69", "70", "71",
-//        "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "86",
-//        "87", "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99", "100", "101", "102"};
+    public static String[] group = new String[]{"政治思想建设", "企业发展质量", "党建工作质量", "作风建设成效"};
+    public static String[][] item = new String[][]{{"政治忠诚", "政治担当", "社会责任"}, {"改革创新", "经营效益", "管理效能", "风险管控"}, {"选人用人", "基层党建", "党风廉政"}, {"团结协作", "联系群众"}};
+    public static String[] value1 = new String[]{"101.0", "102.0", "103.0", "104.0", "105.0", "106.0", "107.0", "108.0", "109.0", "110.0", "111.0", "112.0"};
+    public static String[] value2 = new String[]{"111.0", "112.0", "113.0", "114.0", "115.0", "116.0"};
+    public static String[] totalValue = new String[]{"1110.0", "1120.0", "1130.0", "1140.0", "1150.0", "1160.0"};
+    public static String[] voteType = new String[]{"领导班子成员A1、A2、A3票", "中层测评B票", "职工代表C票", "外部董事A4票"};
+    public static String[] voteTypeGroup = new String[]{"内部测评"};
+    public static String[][] innerEvaluate = new String[][]{{"领导班子成员A1、A2、A3票", "中层测评B票", "职工代表C票"}};
+    public static int year = 2022;
+    public static String depart = "信息中心";
+    public static String[] value = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11",
+            "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26",
+            "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41",
+            "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56",
+            "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67", "68", "69", "70", "71",
+            "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "86",
+            "87", "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99", "100", "101", "102"};
 
-//    第二种测试情况（上海大区公司_2021年第1批综合考核评价统计表）
+    //    第二种测试情况（上海大区公司_2021年第1批综合考核评价统计表）
 //    public static String[] group = new String[]{"政治思想建设", "企业发展质量", "党建工作质量", "作风建设成效"};
 //    public static String[][] item = new String[][]{{"政治忠诚", "政治担当", "社会责任"}, {"改革创新", "经营效益"}, {"选人用人", "基层党建", "党风廉政"}, {"团结协作", "联系群众"}};
 //    public static String[] voteType = new String[]{"董事长(A1)", "总经理(A2)", "其他领导(A3)", "本单位领导班子成员(B1、B2)", "中层经理人(C)", "员工(D)"};
@@ -58,20 +61,20 @@ public class TestPolicy extends AbstractRenderPolicy<Object> {
 //            "102", "103", "104", "105", "106", "107", "108", "109", "110", "111", "112", "113", "114",
 //            "115", "116", "117", "118", "119", "120", "121", "122", "123", "124", "125", "126"};
 
-//    第三种测试情况（上海_2021年第1批综合考核评价统计报表(1646623484403)）
-    public static String[] group = new String[]{"政治思想建设", "企业发展质量", "党建工作质量", "作风建设成效"};
-    public static String[][] item = new String[][]{{"政治忠诚", "政治担当", "社会责任"}, {"改革创新", "经营效益"}, {"选人用人", "基层党建", "党风廉政"}, {"团结协作", "联系群众"}};
-    public static String[] voteType = new String[]{"A票", "B票", "C票"};
-    public static String[] voteTypeGroup = new String[]{};
-    public static String[][] innerEvaluate = new String[][]{{}};
-    public static String[] value = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11",
-            "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26",
-            "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41",
-            "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56",
-            "57", "58", "59", "60"};
-
-    public static int year = 2022;
-    public static String depart = "信息中心";
+    //    第三种测试情况（上海_2021年第1批综合考核评价统计报表(1646623484403)）
+//    public static String[] group = new String[]{"政治思想建设", "企业发展质量", "党建工作质量", "作风建设成效"};
+//    public static String[][] item = new String[][]{{"政治忠诚", "政治担当", "社会责任"}, {"改革创新", "经营效益"}, {"选人用人", "基层党建", "党风廉政"}, {"团结协作", "联系群众"}};
+//    public static String[] voteType = new String[]{"A票", "B票", "C票"};
+//    public static String[] voteTypeGroup = new String[]{};
+//    public static String[][] innerEvaluate = new String[][]{{}};
+//    public static String[] value = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11",
+//            "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26",
+//            "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41",
+//            "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56",
+//            "57", "58", "59", "60"};
+//
+//    public static int year = 2022;
+//    public static String depart = "信息中心";
 
     // 计算行
     int row = count(item) + 4;
@@ -99,14 +102,7 @@ public class TestPolicy extends AbstractRenderPolicy<Object> {
         setGroup(table);
         setItem(table);
         setLastRow(table);
-
-        // 设置计算分数的单元格值
-//        RowRenderData lineValue1 = RowRenderData.build(new TextRenderData(""), new TextRenderData(""), new TextRenderData(value1[0]), new TextRenderData(value1[1]), new TextRenderData(value1[2]), new TextRenderData(value1[3]), new TextRenderData(value1[4]), new TextRenderData(value1[5]), new TextRenderData(value1[6]), new TextRenderData(value1[7]), new TextRenderData(value1[8]), new TextRenderData(value1[9]), new TextRenderData(value1[10]), new TextRenderData(value1[11]));
-//        MiniTableRenderPolicy.Helper.renderRow(table, 3, lineValue1);
-//        RowRenderData lineValue2 = RowRenderData.build(new TextRenderData(""), new TextRenderData(""), new TextRenderData(value2[0]), new TextRenderData(""), new TextRenderData(value2[1]), new TextRenderData(""), new TextRenderData(value2[2]), new TextRenderData(""), new TextRenderData(value2[3]), new TextRenderData(""), new TextRenderData(value2[4]), new TextRenderData(""), new TextRenderData(value2[5]), new TextRenderData(""));
-//        MiniTableRenderPolicy.Helper.renderRow(table, 4, lineValue2);
-//        RowRenderData lineValueLast = RowRenderData.build(new TextRenderData(""), new TextRenderData(totalValue[0]), new TextRenderData(totalValue[1]), new TextRenderData(totalValue[2]), new TextRenderData(totalValue[3]), new TextRenderData(totalValue[4]), new TextRenderData(totalValue[5]));
-//        MiniTableRenderPolicy.Helper.renderRow(table, 15, lineValueLast);
+        setTableData(table);
     }
 
     // 判断否含有外部董事
@@ -251,17 +247,6 @@ public class TestPolicy extends AbstractRenderPolicy<Object> {
         }
     }
 
-    // 计算所有分组的项的个数
-    public int count(String[][] str) {
-        int count = 0;
-        for (String[] s : str) {
-            for (int j = 0; j < s.length; j++) {
-                count++;
-            }
-        }
-        return count;
-    }
-
     // group 的设置、集中在第1列
     public void setGroup(XWPFTable table) {
         int start = 3;
@@ -314,6 +299,57 @@ public class TestPolicy extends AbstractRenderPolicy<Object> {
 
     // 将 table 所需的数据值填充到对应的格子中
     public void setTableData(XWPFTable table) {
+        // 设置计算分数的单元格值（除最后一行）
+        int index = 0;
+        int start = 3;
+        Set<Integer> set = calculateGroupStartRow(item, start);
+        for (int i = start; i < row - 1; i++) {
+            //String[] str = new String[col - 2];
+            String[] str = new String[col];
+            if (set.contains(i)) {
+                for (int j = 2; j < table.getRow(i).getTableCells().size(); j++) {
+                    str[j] = value[index];
+                    index++;
+                }
+                RowRenderData lineValue = RowRenderData.build(str);
+                MiniTableRenderPolicy.Helper.renderRow(table, i, lineValue);
+            } else {
+                for (int j = 2; j < table.getRow(i).getTableCells().size(); j += 2) {
+                    str[j] = value[index];
+                    index++;
+                }
+                RowRenderData lineValue = RowRenderData.build(str);
+                MiniTableRenderPolicy.Helper.renderRow(table, i, lineValue);
+            }
+        }
+        // 最后一行的值
+        String[] str = new String[col / 2];
+        for (int i = 1; i < col / 2; i++) {
+            str[str.length - i] = value[value.length - i];
+        }
+        RowRenderData lineValue = RowRenderData.build(str);
+        MiniTableRenderPolicy.Helper.renderRow(table, row - 1, lineValue);
+    }
 
+    // 计算所有分组的项的个数
+    public int count(String[][] str) {
+        int count = 0;
+        for (String[] s : str) {
+            for (int j = 0; j < s.length; j++) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    // 计算每个分组第一行的行数
+    public Set<Integer> calculateGroupStartRow(String[][] item, int start) {
+        HashSet<Integer> set = new HashSet<>();
+        set.add(start);
+        for (int i = 0; i < item.length - 1; i++) {
+            start += item[i].length;
+            set.add(start);
+        }
+        return set;
     }
 }
