@@ -54,7 +54,6 @@ public class TestPolicy extends AbstractRenderPolicy<Object> {
     public static int year = 2022;
     public static String depart = "信息中心";
 
-
     // 计算行
     int row = count(item) + 4;
     // 计算列、先判断有无外部董事
