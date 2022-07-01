@@ -18,17 +18,13 @@ public class TestGetTable {
         XWPFDocument doc = new XWPFDocument(Files.newInputStream(Paths.get("D:\\test-poitl\\ele02_out1.docx")));
         List<XWPFTable> tables = doc.getTables();
         XWPFTable table = tables.get(0);
-        System.out.println("table.getNumberOfRows(): " + table.getNumberOfRows());
-        int count = 0;
         for (int i = 3; i < table.getNumberOfRows(); i++) {
-            System.out.println("table.getRow(i).getTableCells().size(): " + table.getRow(i).getTableCells().size());
-            System.out.println("================");
+            //System.out.println("table.getRow(i).getTableCells().size(): " + table.getRow(i).getTableCells().size());
             for (int j = 2; j < table.getRow(i).getTableCells().size(); j++) {
+                System.out.println("table.getRow(i).getCell(j).getText(): " + table.getRow(i).getCell(j).getText());
                 table.getRow(i).getCell(j).setText("A");
-                count++;
             }
+            System.out.println("================");
         }
-        System.out.println("count: " + count);
-        table.getRow(5).getCell(5).setText(String.valueOf(5));
     }
 }
