@@ -24,7 +24,7 @@ public class ItemPolicy extends AbstractRenderPolicy<Object> {
     // 第四种测试情况（河北建投二级单位_2022年第1批综合考核评价统计报表(1653979325662)）
     public static String[] item = new String[]{"政治方向", "社会责任", "企业党建", "科学管理", "发扬民主", "整体合力", "诚信合力", "联系群众", "廉洁自律", "工作部署"};
     public static String[] voteType = new String[]{"A票", "B票"};
-    public static String[] value = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60"};
+    public static String[] value = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33"};
     public static int year = 2022;
     public static String depart = "信息中心";
 
@@ -52,7 +52,7 @@ public class ItemPolicy extends AbstractRenderPolicy<Object> {
         setTableHeader(table);
         setItem(table);
         setLastRow(table);
-//        setTableData(table);
+        setTableData(table);
     }
 
     // 整个 table 的样式在此设置
@@ -103,5 +103,19 @@ public class ItemPolicy extends AbstractRenderPolicy<Object> {
         // 最后一行的加权总得分
         RowRenderData total = RowRenderData.build(new TextRenderData("加权汇总得分"));
         MiniTableRenderPolicy.Helper.renderRow(table, row - 1, total);
+    }
+
+    public void setTableData(XWPFTable table) {
+        int start = 3;
+        int index = 0;
+        for (int i = start; i < row; i++) {
+            String[] str = new String[col];
+            for (int j = 1; j < table.getRow(i).getTableCells().size(); j++) {
+                str[j] = value[index];
+                index++;
+            }
+            RowRenderData lineValue = RowRenderData.build(str);
+            MiniTableRenderPolicy.Helper.renderRow(table, i, lineValue);
+        }
     }
 }
