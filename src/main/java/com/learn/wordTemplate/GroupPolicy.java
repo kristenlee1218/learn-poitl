@@ -22,7 +22,7 @@ import java.util.Set;
  * @date ：2022/6/22
  * @description :
  */
-public class TestPolicy extends AbstractRenderPolicy<Object> {
+public class GroupPolicy extends AbstractRenderPolicy<Object> {
 
     //    第一种测试情况（信息中心_2020年第1批综合测评统计报表(1655863588387)）
 //    public static String[] group = new String[]{"政治思想建设", "企业发展质量", "党建工作质量", "作风建设成效"};
@@ -78,7 +78,7 @@ public class TestPolicy extends AbstractRenderPolicy<Object> {
     public static String depart = "信息中心";
 
     // 计算行
-    int row = count(item) + 4;
+    int row = countRow(item) + 4;
     // 计算列、先判断有无外部董事
     boolean isHaveWBDS = checkWBDS(voteType);
     int col = this.calculateColumn(voteType, voteTypeGroup, isHaveWBDS);
@@ -211,7 +211,7 @@ public class TestPolicy extends AbstractRenderPolicy<Object> {
             MiniTableRenderPolicy.Helper.renderRow(table, 1, header1);
 
             // 处理分组内的票种和小计
-            int total = count(innerEvaluate);
+            int total = countRow(innerEvaluate);
             int lengthItem = (total + voteTypeGroup.length) + 1;
             String[] strHeader2 = new String[lengthItem];
             int index = 1;
@@ -332,7 +332,7 @@ public class TestPolicy extends AbstractRenderPolicy<Object> {
     }
 
     // 计算所有分组的项的个数
-    public int count(String[][] str) {
+    public int countRow(String[][] str) {
         int count = 0;
         for (String[] s : str) {
             for (int j = 0; j < s.length; j++) {

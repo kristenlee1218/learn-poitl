@@ -8,7 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class TestTemplate {
+public class TestItemTemplate {
     public static void main(String[] args) throws IOException {
         // 准备数据
         ConfigureBuilder builder = Configure.newBuilder();
@@ -17,8 +17,8 @@ public class TestTemplate {
         HashMap<String, Object> data = new HashMap<String, Object>() {
             {
                 // 构建 table
-                TestPolicy testPolicy = new TestPolicy();
-                builder.bind("table", testPolicy);
+                GroupPolicy groupPolicy = new GroupPolicy();
+                builder.bind("table", groupPolicy);
             }
         };
 
