@@ -17,8 +17,8 @@ public class TestItemTemplate {
         HashMap<String, Object> data = new HashMap<String, Object>() {
             {
                 // 构建 table
-                GroupPolicy groupPolicy = new GroupPolicy();
-                builder.bind("table", groupPolicy);
+                ItemPolicy itemPolicy = new ItemPolicy();
+                builder.bind("table", itemPolicy);
             }
         };
 
