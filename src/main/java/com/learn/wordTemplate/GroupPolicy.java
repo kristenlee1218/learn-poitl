@@ -3,6 +3,7 @@ package com.learn.wordTemplate;
 import com.deepoove.poi.data.MiniTableRenderData;
 import com.deepoove.poi.data.RowRenderData;
 import com.deepoove.poi.data.TextRenderData;
+import com.deepoove.poi.data.style.Style;
 import com.deepoove.poi.data.style.TableStyle;
 import com.deepoove.poi.policy.AbstractRenderPolicy;
 import com.deepoove.poi.policy.MiniTableRenderPolicy;
@@ -10,8 +11,7 @@ import com.deepoove.poi.render.RenderContext;
 import com.deepoove.poi.util.TableTools;
 import com.deepoove.poi.xwpf.BodyContainer;
 import com.deepoove.poi.xwpf.BodyContainerFactory;
-import org.apache.poi.xwpf.usermodel.XWPFRun;
-import org.apache.poi.xwpf.usermodel.XWPFTable;
+import org.apache.poi.xwpf.usermodel.*;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.STJc;
 
 import java.util.HashSet;
@@ -24,7 +24,7 @@ import java.util.Set;
  */
 public class GroupPolicy extends AbstractRenderPolicy<Object> {
 
-    //    第一种测试情况（信息中心_2020年第1批综合测评统计报表(1655863588387)）
+    //    第一种测试情况（信息中心_2020年第1批综合测评统计报表(1655863588387)）(14)
 //    public static String[] group = new String[]{"政治思想建设", "企业发展质量", "党建工作质量", "作风建设成效"};
 //    public static String[][] item = new String[][]{{"政治忠诚", "政治担当", "社会责任"}, {"改革创新", "经营效益", "管理效能", "风险管控"}, {"选人用人", "基层党建", "党风廉政"}, {"团结协作", "联系群众"}};
 //    public static String[] voteType = new String[]{"领导班子成员A1、A2、A3票", "中层测评B票", "职工代表C票", "外部董事A4票"};
@@ -32,17 +32,9 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
 //    public static String[][] innerEvaluate = new String[][]{{"领导班子成员A1、A2、A3票", "中层测评B票", "职工代表C票"}};
 //    public static int year = 2022;
 //    public static String depart = "信息中心";
-//    public static String[] value = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9",
-//            "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22",
-//            "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35",
-//            "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48",
-//            "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61",
-//            "62", "63", "64", "65", "66", "67", "68", "69", "70", "71", "72", "73", "74",
-//            "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "86", "87",
-//            "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99", "100",
-//            "101", "102"};
+//    public static String[] value = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67", "68", "69", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99", "100", "101", "102"};
 
-    //    第二种测试情况（上海大区公司_2021年第1批综合考核评价统计表）
+    //    第二种测试情况（上海大区公司_2021年第1批综合考核评价统计表）(20)
 //    public static String[] group = new String[]{"政治思想建设", "企业发展质量", "党建工作质量", "作风建设成效"};
 //    public static String[][] item = new String[][]{{"政治忠诚", "政治担当", "社会责任"}, {"改革创新", "经营效益"}, {"选人用人", "基层党建", "党风廉政"}, {"团结协作", "联系群众"}};
 //    public static String[] voteType = new String[]{"董事长(A1)", "总经理(A2)", "其他领导(A3)", "本单位领导班子成员(B1、B2)", "中层经理人(C)", "员工(D)"};
@@ -69,11 +61,7 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
     public static String[] voteType = new String[]{"A票", "B票", "C票"};
     public static String[] voteTypeGroup = new String[]{};
     public static String[][] innerEvaluate = new String[][]{{}};
-    public static String[] value = new String[]{"1", "2", "3", "4", "5", "6", "7", "8",
-            "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21",
-            "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34",
-            "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47",
-            "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60"};
+    public static String[] value = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60"};
     public static int year = 2022;
     public static String depart = "信息中心";
 
@@ -136,18 +124,41 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
 
     // 整个 table 的样式在此设置
     public void setTableStyle(XWPFTable table) {
-        TableTools.widthTable(table, MiniTableRenderData.WIDTH_A4_FULL, 10);
-        TableTools.borderTable(table, 4);
-        // 设置表格居中
-        TableStyle style = new TableStyle();
-        style.setAlign(STJc.CENTER);
-        TableTools.styleTable(table, style);
+        // 设置A4幅面的平铺类型和列数
+        if ((col > 10) && (col <= 15)) {
+            TableTools.widthTable(table, MiniTableRenderData.WIDTH_A4_MEDIUM_FULL, col);
+        } else if ((col > 5) && (col <= 10)) {
+            TableTools.widthTable(table, MiniTableRenderData.WIDTH_A4_FULL, col);
+        } else if (col <= 5) {
+            TableTools.widthTable(table, MiniTableRenderData.WIDTH_A4_EXTEND_FULL, col);
+        } else {
+            TableTools.widthTable(table, MiniTableRenderData.WIDTH_A4_NARROW_FULL, col);
+        }
+
+        // 设置 border
+        TableTools.borderTable(table, 9);
+        for (XWPFTableRow tableRow : table.getRows()) {
+            tableRow.setHeight(100);
+            for (int i = 0; i < tableRow.getTableCells().size(); i++) {
+                tableRow.getCell(i).setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
+            }
+        }
+        table.setCellMargins(10, 10, 10, 10);
+        table.setTableAlignment(TableRowAlign.CENTER);
     }
 
     // 设置第一行标题的样式
     public void setTableTitle(XWPFTable table) {
+        Style cellStyle = new Style();
+        cellStyle.setFontSize(12);
+        cellStyle.setColor("000000");
+        cellStyle.setFontFamily("黑体");
+        TableStyle style = new TableStyle();
+        style.setAlign(STJc.CENTER);
+        style.setBackgroundColor("DCDCDC");
         String title = depart + "领导班子" + year + "年度综合测评汇总表";
-        RowRenderData header0 = RowRenderData.build(new TextRenderData(title));
+        RowRenderData header0 = RowRenderData.build(new TextRenderData(title, cellStyle));
+        header0.setRowStyle(style);
         TableTools.mergeCellsHorizonal(table, 0, 0, col - 1);
         MiniTableRenderPolicy.Helper.renderRow(table, 0, header0);
     }
@@ -208,6 +219,9 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
                 TableTools.mergeCellsHorizonal(table, 1, voteTypeGroup.length + 1, voteTypeGroup.length + 2);
                 TableTools.mergeCellsHorizonal(table, 2, col - voteTypeGroup.length - 1, col - voteTypeGroup.length);
             }
+            TableStyle style = new TableStyle();
+            style.setAlign(STJc.CENTER);
+            header1.setRowStyle(style);
             MiniTableRenderPolicy.Helper.renderRow(table, 1, header1);
 
             // 处理分组内的票种和小计
@@ -226,6 +240,7 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
             for (int i = 0; i < strHeader2.length - 1; i++) {
                 TableTools.mergeCellsHorizonal(table, 2, i + 1, i + 2);
             }
+            header2.setRowStyle(style);
             MiniTableRenderPolicy.Helper.renderRow(table, 2, header2);
         } else {
             int length = voteType.length + 2;
@@ -244,6 +259,9 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
             for (int i = voteType.length + 1; i >= 0; i--) {
                 TableTools.mergeCellsVertically(table, i, 1, 2);
             }
+            TableStyle style = new TableStyle();
+            style.setAlign(STJc.CENTER);
+            header1.setRowStyle(style);
             MiniTableRenderPolicy.Helper.renderRow(table, 1, header1);
         }
     }
@@ -256,6 +274,9 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
             end = start + item[i].length;
             TableTools.mergeCellsVertically(table, 0, start, end - 1);
             RowRenderData groupData = RowRenderData.build(new TextRenderData(group[i]));
+            TableStyle style = new TableStyle();
+            style.setAlign(STJc.CENTER);
+            groupData.setRowStyle(style);
             MiniTableRenderPolicy.Helper.renderRow(table, start, groupData);
             start = end;
         }
@@ -269,6 +290,9 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
         for (String[] items : item) {
             for (String s : items) {
                 RowRenderData itemData = RowRenderData.build(new TextRenderData(""), new TextRenderData(s));
+                TableStyle style = new TableStyle();
+                style.setAlign(STJc.CENTER);
+                itemData.setRowStyle(style);
                 MiniTableRenderPolicy.Helper.renderRow(table, index++, itemData);
             }
         }
@@ -295,6 +319,9 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
         for (int i = 0; i < col / 2; i++) {
             TableTools.mergeCellsHorizonal(table, row - 1, i, i + 1);
         }
+        TableStyle style = new TableStyle();
+        style.setAlign(STJc.CENTER);
+        total.setRowStyle(style);
         MiniTableRenderPolicy.Helper.renderRow(table, row - 1, total);
     }
 
@@ -304,6 +331,8 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
         int index = 0;
         int start = 3;
         Set<Integer> set = calculateGroupStartRow(item, start);
+        TableStyle style = new TableStyle();
+        style.setAlign(STJc.CENTER);
         for (int i = start; i < row - 1; i++) {
             String[] str = new String[col];
             if (set.contains(i)) {
@@ -312,6 +341,7 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
                     index++;
                 }
                 RowRenderData lineValue = RowRenderData.build(str);
+                lineValue.setRowStyle(style);
                 MiniTableRenderPolicy.Helper.renderRow(table, i, lineValue);
             } else {
                 for (int j = 2; j < table.getRow(i).getTableCells().size(); j += 2) {
@@ -319,6 +349,7 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
                     index++;
                 }
                 RowRenderData lineValue = RowRenderData.build(str);
+                lineValue.setRowStyle(style);
                 MiniTableRenderPolicy.Helper.renderRow(table, i, lineValue);
             }
         }
@@ -328,6 +359,7 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
             str[str.length - i] = value[value.length - i];
         }
         RowRenderData lineValue = RowRenderData.build(str);
+        lineValue.setRowStyle(style);
         MiniTableRenderPolicy.Helper.renderRow(table, row - 1, lineValue);
     }
 
