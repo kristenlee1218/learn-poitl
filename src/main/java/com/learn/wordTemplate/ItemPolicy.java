@@ -58,9 +58,9 @@ public class ItemPolicy extends AbstractRenderPolicy<Object> {
     // 整个 table 的样式在此设置
     public void setTableStyle(XWPFTable table) {
         // 设置A4幅面的平铺类型和列数
-        if ((col > 10) && (col <= 15)) {
+        if ((col > 15) && (col <= 20)) {
             TableTools.widthTable(table, MiniTableRenderData.WIDTH_A4_MEDIUM_FULL, col);
-        } else if ((col > 5) && (col <= 10)) {
+        } else if ((col > 5) && (col <= 15)) {
             TableTools.widthTable(table, MiniTableRenderData.WIDTH_A4_FULL, col);
         } else if (col <= 5) {
             TableTools.widthTable(table, MiniTableRenderData.WIDTH_A4_EXTEND_FULL, col);
@@ -74,6 +74,7 @@ public class ItemPolicy extends AbstractRenderPolicy<Object> {
             tableRow.setHeight(100);
             for (int i = 0; i < tableRow.getTableCells().size(); i++) {
                 tableRow.getCell(i).setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
+                tableRow.getCell(i).setWidth("1000");
             }
         }
         table.setCellMargins(10, 10, 10, 10);
