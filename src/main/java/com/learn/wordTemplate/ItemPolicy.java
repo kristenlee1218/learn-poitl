@@ -77,7 +77,7 @@ public class ItemPolicy extends AbstractRenderPolicy<Object> {
                 tableRow.getCell(i).setWidth("1000");
             }
         }
-        table.setCellMargins(10, 10, 10, 10);
+        table.setCellMargins(5, 5, 5, 5);
         table.setTableAlignment(TableRowAlign.CENTER);
     }
 
