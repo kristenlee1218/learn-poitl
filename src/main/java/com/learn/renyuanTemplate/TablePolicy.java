@@ -1,12 +1,18 @@
 package com.learn.renyuanTemplate;
 
 import com.deepoove.poi.data.MiniTableRenderData;
+import com.deepoove.poi.data.RowRenderData;
+import com.deepoove.poi.data.TextRenderData;
+import com.deepoove.poi.data.style.Style;
+import com.deepoove.poi.data.style.TableStyle;
 import com.deepoove.poi.policy.AbstractRenderPolicy;
+import com.deepoove.poi.policy.MiniTableRenderPolicy;
 import com.deepoove.poi.render.RenderContext;
 import com.deepoove.poi.util.TableTools;
 import com.deepoove.poi.xwpf.BodyContainer;
 import com.deepoove.poi.xwpf.BodyContainerFactory;
 import org.apache.poi.xwpf.usermodel.*;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.STJc;
 
 /**
  * @author ：Kristen
@@ -41,21 +47,85 @@ public class TablePolicy extends AbstractRenderPolicy<Object> {
         // 当前位置插入表格
         XWPFTable table = bodyContainer.insertNewTable(run, row, col);
         setTableStyle(table);
+        setTableTitle(table);
+        setTableHeader(table);
     }
 
     // 整个 table 的样式在此设置
     public void setTableStyle(XWPFTable table) {
         // 设置A4幅面的平铺类型和列数
-        TableTools.widthTable(table, MiniTableRenderData.WIDTH_A4_FULL, col);
+        TableTools.widthTable(table, MiniTableRenderData.WIDTH_A4_NARROW_FULL, col);
         // 设置 border
         TableTools.borderTable(table, 9);
         for (XWPFTableRow tableRow : table.getRows()) {
             for (int i = 0; i < tableRow.getTableCells().size(); i++) {
                 tableRow.getCell(i).setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
+                tableRow.getCell(i).setWidth("1000");
             }
         }
         table.setCellMargins(2, 2, 2, 2);
         table.setTableAlignment(TableRowAlign.CENTER);
+    }
+
+    // 设置第一行标题的样式
+    public void setTableTitle(XWPFTable table) {
+        Style cellStyle = new Style();
+        cellStyle.setFontSize(12);
+        cellStyle.setColor("000000");
+        cellStyle.setFontFamily("黑体");
+        TableStyle style = new TableStyle();
+        style.setAlign(STJc.CENTER);
+        style.setBackgroundColor("DCDCDC");
+        String title = depart + "领导人员" + year + "年度综合测评汇总表";
+        RowRenderData header0 = RowRenderData.build(new TextRenderData(title, cellStyle));
+        header0.setRowStyle(style);
+        TableTools.mergeCellsHorizonal(table, 0, 0, col - 1);
+        MiniTableRenderPolicy.Helper.renderRow(table, 0, header0);
+    }
+
+    // 设置第二、三行标题的样式
+    public void setTableHeader(XWPFTable table) {
+        String[] strHeader1 = new String[5 + group.length];
+        strHeader1[0] = "序号";
+        strHeader1[1] = "姓名";
+        strHeader1[2] = "职务";
+        strHeader1[3] = "汇总得分";
+        strHeader1[4] = "排名";
+
+        int start = 5;
+        int end;
+        // 水平合并 group 的名字
+        for (String[] value : item) {
+            end = (value.length + 1);
+            TableTools.mergeCellsHorizonal(table, 1, start, start + end - 1);
+            start++;
+        }
+
+        // 构建第二行的数组、并垂直合并
+        for (int i = 0; i < group.length; i++) {
+            strHeader1[i + 5] = group[i];
+            TableTools.mergeCellsVertically(table, i, 1, 2);
+        }
+
+        String[] strHeader2 = new String[col];
+        int index = 5;
+        for (String[] strings : item) {
+            strHeader2[index] = "小计";
+            for (String string : strings) {
+                strHeader2[++index] = string;
+            }
+            ++index;
+        }
+
+        // 构建第二行
+        RowRenderData header1 = RowRenderData.build(strHeader1);
+        RowRenderData header2 = RowRenderData.build(strHeader2);
+        TableStyle style = new TableStyle();
+        style.setAlign(STJc.CENTER);
+        header1.setRowStyle(style);
+        header2.setRowStyle(style);
+        MiniTableRenderPolicy.Helper.renderRow(table, 1, header1);
+        MiniTableRenderPolicy.Helper.renderRow(table, 2, header2);
     }
 
     // 计算所有分组的项的个数
