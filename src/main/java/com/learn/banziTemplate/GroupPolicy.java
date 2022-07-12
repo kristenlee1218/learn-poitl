@@ -8,7 +8,6 @@ import com.deepoove.poi.data.style.TableStyle;
 import com.deepoove.poi.policy.AbstractRenderPolicy;
 import com.deepoove.poi.policy.MiniTableRenderPolicy;
 import com.deepoove.poi.render.RenderContext;
-import com.deepoove.poi.util.StyleUtils;
 import com.deepoove.poi.util.TableTools;
 import com.deepoove.poi.xwpf.BodyContainer;
 import com.deepoove.poi.xwpf.BodyContainerFactory;
@@ -81,11 +80,6 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
     @Override
     public void doRender(RenderContext<Object> renderContext) {
         XWPFRun run = renderContext.getRun();
-        Style cellStyle = new Style();
-        cellStyle.setFontSize(6);
-        cellStyle.setColor("000000");
-        cellStyle.setFontFamily("黑体");
-        StyleUtils.styleRun(run, cellStyle);
         // 当前位置的容器
         BodyContainer bodyContainer = BodyContainerFactory.getBodyContainer(run);
 
