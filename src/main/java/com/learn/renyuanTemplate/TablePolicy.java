@@ -109,15 +109,15 @@ public class TablePolicy extends AbstractRenderPolicy<Object> {
 
         String[] strHeader2 = new String[col];
         int index = 5;
-        for (String[] strings : item) {
+        for (String[] str : item) {
             strHeader2[index] = "小计";
-            for (String string : strings) {
-                strHeader2[++index] = string;
+            for (String s : str) {
+                strHeader2[++index] = s;
             }
-            ++index;
+            index++;
         }
 
-        // 构建第二行
+        // 构建第二、三行
         RowRenderData header1 = RowRenderData.build(strHeader1);
         RowRenderData header2 = RowRenderData.build(strHeader2);
         TableStyle style = new TableStyle();
