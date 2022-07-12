@@ -1,4 +1,4 @@
-package com.learn.wordTemplate;
+package com.learn.banziTemplate;
 
 import com.deepoove.poi.XWPFTemplate;
 import com.deepoove.poi.config.Configure;
@@ -8,7 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class TestItemTemplate {
+public class TestGroupTemplate {
     public static void main(String[] args) throws IOException {
         // 准备数据
         ConfigureBuilder builder = Configure.newBuilder();
@@ -17,8 +17,8 @@ public class TestItemTemplate {
         HashMap<String, Object> data = new HashMap<String, Object>() {
             {
                 // 构建 table
-                ItemPolicy itemPolicy = new ItemPolicy();
-                builder.bind("table", itemPolicy);
+                GroupPolicy groupPolicy = new GroupPolicy();
+                builder.bind("table", groupPolicy);
             }
         };
 

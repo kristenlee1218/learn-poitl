@@ -1,4 +1,4 @@
-package com.learn.wordTemplate;
+package com.learn.banziTemplate;
 
 import com.deepoove.poi.data.MiniTableRenderData;
 import com.deepoove.poi.data.RowRenderData;
