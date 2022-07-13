@@ -125,7 +125,7 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
 
     // 整个 table 的样式在此设置
     public void setTableStyle(XWPFTable table) {
-        // 设置A4幅面的平铺类型和列数
+        // 设置 A4 幅面的平铺类型和列数
         if ((col > 15) && (col <= 20)) {
             TableTools.widthTable(table, MiniTableRenderData.WIDTH_A4_MEDIUM_FULL, col);
         } else if ((col > 5) && (col <= 15)) {
@@ -274,12 +274,16 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
     public void setGroup(XWPFTable table) {
         int start = 3;
         int end;
+        Style cellStyle = new Style();
+        cellStyle.setFontSize(10);
+        cellStyle.setColor("000000");
+        cellStyle.setFontFamily("宋体");
+        TableStyle style = new TableStyle();
+        style.setAlign(STJc.CENTER);
         for (int i = 0; i < item.length; i++) {
             end = start + item[i].length;
             TableTools.mergeCellsVertically(table, 0, start, end - 1);
-            RowRenderData groupData = RowRenderData.build(new TextRenderData(group[i]));
-            TableStyle style = new TableStyle();
-            style.setAlign(STJc.CENTER);
+            RowRenderData groupData = RowRenderData.build(new TextRenderData(group[i], cellStyle));
             groupData.setRowStyle(style);
             MiniTableRenderPolicy.Helper.renderRow(table, start, groupData);
             start = end;
@@ -291,11 +295,15 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
         // item 的设置、集中在第 2 列
         // 构建 item 列
         int index = 3;
+        TableStyle style = new TableStyle();
+        style.setAlign(STJc.CENTER);
+        Style cellStyle = new Style();
+        cellStyle.setFontSize(10);
+        cellStyle.setColor("000000");
+        cellStyle.setFontFamily("宋体");
         for (String[] items : item) {
             for (String s : items) {
-                RowRenderData itemData = RowRenderData.build(new TextRenderData(""), new TextRenderData(s));
-                TableStyle style = new TableStyle();
-                style.setAlign(STJc.CENTER);
+                RowRenderData itemData = RowRenderData.build(new TextRenderData("", cellStyle), new TextRenderData(s, cellStyle));
                 itemData.setRowStyle(style);
                 MiniTableRenderPolicy.Helper.renderRow(table, index++, itemData);
             }
@@ -319,12 +327,16 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
     // 设置最后一行
     public void setLastRow(XWPFTable table) {
         // 最后一行的加权总得分
-        RowRenderData total = RowRenderData.build(new TextRenderData("加权汇总得分"));
+        TableStyle style = new TableStyle();
+        style.setAlign(STJc.CENTER);
+        Style cellStyle = new Style();
+        cellStyle.setFontSize(10);
+        cellStyle.setColor("000000");
+        cellStyle.setFontFamily("宋体");
+        RowRenderData total = RowRenderData.build(new TextRenderData("加权汇总得分", cellStyle));
         for (int i = 0; i < col / 2; i++) {
             TableTools.mergeCellsHorizonal(table, row - 1, i, i + 1);
         }
-        TableStyle style = new TableStyle();
-        style.setAlign(STJc.CENTER);
         total.setRowStyle(style);
         MiniTableRenderPolicy.Helper.renderRow(table, row - 1, total);
     }

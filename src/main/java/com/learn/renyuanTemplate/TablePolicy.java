@@ -25,6 +25,7 @@ public class TablePolicy extends AbstractRenderPolicy<Object> {
     public static String[] group = new String[]{"对党忠诚", "勇于创新", "治企有方", "兴企有为", "清正廉洁"};
     public static String[][] item = new String[][]{{"政治品质", "政治本领"}, {"创新精神", "创新成果"}, {"经营管理能力", "抓党建强党建能力"}, {"担当作为", "履职绩效"}, {"一岗双责", "廉洁从业"}};
     public static String[] people = new String[]{"刘备", "诸葛亮", "关羽", "张飞", "赵云", "黄忠", "马超"};
+    public static String[] career = new String[]{"董事长", "总经理", "副总经理", "副总经理", "副总经理", "总会计师", "党委副书记"};
     public static int year = 2022;
     public static String depart = "信息中心";
 
@@ -85,6 +86,7 @@ public class TablePolicy extends AbstractRenderPolicy<Object> {
 
     // 设置第二、三行标题的样式
     public void setTableHeader(XWPFTable table) {
+        // 构建第二行的数组、并垂直合并与水平合并
         String[] strHeader1 = new String[5 + group.length];
         strHeader1[0] = "序号";
         strHeader1[1] = "姓名";
@@ -101,12 +103,13 @@ public class TablePolicy extends AbstractRenderPolicy<Object> {
             start++;
         }
 
-        // 构建第二行的数组、并垂直合并
+
         for (int i = 0; i < group.length; i++) {
             strHeader1[i + 5] = group[i];
             TableTools.mergeCellsVertically(table, i, 1, 2);
         }
 
+        // 构建第三行的数组
         String[] strHeader2 = new String[col];
         int index = 5;
         for (String[] str : item) {

@@ -57,7 +57,7 @@ public class ItemPolicy extends AbstractRenderPolicy<Object> {
 
     // 整个 table 的样式在此设置
     public void setTableStyle(XWPFTable table) {
-        // 设置A4幅面的平铺类型和列数
+        // 设置 A4 幅面的平铺类型和列数
         if ((col > 15) && (col <= 20)) {
             TableTools.widthTable(table, MiniTableRenderData.WIDTH_A4_MEDIUM_FULL, col);
         } else if ((col > 5) && (col <= 15)) {
@@ -121,8 +121,12 @@ public class ItemPolicy extends AbstractRenderPolicy<Object> {
     public void setItem(XWPFTable table) {
         TableStyle style = new TableStyle();
         style.setAlign(STJc.CENTER);
+        Style cellStyle = new Style();
+        cellStyle.setFontSize(12);
+        cellStyle.setColor("000000");
+        cellStyle.setFontFamily("黑体");
         for (int i = 0; i < item.length; i++) {
-            RowRenderData itemData = RowRenderData.build(new TextRenderData(item[i]));
+            RowRenderData itemData = RowRenderData.build(new TextRenderData(item[i], cellStyle));
             itemData.setRowStyle(style);
             MiniTableRenderPolicy.Helper.renderRow(table, i + 3, itemData);
         }
@@ -131,7 +135,11 @@ public class ItemPolicy extends AbstractRenderPolicy<Object> {
     // 设置最后一行
     public void setLastRow(XWPFTable table) {
         // 最后一行的加权总得分
-        RowRenderData total = RowRenderData.build(new TextRenderData("加权汇总得分"));
+        Style cellStyle = new Style();
+        cellStyle.setFontSize(12);
+        cellStyle.setColor("000000");
+        cellStyle.setFontFamily("黑体");
+        RowRenderData total = RowRenderData.build(new TextRenderData("加权汇总得分", cellStyle));
         TableStyle style = new TableStyle();
         style.setAlign(STJc.CENTER);
         total.setRowStyle(style);
