@@ -21,10 +21,10 @@ import java.util.Set;
 
 /**
  * @author ：Kristen
- * @date ：2022/6/22
- * @description :
+ * @date ：2022/7/14
+ * @description : 此策略中，可以生成班子汇总（包括无一级指标的）和人员（单个）汇总的交叉表
  */
-public class GroupPolicy extends AbstractRenderPolicy<Object> {
+public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
 
     // 第一种测试情况（信息中心_2020年第1批综合测评统计报表(1655863588387)）(14)
 //    public static String[] group = new String[]{"政治思想建设", "企业发展质量", "党建工作质量", "作风建设成效"};
