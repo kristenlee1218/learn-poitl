@@ -24,18 +24,20 @@ import java.util.*;
 public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
 
     // 第一种测试情况（信息中心_2020年第1批综合测评统计报表(1655863588387)）(14)
-    public static String[] group = new String[]{"政治思想建设", "企业发展质量", "党建工作质量", "作风建设成效"};
-    public static String[][] item = new String[][]{{"政治忠诚", "政治担当", "社会责任"}, {"改革创新", "经营效益", "管理效能", "风险管控"}, {"选人用人", "基层党建", "党风廉政"}, {"团结协作", "联系群众"}};
-    public static String[] voteType = new String[]{"领导班子成员A1、A2、A3票", "中层测评B票", "职工代表C票", "外部董事A4票"};
-    public static String[] voteTypeGroup = new String[]{"内部测评"};
-    public static String[][] innerEvaluate = new String[][]{{"领导班子成员A1、A2、A3票", "中层测评B票", "职工代表C票"}};
-    public static int year = 2022;
-    public static String depart = "信息中心";
-    public static String[] value = new String[]{"1.00", "2.00", "3.00", "4.00", "5.00", "6.00", "7.00", "8.00", "9.00", "10.00", "11.00", "12.00", "13.00", "14.00", "15.00", "16.00", "17.00", "18.00", "19.00", "20", "21.00", "22.00", "23.00", "24.00", "25.00", "26.00", "27.00", "28.00", "29.00", "30.00", "31.00", "32.00", "33", "34.00", "35.00", "36.00", "37.00", "38.00", "39.00", "40.00", "41.00", "42.00", "43.00", "44.00", "45.00", "46", "47.00", "48.00", "49.00", "50.00", "51.00", "52.00", "53.00", "54.00", "55.00", "56.00", "57.00", "58.00", "59", "60.00", "61.00", "62.00", "63.00", "64.00", "65.00", "66.00", "67.00", "68.00", "69.00", "70.00", "71.00", "72", "73.00", "74.00", "75.00", "76.00", "77.00", "78.00", "79.00", "80.00", "81.00", "82.00", "83.00", "84.00", "85", "86.00", "87.00", "88.00", "89.00", "90.00", "91.00", "92.00", "93.00", "94.00", "95.00", "96.00", "97.00", "98", "99.00", "100.00", "101.00", "102.00"};
+//    public static String[] group = new String[]{"政治思想建设", "企业发展质量", "党建工作质量", "作风建设成效"};
+//    public static String[][] items = new String[][]{{"政治忠诚", "政治担当", "社会责任"}, {"改革创新", "经营效益", "管理效能", "风险管控"}, {"选人用人", "基层党建", "党风廉政"}, {"团结协作", "联系群众"}};
+//    public static String[] item = new String[]{};
+//    public static String[] voteType = new String[]{"领导班子成员A1、A2、A3票", "中层测评B票", "职工代表C票", "外部董事A4票"};
+//    public static String[] voteTypeGroup = new String[]{"内部测评"};
+//    public static String[][] innerEvaluate = new String[][]{{"领导班子成员A1、A2、A3票", "中层测评B票", "职工代表C票"}};
+//    public static int year = 2022;
+//    public static String depart = "信息中心";
+//    public static String[] value = new String[]{"1.00", "2.00", "3.00", "4.00", "5.00", "6.00", "7.00", "8.00", "9.00", "10.00", "11.00", "12.00", "13.00", "14.00", "15.00", "16.00", "17.00", "18.00", "19.00", "20", "21.00", "22.00", "23.00", "24.00", "25.00", "26.00", "27.00", "28.00", "29.00", "30.00", "31.00", "32.00", "33", "34.00", "35.00", "36.00", "37.00", "38.00", "39.00", "40.00", "41.00", "42.00", "43.00", "44.00", "45.00", "46", "47.00", "48.00", "49.00", "50.00", "51.00", "52.00", "53.00", "54.00", "55.00", "56.00", "57.00", "58.00", "59", "60.00", "61.00", "62.00", "63.00", "64.00", "65.00", "66.00", "67.00", "68.00", "69.00", "70.00", "71.00", "72", "73.00", "74.00", "75.00", "76.00", "77.00", "78.00", "79.00", "80.00", "81.00", "82.00", "83.00", "84.00", "85", "86.00", "87.00", "88.00", "89.00", "90.00", "91.00", "92.00", "93.00", "94.00", "95.00", "96.00", "97.00", "98", "99.00", "100.00", "101.00", "102.00"};
 
     //    第二种测试情况（上海大区公司_2021年第1批综合考核评价统计表）(20)
 //    public static String[] group = new String[]{"政治思想建设", "企业发展质量", "党建工作质量", "作风建设成效"};
-//    public static String[][] item = new String[][]{{"政治忠诚", "政治担当", "社会责任"}, {"改革创新", "经营效益"}, {"选人用人", "基层党建", "党风廉政"}, {"团结协作", "联系群众"}};
+//    public static String[][] items = new String[][]{{"政治忠诚", "政治担当", "社会责任"}, {"改革创新", "经营效益"}, {"选人用人", "基层党建", "党风廉政"}, {"团结协作", "联系群众"}};
+//    public static String[] item = new String[]{};
 //    public static String[] voteType = new String[]{"董事长(A1)", "总经理(A2)", "其他领导(A3)", "本单位领导班子成员(B1、B2)", "中层经理人(C)", "员工(D)"};
 //    public static String[] voteTypeGroup = new String[]{"大悦城控股领导", "内部测评"};
 //    public static String[][] innerEvaluate = new String[][]{{"董事长(A1)", "总经理(A2)", "其他领导(A3)"}, {"本单位领导班子成员(B1、B2)", "中层经理人(C)", "员工(D)"}};
@@ -45,7 +47,8 @@ public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
 
     //    第三种测试情况（上海_2021年第1批综合考核评价统计报表(1646623484403)）（10）
 //    public static String[] group = new String[]{"政治思想建设", "企业发展质量", "党建工作质量", "作风建设成效"};
-//    public static String[][] item = new String[][]{{"政治忠诚", "政治担当", "社会责任"}, {"改革创新", "经营效益"}, {"选人用人", "基层党建", "党风廉政"}, {"团结协作", "联系群众"}};
+//    public static String[][] items = new String[][]{{"政治忠诚", "政治担当", "社会责任"}, {"改革创新", "经营效益"}, {"选人用人", "基层党建", "党风廉政"}, {"团结协作", "联系群众"}};
+//    public static String[] item = new String[]{};
 //    public static String[] voteType = new String[]{"A票", "B票", "C票"};
 //    public static String[] voteTypeGroup = new String[]{};
 //    public static String[][] innerEvaluate = new String[][]{{}};
@@ -54,11 +57,15 @@ public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
 //    public static String depart = "信息中心";
 
     // 第四种测试情况（河北建投二级单位_2022年第1批综合考核评价统计报表(1653979325662)）
-//    public static String[] item = new String[]{"政治方向", "社会责任", "企业党建", "科学管理", "发扬民主", "整体合力", "诚信合力", "联系群众", "廉洁自律", "工作部署"};
-//    public static String[] voteType = new String[]{"A票", "B票"};
-//    public static String[] value = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33"};
-//    public static int year = 2022;
-//    public static String depart = "信息中心";
+    public static String[] group = new String[]{};
+    public static String[][] items = new String[][]{{}};
+    public static String[] item = new String[]{"政治方向", "社会责任", "企业党建", "科学管理", "发扬民主", "整体合力", "诚信合力", "联系群众", "廉洁自律", "工作部署"};
+    public static String[] voteType = new String[]{"A票", "B票"};
+    public static String[] voteTypeGroup = new String[]{};
+    public static String[][] innerEvaluate = new String[][]{{}};
+    public static String[] value = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33"};
+    public static int year = 2022;
+    public static String depart = "信息中心";
 
 
     // 计算行
@@ -258,8 +265,8 @@ public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
         int end;
         Style cellStyle = this.getCellStyle();
         TableStyle tableStyle = this.getTableStyle();
-        for (int i = 0; i < item.length; i++) {
-            end = start + item[i].length;
+        for (int i = 0; i < items.length; i++) {
+            end = start + items[i].length;
             TableTools.mergeCellsVertically(table, 0, start, end - 1);
             RowRenderData groupData = RowRenderData.build(new TextRenderData(group[i], cellStyle));
             groupData.setRowStyle(tableStyle);
@@ -277,8 +284,8 @@ public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
             int index = 3;
             Style cellStyle = this.getCellStyle();
             TableStyle tableStyle = this.getTableStyle();
-            for (String[] items : item) {
-                for (String s : items) {
+            for (String[] str : items) {
+                for (String s : str) {
                     RowRenderData itemData = RowRenderData.build(new TextRenderData("", cellStyle), new TextRenderData(s, cellStyle));
                     itemData.setRowStyle(tableStyle);
                     MiniTableRenderPolicy.Helper.renderRow(table, index++, itemData);
@@ -290,7 +297,7 @@ public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
             for (int i = 0; i < col / 2 - 1; i++) {
                 int start = 3;
                 int end;
-                for (String[] str : item) {
+                for (String[] str : items) {
                     end = start + str.length;
                     // 合并 item 均分的单元格
                     TableTools.mergeCellsVertically(table, column, start, end - 1);
@@ -330,7 +337,7 @@ public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
             // 设置计算分数的单元格值（除最后一行）
             int index = 0;
             int start = 3;
-            Set<Integer> set = this.calculateGroupStartRow(item, start);
+            Set<Integer> set = this.calculateGroupStartRow(items, start);
             Style cellStyle = this.getDataCellStyle();
             TableStyle tableStyle = this.getTableStyle();
             for (int i = start; i < row - 1; i++) {
@@ -383,7 +390,7 @@ public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
     public int getRow(String[] group) {
         // 有一级指标和二级指标
         if (group.length > 0) {
-            row = this.countRow(item) + 4;
+            row = this.countRow(items) + 4;
         } else {
             row = item.length + 4;
         }
@@ -442,11 +449,11 @@ public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
     }
 
     // 计算每个分组第一行的行数
-    public Set<Integer> calculateGroupStartRow(String[][] item, int start) {
+    public Set<Integer> calculateGroupStartRow(String[][] items, int start) {
         HashSet<Integer> set = new HashSet<>();
         set.add(start);
-        for (int i = 0; i < item.length - 1; i++) {
-            start += item[i].length;
+        for (int i = 0; i < items.length - 1; i++) {
+            start += items[i].length;
             set.add(start);
         }
         return set;
