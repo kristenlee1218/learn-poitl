@@ -14,6 +14,9 @@ import com.deepoove.poi.xwpf.BodyContainerFactory;
 import org.apache.poi.xwpf.usermodel.*;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.STJc;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author ：Kristen
  * @date ：2022/7/4
@@ -58,26 +61,19 @@ public class ItemPolicy extends AbstractRenderPolicy<Object> {
     // 整个 table 的样式在此设置
     public void setTableStyle(XWPFTable table) {
         // 设置 A4 幅面的平铺类型和列数
-        if ((col > 15) && (col <= 20)) {
-            TableTools.widthTable(table, MiniTableRenderData.WIDTH_A4_MEDIUM_FULL, col);
-        } else if ((col > 5) && (col <= 15)) {
+        if (col <= 15) {
             TableTools.widthTable(table, MiniTableRenderData.WIDTH_A4_FULL, col);
-        } else if (col <= 5) {
-            TableTools.widthTable(table, MiniTableRenderData.WIDTH_A4_EXTEND_FULL, col);
         } else {
             TableTools.widthTable(table, MiniTableRenderData.WIDTH_A4_NARROW_FULL, col);
         }
-
-        // 设置 border
-        TableTools.borderTable(table, 9);
+        TableTools.borderTable(table, 10);
         for (XWPFTableRow tableRow : table.getRows()) {
-            tableRow.setHeight(100);
             for (int i = 0; i < tableRow.getTableCells().size(); i++) {
                 tableRow.getCell(i).setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
-                tableRow.getCell(i).setWidth("1000");
+                tableRow.getCell(i).setWidth("500");
             }
         }
-        table.setCellMargins(5, 5, 5, 5);
+        table.setCellMargins(5, 10, 5, 10);
         table.setTableAlignment(TableRowAlign.CENTER);
     }
 
@@ -104,30 +100,26 @@ public class ItemPolicy extends AbstractRenderPolicy<Object> {
         strHeader1[0] = "指标";
         strHeader1[length - 1] = "全体";
         System.arraycopy(voteType, 0, strHeader1, 1, voteType.length);
+        Style cellStyle = getCellStyle();
         // 构建第二行
-        RowRenderData header1 = RowRenderData.build(strHeader1);
+        RowRenderData header1 = build(cellStyle, strHeader1);
 
         // 垂直合并
         for (int i = col - 1; i >= 0; i--) {
             TableTools.mergeCellsVertically(table, i, 1, 2);
         }
-        TableStyle style = new TableStyle();
-        style.setAlign(STJc.CENTER);
-        header1.setRowStyle(style);
+        TableStyle tableStyle = getTableStyle();
+        header1.setRowStyle(tableStyle);
         MiniTableRenderPolicy.Helper.renderRow(table, 1, header1);
     }
 
     // group 的设置、集中在第1列
     public void setItem(XWPFTable table) {
-        TableStyle style = new TableStyle();
-        style.setAlign(STJc.CENTER);
-        Style cellStyle = new Style();
-        cellStyle.setFontSize(12);
-        cellStyle.setColor("000000");
-        cellStyle.setFontFamily("黑体");
+        TableStyle tableStyle = getTableStyle();
+        Style cellStyle = getCellStyle();
         for (int i = 0; i < item.length; i++) {
             RowRenderData itemData = RowRenderData.build(new TextRenderData(item[i], cellStyle));
-            itemData.setRowStyle(style);
+            itemData.setRowStyle(tableStyle);
             MiniTableRenderPolicy.Helper.renderRow(table, i + 3, itemData);
         }
     }
@@ -135,20 +127,16 @@ public class ItemPolicy extends AbstractRenderPolicy<Object> {
     // 设置最后一行
     public void setLastRow(XWPFTable table) {
         // 最后一行的加权总得分
-        Style cellStyle = new Style();
-        cellStyle.setFontSize(12);
-        cellStyle.setColor("000000");
-        cellStyle.setFontFamily("黑体");
+        Style cellStyle = getCellStyle();
         RowRenderData total = RowRenderData.build(new TextRenderData("加权汇总得分", cellStyle));
-        TableStyle style = new TableStyle();
-        style.setAlign(STJc.CENTER);
-        total.setRowStyle(style);
+        TableStyle tableStyle = getTableStyle();
+        total.setRowStyle(tableStyle);
         MiniTableRenderPolicy.Helper.renderRow(table, row - 1, total);
     }
 
     public void setTableData(XWPFTable table) {
-        TableStyle style = new TableStyle();
-        style.setAlign(STJc.CENTER);
+        Style cellStyle = getCellStyle();
+        TableStyle tableStyle = getTableStyle();
         int start = 3;
         int index = 0;
         for (int i = start; i < row; i++) {
@@ -157,9 +145,36 @@ public class ItemPolicy extends AbstractRenderPolicy<Object> {
                 str[j] = value[index];
                 index++;
             }
-            RowRenderData lineValue = RowRenderData.build(str);
-            lineValue.setRowStyle(style);
+            RowRenderData lineValue = build(cellStyle, str);
+            lineValue.setRowStyle(tableStyle);
             MiniTableRenderPolicy.Helper.renderRow(table, i, lineValue);
         }
+    }
+
+    // 根据 String[] 构建一行的数据，同一行使用一个 Style
+    public static RowRenderData build(Style style, String... cellStr) {
+        List<TextRenderData> data = new ArrayList<>();
+        if (null != cellStr) {
+            for (String col : cellStr) {
+                data.add(new TextRenderData(col, style));
+            }
+        }
+        return new RowRenderData(data, null);
+    }
+
+    // 设置 cell 格样式
+    public static Style getCellStyle() {
+        Style cellStyle = new Style();
+        cellStyle.setFontFamily("宋体");
+        cellStyle.setFontSize(10);
+        cellStyle.setColor("000000");
+        return cellStyle;
+    }
+
+    // 设置 table 格样式
+    public static TableStyle getTableStyle() {
+        TableStyle tableStyle = new TableStyle();
+        tableStyle.setAlign(STJc.CENTER);
+        return tableStyle;
     }
 }
