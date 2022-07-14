@@ -135,6 +135,7 @@ public class ItemPolicy extends AbstractRenderPolicy<Object> {
         MiniTableRenderPolicy.Helper.renderRow(table, row - 1, total);
     }
 
+    // 设置数据
     public void setTableData(XWPFTable table) {
         Style cellStyle = this.getCellStyle();
         TableStyle tableStyle = this.getTableStyle();
