@@ -75,9 +75,9 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
 //    public static String depart = "信息中心";
 
     // 计算行
-    int row = countRow(item) + 4;
+    int row = this.countRow(item) + 4;
     // 计算列、先判断有无外部董事
-    boolean isHaveWBDS = checkWBDS(voteType);
+    boolean isHaveWBDS = this.checkWBDS(voteType);
     int col = this.calculateColumn(voteType, voteTypeGroup, isHaveWBDS);
 
     @Override
@@ -94,13 +94,13 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
         // 当前位置插入表格
         XWPFTable table = bodyContainer.insertNewTable(run, row, col);
 
-        setTableStyle(table);
-        setTableTitle(table);
-        setTableHeader(table);
-        setGroup(table);
-        setItem(table);
-        setLastRow(table);
-        setTableData(table);
+        this.setTableStyle(table);
+        this.setTableTitle(table);
+        this.setTableHeader(table);
+        this.setGroup(table);
+        this.setItem(table);
+        this.setLastRow(table);
+        this.setTableData(table);
     }
 
     // 整个 table 的样式在此设置
@@ -155,9 +155,9 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
             }
             System.arraycopy(voteTypeGroup, 0, strHeader1, 1, voteTypeGroup.length);
 
-            Style cellStyle = getCellStyle();
             // 构建第二行
-            RowRenderData header1 = build(cellStyle, strHeader1);
+            Style cellStyle = this.getCellStyle();
+            RowRenderData header1 = this.build(cellStyle, strHeader1);
             // 垂直合并"全体"
             TableTools.mergeCellsVertically(table, col - 1, 1, 2);
             TableTools.mergeCellsVertically(table, col - 2, 1, 2);
@@ -195,12 +195,12 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
                 TableTools.mergeCellsHorizonal(table, 1, voteTypeGroup.length + 1, voteTypeGroup.length + 2);
                 TableTools.mergeCellsHorizonal(table, 2, col - voteTypeGroup.length - 1, col - voteTypeGroup.length);
             }
-            TableStyle tableStyle = getTableStyle();
+            TableStyle tableStyle = this.getTableStyle();
             header1.setRowStyle(tableStyle);
             MiniTableRenderPolicy.Helper.renderRow(table, 1, header1);
 
             // 处理分组内的票种和小计
-            int total = countRow(innerEvaluate);
+            int total = this.countRow(innerEvaluate);
             int lengthItem = (total + voteTypeGroup.length) + 1;
             String[] strHeader2 = new String[lengthItem];
             int index = 1;
@@ -210,7 +210,7 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
                 }
                 strHeader2[index++] = "小计";
             }
-            RowRenderData header2 = build(cellStyle, strHeader2);
+            RowRenderData header2 = this.build(cellStyle, strHeader2);
             // 分别给以上几个 TextRenderData 设置合并单元格、第一个格子必须写空值否则无法写入到 table
             for (int i = 0; i < strHeader2.length - 1; i++) {
                 TableTools.mergeCellsHorizonal(table, 2, i + 1, i + 2);
@@ -219,23 +219,22 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
             MiniTableRenderPolicy.Helper.renderRow(table, 2, header2);
         } else {
             int length = voteType.length + 2;
-            Style cellStyle = getCellStyle();
+            Style cellStyle = this.getCellStyle();
             String[] strHeader1 = new String[length];
             strHeader1[0] = "评价内容";
             strHeader1[length - 1] = "全体";
             System.arraycopy(voteType, 0, strHeader1, 1, voteType.length);
             // 构建第二行
-            RowRenderData header1 = build(cellStyle, strHeader1);
+            RowRenderData header1 = this.build(cellStyle, strHeader1);
             for (int i = 0; i < voteType.length + 2; i++) {
                 int j = i + 1;
                 TableTools.mergeCellsHorizonal(table, 1, i, j);
                 TableTools.mergeCellsHorizonal(table, 2, i, j);
             }
-
             for (int i = voteType.length + 1; i >= 0; i--) {
                 TableTools.mergeCellsVertically(table, i, 1, 2);
             }
-            TableStyle tableStyle = getTableStyle();
+            TableStyle tableStyle = this.getTableStyle();
             header1.setRowStyle(tableStyle);
             MiniTableRenderPolicy.Helper.renderRow(table, 1, header1);
         }
@@ -245,8 +244,8 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
     public void setGroup(XWPFTable table) {
         int start = 3;
         int end;
-        Style cellStyle = getCellStyle();
-        TableStyle tableStyle = getTableStyle();
+        Style cellStyle = this.getCellStyle();
+        TableStyle tableStyle = this.getTableStyle();
         for (int i = 0; i < item.length; i++) {
             end = start + item[i].length;
             TableTools.mergeCellsVertically(table, 0, start, end - 1);
@@ -262,8 +261,8 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
         // item 的设置、集中在第 2 列
         // 构建 item 列
         int index = 3;
-        Style cellStyle = getCellStyle();
-        TableStyle tableStyle = getTableStyle();
+        Style cellStyle = this.getCellStyle();
+        TableStyle tableStyle = this.getTableStyle();
         for (String[] items : item) {
             for (String s : items) {
                 RowRenderData itemData = RowRenderData.build(new TextRenderData("", cellStyle), new TextRenderData(s, cellStyle));
@@ -290,8 +289,8 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
     // 设置最后一行
     public void setLastRow(XWPFTable table) {
         // 最后一行的加权总得分
-        Style cellStyle = getCellStyle();
-        TableStyle tableStyle = getTableStyle();
+        Style cellStyle = this.getCellStyle();
+        TableStyle tableStyle = this.getTableStyle();
         RowRenderData total = RowRenderData.build(new TextRenderData("加权汇总得分", cellStyle));
         for (int i = 0; i < col / 2; i++) {
             TableTools.mergeCellsHorizonal(table, row - 1, i, i + 1);
@@ -305,9 +304,9 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
         // 设置计算分数的单元格值（除最后一行）
         int index = 0;
         int start = 3;
-        Set<Integer> set = calculateGroupStartRow(item, start);
-        Style cellStyle = getDataCellStyle();
-        TableStyle tableStyle = getTableStyle();
+        Set<Integer> set = this.calculateGroupStartRow(item, start);
+        Style cellStyle = this.getDataCellStyle();
+        TableStyle tableStyle = this.getTableStyle();
         for (int i = start; i < row - 1; i++) {
             String[] str = new String[col];
             if (set.contains(i)) {
@@ -315,7 +314,7 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
                     str[j] = value[index];
                     index++;
                 }
-                RowRenderData lineValue = build(cellStyle, str);
+                RowRenderData lineValue = this.build(cellStyle, str);
                 lineValue.setRowStyle(tableStyle);
                 MiniTableRenderPolicy.Helper.renderRow(table, i, lineValue);
             } else {
@@ -323,7 +322,7 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
                     str[j] = value[index];
                     index++;
                 }
-                RowRenderData lineValue = build(cellStyle, str);
+                RowRenderData lineValue = this.build(cellStyle, str);
                 lineValue.setRowStyle(tableStyle);
                 MiniTableRenderPolicy.Helper.renderRow(table, i, lineValue);
             }
@@ -333,7 +332,7 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
         for (int i = 1; i < col / 2; i++) {
             str[str.length - i] = value[value.length - i];
         }
-        RowRenderData lineValue = build(cellStyle, str);
+        RowRenderData lineValue = this.build(cellStyle, str);
         lineValue.setRowStyle(tableStyle);
         MiniTableRenderPolicy.Helper.renderRow(table, row - 1, lineValue);
     }
@@ -389,7 +388,7 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
     }
 
     // 根据 String[] 构建一行的数据，同一行使用一个 Style
-    public static RowRenderData build(Style style, String... cellStr) {
+    public RowRenderData build(Style style, String... cellStr) {
         List<TextRenderData> data = new ArrayList<>();
         if (null != cellStr) {
             for (String col : cellStr) {
@@ -400,7 +399,7 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
     }
 
     // 设置 cell 格样式
-    public static Style getCellStyle() {
+    public Style getCellStyle() {
         Style cellStyle = new Style();
         cellStyle.setFontFamily("宋体");
         cellStyle.setFontSize(10);
@@ -409,14 +408,14 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
     }
 
     // 设置 table 格样式
-    public static TableStyle getTableStyle() {
+    public TableStyle getTableStyle() {
         TableStyle tableStyle = new TableStyle();
         tableStyle.setAlign(STJc.CENTER);
         return tableStyle;
     }
 
     // 设置 cell 格样式
-    public static Style getDataCellStyle() {
+    public Style getDataCellStyle() {
         Style cellStyle = new Style();
         cellStyle.setFontFamily("宋体");
         cellStyle.setFontSize(8);

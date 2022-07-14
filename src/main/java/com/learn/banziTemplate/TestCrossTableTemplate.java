@@ -22,8 +22,8 @@ public class TestCrossTableTemplate {
         HashMap<String, Object> data = new HashMap<String, Object>() {
             {
                 // 构建 table
-                GroupPolicy groupPolicy = new GroupPolicy();
-                builder.bind("table", groupPolicy);
+                CrossTablePolicy crossTablePolicy = new CrossTablePolicy();
+                builder.bind("table", crossTablePolicy);
             }
         };
 
