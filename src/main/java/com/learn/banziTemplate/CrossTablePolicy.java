@@ -128,7 +128,7 @@ public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
         TableStyle tableStyle = new TableStyle();
         tableStyle.setAlign(STJc.CENTER);
         tableStyle.setBackgroundColor("DCDCDC");
-        String title = depart + "领导班子" + year + "年度综合测评汇总表";
+        String title = "{{title}}";
         RowRenderData header0 = RowRenderData.build(new TextRenderData(title, cellStyle));
         header0.setRowStyle(tableStyle);
         TableTools.mergeCellsHorizonal(table, 0, 0, col - 1);
