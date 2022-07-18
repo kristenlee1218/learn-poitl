@@ -57,7 +57,7 @@ public class TablePolicy extends AbstractRenderPolicy<Object> {
 
     // 整个 table 的样式在此设置
     public void setTableStyle(XWPFTable table) {
-        // 设置A4幅面的平铺类型和列数
+        // 设置 A4 幅面的平铺类型和列数
         TableTools.widthTable(table, MiniTableRenderData.WIDTH_A4_NARROW_FULL, col);
         // 设置 border
         TableTools.borderTable(table, 10);
