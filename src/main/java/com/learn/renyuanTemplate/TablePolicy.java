@@ -144,9 +144,9 @@ public class TablePolicy extends AbstractRenderPolicy<Object> {
 
         int index = 5;
         for (int i = 0; i < item.length; i++) {
-            str[index] = "avg#group0" + (i + 1);
+            str[index] = "{{avg#group0" + (i + 1) + "}}";
             for (int j = 0; j < item[i].length; j++) {
-                str[++index] = "avg#leader0" + (index - 5 - i);
+                str[++index] = "{{avg#leader0" + (index - 5 - i) + "}}";
             }
             index++;
         }
