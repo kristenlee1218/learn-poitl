@@ -1,4 +1,4 @@
-package com.learn.banziTemplate;
+package com.learn.crossTableTemplate;
 
 import com.deepoove.poi.XWPFTemplate;
 import com.deepoove.poi.config.Configure;

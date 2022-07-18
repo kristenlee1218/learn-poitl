@@ -1,4 +1,4 @@
-package com.learn.banziTemplate;
+package com.learn.crossTableTemplate;
 
 import com.deepoove.poi.data.MiniTableRenderData;
 import com.deepoove.poi.data.RowRenderData;

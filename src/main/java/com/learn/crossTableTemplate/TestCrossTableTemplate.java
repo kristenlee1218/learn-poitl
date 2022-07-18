@@ -1,4 +1,4 @@
-package com.learn.banziTemplate;
+package com.learn.crossTableTemplate;
 
 import com.deepoove.poi.XWPFTemplate;
 import com.deepoove.poi.config.Configure;
@@ -8,7 +8,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class TestGroupTemplate {
+/**
+ * @author ：Kristen
+ * @date ：2022/7/14
+ * @description :
+ */
+public class TestCrossTableTemplate {
     public static void main(String[] args) throws IOException {
         // 准备数据
         ConfigureBuilder builder = Configure.newBuilder();
@@ -17,8 +22,8 @@ public class TestGroupTemplate {
         HashMap<String, Object> data = new HashMap<String, Object>() {
             {
                 // 构建 table
-                GroupPolicy groupPolicy = new GroupPolicy();
-                builder.bind("table", groupPolicy);
+                CrossTablePolicy crossTablePolicy = new CrossTablePolicy();
+                builder.bind("table", crossTablePolicy);
             }
         };
 
