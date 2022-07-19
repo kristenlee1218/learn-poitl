@@ -28,13 +28,13 @@ public class TestPolicy extends AbstractRenderPolicy<Object> {
     public static final String[] totalValue = new String[]{"1110.0", "1120.0", "1130.0", "1140.0", "1150.0", "1160.0"};
 
     @Override
-    protected void afterRender(RenderContext<Object> renderContext) {
+    public void afterRender(RenderContext<Object> renderContext) {
         // 清空标签
         clearPlaceholder(renderContext, true);
     }
 
     @Override
-    public void doRender(RenderContext<Object> renderContext) throws Exception {
+    public void doRender(RenderContext<Object> renderContext) {
         XWPFRun run = renderContext.getRun();
         // 当前位置的容器
         BodyContainer bodyContainer = BodyContainerFactory.getBodyContainer(run);
