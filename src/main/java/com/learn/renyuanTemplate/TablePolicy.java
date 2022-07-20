@@ -186,34 +186,34 @@ public class TablePolicy extends AbstractRenderPolicy<Object> {
     }
 
     // 设置数据行的标签
-//    public void setTableCellTag(XWPFTable table) {
-//        String[] str = new String[col];
-//        str[0] = "{{sequence}}";
-//        str[1] = "{{leadername}}";
-//        str[2] = "{{post}}";
-//        str[3] = "{{avg}}";
-//        str[4] = "{{sort@avg}}";
-//
-//        int index = 5;
-//        for (int i = 0; i < item.length; i++) {
-//            str[index] = "{{avg#group0" + (i + 1) + "}}";
-//            for (int j = 0; j < item[i].length; j++) {
-//                if (index - 5 - i < 9) {
-//                    str[++index] = "{{avg#leader0" + (index - 5 - i) + "}}";
-//                } else {
-//                    str[++index] = "{{avg#leader" + (index - 5 - i) + "}}";
-//                }
-//            }
-//            index++;
-//        }
-//        Style style = this.getDataCellStyle();
-//        RowRenderData row = this.build(style, str);
-//        TableStyle tableStyle = this.getTableStyle();
-//        row.setRowStyle(tableStyle);
-//        for (int i = 0; i < people.length; i++) {
-//            MiniTableRenderPolicy.Helper.renderRow(table, i + 3, row);
-//        }
-//    }
+    public void setTableCellTag(XWPFTable table) {
+        String[] str = new String[col];
+        str[0] = "{{sequence}}";
+        str[1] = "{{leadername}}";
+        str[2] = "{{post}}";
+        str[3] = "{{avg}}";
+        str[4] = "{{sort@avg}}";
+
+        int index = 5;
+        for (int i = 0; i < item.length; i++) {
+            str[index] = "{{avg#group0" + (i + 1) + "}}";
+            for (int j = 0; j < item[i].length; j++) {
+                if (index - 5 - i < 9) {
+                    str[++index] = "{{avg#leader0" + (index - 5 - i) + "}}";
+                } else {
+                    str[++index] = "{{avg#leader" + (index - 5 - i) + "}}";
+                }
+            }
+            index++;
+        }
+        Style style = this.getDataCellStyle();
+        RowRenderData row = this.build(style, str);
+        TableStyle tableStyle = this.getTableStyle();
+        row.setRowStyle(tableStyle);
+        for (int i = 0; i < list.size(); i++) {
+            MiniTableRenderPolicy.Helper.renderRow(table, i + 3, row);
+        }
+    }
 
     // 计算所有分组的项的个数
     public int countCol(String[][] str) {
