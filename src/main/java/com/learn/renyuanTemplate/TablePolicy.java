@@ -178,10 +178,10 @@ public class TablePolicy extends AbstractRenderPolicy<Object> {
                 index++;
             }
             Style style = this.getDataCellStyle();
-            RowRenderData row = this.build(style, str);
+            RowRenderData dataRow = this.build(style, str);
             TableStyle tableStyle = this.getTableStyle();
-            row.setRowStyle(tableStyle);
-            MiniTableRenderPolicy.Helper.renderRow(table, i + 3, row);
+            dataRow.setRowStyle(tableStyle);
+            MiniTableRenderPolicy.Helper.renderRow(table, i + 3, dataRow);
         }
     }
 
