@@ -28,8 +28,8 @@ public class TablePolicy extends AbstractRenderPolicy<Object> {
     public static String[][] item = new String[][]{{"政治品质", "政治本领"}, {"创新精神", "创新成果"}, {"经营管理能力", "抓党建强党建能力"}, {"担当作为", "履职绩效"}, {"一岗双责", "廉洁从业"}};
 //    public static String[] people = new String[]{"刘备", "诸葛亮", "关羽", "张飞", "赵云", "黄忠", "马超"};
 
-    ArrayList<LinkedHashMap<String, String>> list = new ArrayList<>();
-    LinkedHashMap<String, String> map = new LinkedHashMap<>();
+    ArrayList<HashMap<String, String>> list = new ArrayList<>();
+    HashMap<String, String> map = new HashMap<>();
     // 计算行和列
     int col = this.countCol(item) + 5;
     //int row = people.length + 3;
@@ -159,11 +159,23 @@ public class TablePolicy extends AbstractRenderPolicy<Object> {
     // 设置行数据
     public void setTableCellData(XWPFTable table) {
         for (int i = 0; i < list.size(); i++) {
-            Object[] objects = list.get(i).values().toArray();
-            String[] str = new String[objects.length + 1];
+            String[] str = new String[list.get(i).size() + 1];
             str[0] = String.valueOf(i + 1);
-            for (int j = 0; j < objects.length; j++) {
-                str[j + 1] = objects[j].toString();
+            str[1] = list.get(i).get("name");
+            str[2] = list.get(i).get("post");
+            str[3] = list.get(i).get("score");
+            str[4] = list.get(i).get("sort");
+            int index = 5;
+            for (int j = 0; j < item.length; j++) {
+                str[index] = list.get(i).get("group0" + (j + 1));
+                for (int k = 0; k < item[j].length; k++) {
+                    if (index - 5 - j < 9) {
+                        str[++index] = list.get(i).get("leader0" + (index - 5 - j));
+                    } else {
+                        str[++index] = list.get(i).get("leader" + (index - 5 - j));
+                    }
+                }
+                index++;
             }
             Style style = this.getDataCellStyle();
             RowRenderData row = this.build(style, str);
