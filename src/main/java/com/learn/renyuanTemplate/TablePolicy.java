@@ -14,8 +14,7 @@ import com.deepoove.poi.xwpf.BodyContainerFactory;
 import org.apache.poi.xwpf.usermodel.*;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.STJc;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author ：Kristen
@@ -28,12 +27,13 @@ public class TablePolicy extends AbstractRenderPolicy<Object> {
     public static String[] group = new String[]{"对党忠诚", "勇于创新", "治企有方", "兴企有为", "清正廉洁"};
     public static String[][] item = new String[][]{{"政治品质", "政治本领"}, {"创新精神", "创新成果"}, {"经营管理能力", "抓党建强党建能力"}, {"担当作为", "履职绩效"}, {"一岗双责", "廉洁从业"}};
 //    public static String[] people = new String[]{"刘备", "诸葛亮", "关羽", "张飞", "赵云", "黄忠", "马超"};
-//    public static String[] career = new String[]{"董事长", "总经理", "副总经理", "副总经理", "副总经理", "总会计师", "党委副书记"};
 
+    ArrayList<LinkedHashMap<String, String>> list = new ArrayList<>();
+    LinkedHashMap<String, String> map = new LinkedHashMap<>();
     // 计算行和列
     int col = this.countCol(item) + 5;
     //int row = people.length + 3;
-    int row = 4;
+    int row;
 
     @Override
     public void afterRender(RenderContext<Object> renderContext) {
@@ -47,12 +47,35 @@ public class TablePolicy extends AbstractRenderPolicy<Object> {
         // 当前位置的容器
         BodyContainer bodyContainer = BodyContainerFactory.getBodyContainer(run);
 
+        map.put("name", "刘备");
+        map.put("post", "董事长");
+        map.put("score", "80.00");
+        map.put("sort", "4");
+        map.put("group01", "77.79");
+        map.put("leader01", "78.72");
+        map.put("leader02", "76.87");
+        map.put("group02", "72.05");
+        map.put("leader03", "72.43");
+        map.put("leader04", "71.89");
+        map.put("group03", "71.87");
+        map.put("leader05", "72.20");
+        map.put("leader06", "71.54");
+        map.put("group04", "69.43");
+        map.put("leader07", "68.25");
+        map.put("leader08", "69.94");
+        map.put("group05", "75.35");
+        map.put("leader09", "72.72");
+        map.put("leader10", "77.97");
+        list.add(map);
+        row = list.size() + 3;
+
         // 当前位置插入表格
         XWPFTable table = bodyContainer.insertNewTable(run, row, col);
         this.setTableStyle(table);
         this.setTableTitle(table);
         this.setTableHeader(table);
-        this.setTableCellTag(table);
+        this.setTableCellData(table);
+        //this.setTableCellTag(table);
     }
 
     // 整个 table 的样式在此设置
@@ -77,12 +100,12 @@ public class TablePolicy extends AbstractRenderPolicy<Object> {
         cellStyle.setFontSize(12);
         cellStyle.setColor("000000");
         cellStyle.setFontFamily("黑体");
-        TableStyle style = new TableStyle();
-        style.setAlign(STJc.CENTER);
-        style.setBackgroundColor("DCDCDC");
+        TableStyle tableStyle = new TableStyle();
+        tableStyle.setAlign(STJc.CENTER);
+        tableStyle.setBackgroundColor("DCDCDC");
         String title = "{{title}}";
         RowRenderData header0 = RowRenderData.build(new TextRenderData(title, cellStyle));
-        header0.setRowStyle(style);
+        header0.setRowStyle(tableStyle);
         TableTools.mergeCellsHorizonal(table, 0, 0, col - 1);
         MiniTableRenderPolicy.Helper.renderRow(table, 0, header0);
     }
@@ -133,30 +156,52 @@ public class TablePolicy extends AbstractRenderPolicy<Object> {
         MiniTableRenderPolicy.Helper.renderRow(table, 2, header2);
     }
 
-    // 设置数据行的标签
-    public void setTableCellTag(XWPFTable table) {
-        String[] str = new String[col];
-        str[0] = "{{sequence}}";
-        str[1] = "{{leadername}}";
-        str[2] = "{{post}}";
-        str[3] = "{{avg}}";
-        str[4] = "{{sort@avg}}";
-
-        int index = 5;
-        for (int i = 0; i < item.length; i++) {
-            str[index] = "{{avg#group0" + (i + 1) + "}}";
-            for (int j = 0; j < item[i].length; j++) {
-                str[++index] = "{{avg#leader0" + (index - 5 - i) + "}}";
+    // 设置行数据
+    public void setTableCellData(XWPFTable table) {
+        for (int i = 0; i < list.size(); i++) {
+            Object[] objects = list.get(i).values().toArray();
+            String[] str = new String[objects.length + 1];
+            str[0] = String.valueOf(i + 1);
+            for (int j = 0; j < objects.length; j++) {
+                str[j + 1] = objects[j].toString();
             }
-            index++;
+            Style style = this.getDataCellStyle();
+            RowRenderData row = this.build(style, str);
+            TableStyle tableStyle = this.getTableStyle();
+            row.setRowStyle(tableStyle);
+            MiniTableRenderPolicy.Helper.renderRow(table, i + 3, row);
         }
-
-        Style style = this.getDataCellStyle();
-        RowRenderData row = this.build(style, str);
-        TableStyle tableStyle = this.getTableStyle();
-        row.setRowStyle(tableStyle);
-        MiniTableRenderPolicy.Helper.renderRow(table, 3, row);
     }
+
+    // 设置数据行的标签
+//    public void setTableCellTag(XWPFTable table) {
+//        String[] str = new String[col];
+//        str[0] = "{{sequence}}";
+//        str[1] = "{{leadername}}";
+//        str[2] = "{{post}}";
+//        str[3] = "{{avg}}";
+//        str[4] = "{{sort@avg}}";
+//
+//        int index = 5;
+//        for (int i = 0; i < item.length; i++) {
+//            str[index] = "{{avg#group0" + (i + 1) + "}}";
+//            for (int j = 0; j < item[i].length; j++) {
+//                if (index - 5 - i < 9) {
+//                    str[++index] = "{{avg#leader0" + (index - 5 - i) + "}}";
+//                } else {
+//                    str[++index] = "{{avg#leader" + (index - 5 - i) + "}}";
+//                }
+//            }
+//            index++;
+//        }
+//        Style style = this.getDataCellStyle();
+//        RowRenderData row = this.build(style, str);
+//        TableStyle tableStyle = this.getTableStyle();
+//        row.setRowStyle(tableStyle);
+//        for (int i = 0; i < people.length; i++) {
+//            MiniTableRenderPolicy.Helper.renderRow(table, i + 3, row);
+//        }
+//    }
 
     // 计算所有分组的项的个数
     public int countCol(String[][] str) {
