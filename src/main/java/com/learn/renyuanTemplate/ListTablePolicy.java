@@ -21,7 +21,7 @@ import java.util.*;
  * @date ：2022/7/12
  * @description :
  */
-public class TablePolicy extends AbstractRenderPolicy<Object> {
+public class ListTablePolicy extends AbstractRenderPolicy<Object> {
 
     //第一种测试情况（信息中心_2020年第1批综合测评统计报表(1655863588387)）(14)
     public static String[] group = new String[]{"对党忠诚", "勇于创新", "治企有方", "兴企有为", "清正廉洁"};
