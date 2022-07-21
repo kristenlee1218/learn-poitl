@@ -454,8 +454,8 @@ public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
     public RowRenderData build(String[] cellStr, Style style) {
         List<TextRenderData> data = new ArrayList<>();
         if (null != cellStr) {
-            for (String col : cellStr) {
-                data.add(new TextRenderData(col, style));
+            for (String s : cellStr) {
+                data.add(new TextRenderData(s, style));
             }
         }
         return new RowRenderData(data, null);

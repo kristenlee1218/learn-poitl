@@ -157,7 +157,7 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
 
             // 构建第二行
             Style cellStyle = this.getCellStyle();
-            RowRenderData header1 = this.build(cellStyle, strHeader1);
+            RowRenderData header1 = this.build(strHeader1, cellStyle);
             // 垂直合并"全体"
             TableTools.mergeCellsVertically(table, col - 1, 1, 2);
             TableTools.mergeCellsVertically(table, col - 2, 1, 2);
@@ -210,7 +210,7 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
                 }
                 strHeader2[index++] = "小计";
             }
-            RowRenderData header2 = this.build(cellStyle, strHeader2);
+            RowRenderData header2 = this.build(strHeader2, cellStyle);
             // 分别给以上几个 TextRenderData 设置合并单元格、第一个格子必须写空值否则无法写入到 table
             for (int i = 0; i < strHeader2.length - 1; i++) {
                 TableTools.mergeCellsHorizonal(table, 2, i + 1, i + 2);
@@ -225,7 +225,7 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
             strHeader1[length - 1] = "全体";
             System.arraycopy(voteType, 0, strHeader1, 1, voteType.length);
             // 构建第二行
-            RowRenderData header1 = this.build(cellStyle, strHeader1);
+            RowRenderData header1 = this.build(strHeader1, cellStyle);
             for (int i = 0; i < voteType.length + 2; i++) {
                 int j = i + 1;
                 TableTools.mergeCellsHorizonal(table, 1, i, j);
@@ -314,7 +314,7 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
                     str[j] = value[index];
                     index++;
                 }
-                RowRenderData lineValue = this.build(cellStyle, str);
+                RowRenderData lineValue = this.build(str, cellStyle);
                 lineValue.setRowStyle(tableStyle);
                 MiniTableRenderPolicy.Helper.renderRow(table, i, lineValue);
             } else {
@@ -322,7 +322,7 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
                     str[j] = value[index];
                     index++;
                 }
-                RowRenderData lineValue = this.build(cellStyle, str);
+                RowRenderData lineValue = this.build(str, cellStyle);
                 lineValue.setRowStyle(tableStyle);
                 MiniTableRenderPolicy.Helper.renderRow(table, i, lineValue);
             }
@@ -332,7 +332,7 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
         for (int i = 1; i < col / 2; i++) {
             str[str.length - i] = value[value.length - i];
         }
-        RowRenderData lineValue = this.build(cellStyle, str);
+        RowRenderData lineValue = this.build(str, cellStyle);
         lineValue.setRowStyle(tableStyle);
         MiniTableRenderPolicy.Helper.renderRow(table, row - 1, lineValue);
     }
@@ -388,11 +388,11 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
     }
 
     // 根据 String[] 构建一行的数据，同一行使用一个 Style
-    public RowRenderData build(Style style, String... cellStr) {
+    public RowRenderData build(String[] cellStr, Style style) {
         List<TextRenderData> data = new ArrayList<>();
         if (null != cellStr) {
-            for (String col : cellStr) {
-                data.add(new TextRenderData(col, style));
+            for (String s : cellStr) {
+                data.add(new TextRenderData(s, style));
             }
         }
         return new RowRenderData(data, null);

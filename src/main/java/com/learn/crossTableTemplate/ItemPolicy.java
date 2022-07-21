@@ -103,7 +103,7 @@ public class ItemPolicy extends AbstractRenderPolicy<Object> {
 
         // 构建第二行
         Style cellStyle = this.getCellStyle();
-        RowRenderData header1 = this.build(cellStyle, strHeader1);
+        RowRenderData header1 = this.build(strHeader1, cellStyle);
 
         // 垂直合并
         for (int i = col - 1; i >= 0; i--) {
@@ -147,18 +147,18 @@ public class ItemPolicy extends AbstractRenderPolicy<Object> {
                 str[j] = value[index];
                 index++;
             }
-            RowRenderData lineValue = this.build(cellStyle, str);
+            RowRenderData lineValue = this.build(str, cellStyle);
             lineValue.setRowStyle(tableStyle);
             MiniTableRenderPolicy.Helper.renderRow(table, i, lineValue);
         }
     }
 
     // 根据 String[] 构建一行的数据，同一行使用一个 Style
-    public RowRenderData build(Style style, String... cellStr) {
+    public RowRenderData build(String[] cellStr, Style style) {
         List<TextRenderData> data = new ArrayList<>();
         if (null != cellStr) {
-            for (String col : cellStr) {
-                data.add(new TextRenderData(col, style));
+            for (String s : cellStr) {
+                data.add(new TextRenderData(s, style));
             }
         }
         return new RowRenderData(data, null);
