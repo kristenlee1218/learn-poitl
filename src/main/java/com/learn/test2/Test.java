@@ -15,13 +15,13 @@ import java.util.HashMap;
  */
 public class Test {
     public static void main(String[] args) throws IOException {
-        //准备数据
+        // 准备数据
         ConfigureBuilder builder = Configure.newBuilder();
-        //编译模板
+        // 编译模板
         Configure configure = builder.build();
         HashMap<String, Object> data = new HashMap<String, Object>() {
             {
-                // 构建table
+                // 构建 table
                 TestPolicy testPolicy = new TestPolicy();
                 builder.bind("table", testPolicy);
             }
