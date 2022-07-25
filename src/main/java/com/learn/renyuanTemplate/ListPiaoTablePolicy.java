@@ -51,6 +51,7 @@ public class ListPiaoTablePolicy extends AbstractRenderPolicy<Object> {
         this.setTableStyle(table);
         this.setTableTitle(table);
         this.setTableHeader(table);
+        this.setTableCellData(table);
     }
 
     // 整个 table 的样式在此设置
@@ -86,6 +87,20 @@ public class ListPiaoTablePolicy extends AbstractRenderPolicy<Object> {
         MiniTableRenderPolicy.Helper.renderRow(table, 0, header0);
     }
 
+    // 设置行数据
+    public void setTableCellData(XWPFTable table) {
+        for (int i = 0; i < data.length; i++) {
+            String[] str = new String[col];
+            str[0] = String.valueOf(i + 1);
+            System.arraycopy(data[i], 0, str, 1, data[i].length);
+            Style style = this.getDataCellStyle();
+            RowRenderData dataRow = this.build(str, style);
+            TableStyle tableStyle = this.getTableStyle();
+            dataRow.setRowStyle(tableStyle);
+            MiniTableRenderPolicy.Helper.renderRow(table, i + 3, dataRow);
+        }
+    }
+
     public void setTableHeader(XWPFTable table) {
         // 构建第二行的数组、并垂直合并与水平合并
         String[] strHeader1 = new String[3 + voteType.length + 1];
@@ -94,42 +109,41 @@ public class ListPiaoTablePolicy extends AbstractRenderPolicy<Object> {
         strHeader1[2] = "职务";
         strHeader1[strHeader1.length - 1] = "全体";
 
-        int start = 3;
-        // 水平合并 group 的名字
-        for (int i = 0; i < voteType.length; i++) {
-            TableTools.mergeCellsHorizonal(table, 1, start, start++);
-            start++;
+        int index = 3;
+        int start = index;
+        // 水平合并 voteType 的名字
+        for (int i = 0; i < voteType.length + 1; i++) {
+            TableTools.mergeCellsHorizonal(table, 1, start, ++start);
         }
 
-        for (int i = 0; i < voteType.length; i++) {
-            strHeader1[i + 3] = voteType[i];
-            //TableTools.mergeCellsVertically(table, i, 1, 2);
+        System.arraycopy(voteType, 0, strHeader1, 3, voteType.length);
+        for (int i = 0; i < index; i++) {
+            TableTools.mergeCellsVertically(table, i, 1, 2);
         }
 
         // 构建第三行的数组
-//        String[] strHeader2 = new String[col];
-//        int index = 5;
-//        for (String[] str : items) {
-//            strHeader2[index] = "小计";
-//            for (String s : str) {
-//                strHeader2[++index] = s;
-//            }
-//            index++;
-//        }
+        String[] strHeader2 = new String[col];
+        for (int i = 0; i < (voteType.length + 1) * 2; i++) {
+            if (i % 2 == 0) {
+                strHeader2[index + i] = "得分";
+            } else {
+                strHeader2[index + i] = "排名";
+            }
+        }
 
         // 构建第二、三行
         Style style = this.getCellStyle();
-        RowRenderData header1 = this.build(style, strHeader1);
-        // RowRenderData header2 = this.build(style, strHeader2);
+        RowRenderData header1 = this.build(strHeader1, style);
+        RowRenderData header2 = this.build(strHeader2, style);
         TableStyle tableStyle = this.getTableStyle();
         header1.setRowStyle(tableStyle);
-        // header2.setRowStyle(tableStyle);
+        header2.setRowStyle(tableStyle);
         MiniTableRenderPolicy.Helper.renderRow(table, 1, header1);
-        //MiniTableRenderPolicy.Helper.renderRow(table, 2, header2);
+        MiniTableRenderPolicy.Helper.renderRow(table, 2, header2);
     }
 
     // 根据 String[] 构建一行的数据，同一行使用一个 Style
-    public RowRenderData build(Style style, String... cellStr) {
+    public RowRenderData build(String[] cellStr, Style style) {
         List<TextRenderData> data = new ArrayList<>();
         if (null != cellStr) {
             for (String s : cellStr) {
