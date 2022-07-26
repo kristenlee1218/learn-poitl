@@ -51,7 +51,8 @@ public class ListPiaoTablePolicy extends AbstractRenderPolicy<Object> {
         this.setTableStyle(table);
         this.setTableTitle(table);
         this.setTableHeader(table);
-        this.setTableCellData(table);
+        //this.setTableCellData(table);
+        this.setTableCellTag(table);
     }
 
     // 整个 table 的样式在此设置
@@ -85,20 +86,6 @@ public class ListPiaoTablePolicy extends AbstractRenderPolicy<Object> {
         header0.setRowStyle(tableStyle);
         TableTools.mergeCellsHorizonal(table, 0, 0, col - 1);
         MiniTableRenderPolicy.Helper.renderRow(table, 0, header0);
-    }
-
-    // 设置行数据
-    public void setTableCellData(XWPFTable table) {
-        for (int i = 0; i < data.length; i++) {
-            String[] str = new String[col];
-            str[0] = String.valueOf(i + 1);
-            System.arraycopy(data[i], 0, str, 1, data[i].length);
-            Style style = this.getDataCellStyle();
-            RowRenderData dataRow = this.build(str, style);
-            TableStyle tableStyle = this.getTableStyle();
-            dataRow.setRowStyle(tableStyle);
-            MiniTableRenderPolicy.Helper.renderRow(table, i + 3, dataRow);
-        }
     }
 
     public void setTableHeader(XWPFTable table) {
@@ -140,6 +127,45 @@ public class ListPiaoTablePolicy extends AbstractRenderPolicy<Object> {
         header2.setRowStyle(tableStyle);
         MiniTableRenderPolicy.Helper.renderRow(table, 1, header1);
         MiniTableRenderPolicy.Helper.renderRow(table, 2, header2);
+    }
+
+    // 设置数据行的标签
+    public void setTableCellTag(XWPFTable table) {
+        for (int k = 0; k < data.length; k++) {
+            String[] str = new String[col];
+            str[0] = "{{sequence_" + k + "}}";
+            str[1] = "{{leadername_" + k + "}}";
+            str[2] = "{{post_" + k + "}}";
+
+            int index = 3;
+            for (String s : voteType) {
+                str[index] = "{{avg_votertype_" + s + "_" + k + "}}";
+                int pos = index;
+                str[++index] = "{{sort_" + pos + "_" + k + "}}";
+                index++;
+            }
+            str[str.length - 2] = "{{avg_" + k + "}}";
+            str[str.length - 1] = "{{sort_" + (str.length - 2) + "_" + k + "}}";
+            Style style = this.getDataCellStyle();
+            RowRenderData row = this.build(str, style);
+            TableStyle tableStyle = this.getTableStyle();
+            row.setRowStyle(tableStyle);
+            MiniTableRenderPolicy.Helper.renderRow(table, k + 3, row);
+        }
+    }
+
+    // 设置行数据
+    public void setTableCellData(XWPFTable table) {
+        for (int i = 0; i < data.length; i++) {
+            String[] str = new String[col];
+            str[0] = String.valueOf(i + 1);
+            System.arraycopy(data[i], 0, str, 1, data[i].length);
+            Style style = this.getDataCellStyle();
+            RowRenderData dataRow = this.build(str, style);
+            TableStyle tableStyle = this.getTableStyle();
+            dataRow.setRowStyle(tableStyle);
+            MiniTableRenderPolicy.Helper.renderRow(table, i + 3, dataRow);
+        }
     }
 
     // 根据 String[] 构建一行的数据，同一行使用一个 Style

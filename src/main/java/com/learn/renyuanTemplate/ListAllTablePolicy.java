@@ -26,7 +26,7 @@ public class ListAllTablePolicy extends AbstractRenderPolicy<Object> {
     //第一种测试情况（信息中心_2020年第1批综合测评统计报表(1655863588387)）(14)
     public static String[] group = new String[]{"对党忠诚", "勇于创新", "治企有方", "兴企有为", "清正廉洁"};
     public static String[][] items = new String[][]{{"政治品质", "政治本领"}, {"创新精神", "创新成果"}, {"经营管理能力", "抓党建强党建能力"}, {"担当作为", "履职绩效"}, {"一岗双责", "廉洁从业"}};
-    public static String[][] data = new String[][]{{"刘备", "董事长", "80.00", "1", "78.96", "75.69", "74.98", "73.69", "80.56", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}, {"关羽", "总经理", "79.00", "2", "78.86", "75.77", "74.39", "73.28", "80.46", "83.46", "89.82", "74.99", "78.26", "85.99", "82.33", "78.93", "84.41", "91.29", "73.48"}};
+    public static String[][] data = new String[][]{{"刘备", "董事长", "80.00", "1", "78.96", "75.69", "74.98", "73.69", "80.56", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}, {"关羽", "总经理", "79.00", "2", "78.86", "75.77", "74.39", "73.28", "80.46", "83.46", "89.82", "74.99", "78.26", "85.99", "82.33", "78.93", "84.41", "91.29", "73.48"}, {"刘备", "董事长", "80.00", "1", "78.96", "75.69", "74.98", "73.69", "80.56", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}, {"刘备", "董事长", "80.00", "1", "78.96", "75.69", "74.98", "73.69", "80.56", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}, {"刘备", "董事长", "80.00", "1", "78.96", "75.69", "74.98", "73.69", "80.56", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}, {"刘备", "董事长", "80.00", "1", "78.96", "75.69", "74.98", "73.69", "80.56", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}, {"刘备", "董事长", "80.00", "1", "78.96", "75.69", "74.98", "73.69", "80.56", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}, {"刘备", "董事长", "80.00", "1", "78.96", "75.69", "74.98", "73.69", "80.56", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}, {"刘备", "董事长", "80.00", "1", "78.96", "75.69", "74.98", "73.69", "80.56", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}, {"刘备", "董事长", "80.00", "1", "78.96", "75.69", "74.98", "73.69", "80.56", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}};
     public static String[] item = new String[]{""};
 
     // 第二种测试情况（河北建投二级单位_2022年第1批综合考核评价统计报表(1653979325662)）
@@ -65,8 +65,8 @@ public class ListAllTablePolicy extends AbstractRenderPolicy<Object> {
         this.setTableStyle(table);
         this.setTableTitle(table);
         this.setTableHeader(table);
-        this.setTableCellData(table);
-        //this.setTableCellTag(table);
+        //this.setTableCellData(table);
+        this.setTableCellTag(table);
     }
 
     // 整个 table 的样式在此设置
@@ -171,48 +171,48 @@ public class ListAllTablePolicy extends AbstractRenderPolicy<Object> {
     }
 
     // 设置行数据
-    public void setTableCellData(XWPFTable table) {
-        for (int i = 0; i < data.length; i++) {
-            String[] str = new String[col];
-            str[0] = String.valueOf(i + 1);
-            System.arraycopy(data[i], 0, str, 1, data[i].length);
-            Style style = this.getDataCellStyle();
-            RowRenderData dataRow = this.build(style, str);
-            TableStyle tableStyle = this.getTableStyle();
-            dataRow.setRowStyle(tableStyle);
-            MiniTableRenderPolicy.Helper.renderRow(table, i + 3, dataRow);
-        }
-    }
-
-//    // 设置数据行的标签
-//    public void setTableCellTag(XWPFTable table) {
-//        String[] str = new String[col];
-//        str[0] = "{{sequence}}";
-//        str[1] = "{{leadername}}";
-//        str[2] = "{{post}}";
-//        str[3] = "{{avg}}";
-//        str[4] = "{{sort@avg}}";
-//
-//        int index = 5;
-//        for (int i = 0; i < item.length; i++) {
-//            str[index] = "{{avg#group0" + (i + 1) + "}}";
-//            for (int j = 0; j < item[i].length; j++) {
-//                if (index - 5 - i < 9) {
-//                    str[++index] = "{{avg#leader0" + (index - 5 - i) + "}}";
-//                } else {
-//                    str[++index] = "{{avg#leader" + (index - 5 - i) + "}}";
-//                }
-//            }
-//            index++;
-//        }
-//        Style style = this.getDataCellStyle();
-//        RowRenderData row = this.build(style, str);
-//        TableStyle tableStyle = this.getTableStyle();
-//        row.setRowStyle(tableStyle);
-//        for (int i = 0; i < list.size(); i++) {
-//            MiniTableRenderPolicy.Helper.renderRow(table, i + 3, row);
+//    public void setTableCellData(XWPFTable table) {
+//        for (int i = 0; i < data.length; i++) {
+//            String[] str = new String[col];
+//            str[0] = String.valueOf(i + 1);
+//            System.arraycopy(data[i], 0, str, 1, data[i].length);
+//            Style style = this.getDataCellStyle();
+//            RowRenderData dataRow = this.build(style, str);
+//            TableStyle tableStyle = this.getTableStyle();
+//            dataRow.setRowStyle(tableStyle);
+//            MiniTableRenderPolicy.Helper.renderRow(table, i + 3, dataRow);
 //        }
 //    }
+
+    // 设置数据行的标签
+    public void setTableCellTag(XWPFTable table) {
+        for (int k = 0; k < data.length; k++) {
+            String[] str = new String[col];
+            str[0] = "{{sequence_" + k + "}}";
+            str[1] = "{{leadername_" + k + "}}";
+            str[2] = "{{post_" + k + "}}";
+            str[3] = "{{avg_" + k + "}}";
+            str[4] = "{{sort_avg_" + k + "}}";
+
+            int index = 5;
+            for (int i = 0; i < items.length; i++) {
+                str[index] = "{{avg_group0" + (i + 1) + "_" + k + "}}";
+                for (int j = 0; j < items[i].length; j++) {
+                    if (index - 5 - i < 9) {
+                        str[++index] = "{{avg_leader0" + (index - 5 - i) + "_" + k + "}}";
+                    } else {
+                        str[++index] = "{{avg_leader" + (index - 5 - i) + "_" + k + "}}";
+                    }
+                }
+                index++;
+            }
+            Style style = this.getDataCellStyle();
+            RowRenderData row = this.build(style, str);
+            TableStyle tableStyle = this.getTableStyle();
+            row.setRowStyle(tableStyle);
+            MiniTableRenderPolicy.Helper.renderRow(table, k + 3, row);
+        }
+    }
 
     // 计算所有分组的项的个数
     public int countCol(String[][] str) {
