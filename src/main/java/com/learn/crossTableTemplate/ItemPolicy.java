@@ -28,8 +28,6 @@ public class ItemPolicy extends AbstractRenderPolicy<Object> {
     public static String[] item = new String[]{"政治方向", "社会责任", "企业党建", "科学管理", "发扬民主", "整体合力", "诚信合力", "联系群众", "廉洁自律", "工作部署"};
     public static String[] voteType = new String[]{"A票", "B票"};
     public static String[] value = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33"};
-    public static int year = 2022;
-    public static String depart = "信息中心";
 
     // 计算行
     int row = item.length + 4;
