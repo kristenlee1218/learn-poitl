@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class ListPiaoTablePolicy extends AbstractRenderPolicy<Object> {
 
-    String[] voteType = new String[]{"A1", "A2", "A3", "B", "C"};
+    public static String[] voteType = new String[]{"A1", "A2", "A3", "B", "C"};
     public static String[][] data = new String[][]{{"刘备", "董事长", "80.00", "1", "78.96", "1", "74.98", "1", "80.56", "1", "89.22", "1", "78.25", "1"}, {"关羽", "总经理", "80.00", "2", "78.96", "2", "74.98", "2", "80.56", "2", "89.22", "2", "78.25", "2"}, {"刘备", "董事长", "80.00", "1", "78.96", "1", "74.98", "1", "80.56", "1", "89.22", "1", "78.25", "1"}, {"关羽", "总经理", "80.00", "2", "78.96", "2", "74.98", "2", "80.56", "2", "89.22", "2", "78.25", "2"}, {"刘备", "董事长", "80.00", "1", "78.96", "1", "74.98", "1", "80.56", "1", "89.22", "1", "78.25", "1"}, {"关羽", "总经理", "80.00", "2", "78.96", "2", "74.98", "2", "80.56", "2", "89.22", "2", "78.25", "2"}, {"刘备", "董事长", "80.00", "1", "78.96", "1", "74.98", "1", "80.56", "1", "89.22", "1", "78.25", "1"}, {"关羽", "总经理", "80.00", "2", "78.96", "2", "74.98", "2", "80.56", "2", "89.22", "2", "78.25", "2"}, {"刘备", "董事长", "80.00", "1", "78.96", "1", "74.98", "1", "80.56", "1", "89.22", "1", "78.25", "1"}, {"关羽", "总经理", "80.00", "2", "78.96", "2", "74.98", "2", "80.56", "2", "89.22", "2", "78.25", "2"}};
 
     // 计算行和列
@@ -139,13 +139,12 @@ public class ListPiaoTablePolicy extends AbstractRenderPolicy<Object> {
 
             int index = 3;
             for (String s : voteType) {
-                str[index] = "{{avg_votertype_" + s + "_" + k + "}}";
-                int pos = index;
-                str[++index] = "{{sort_" + pos + "_" + k + "}}";
+                str[index] = "{{avg_" + s + "_" + k + "}}";
+                str[++index] = "{{sort_avg_" + s + "_" + k + "}}";
                 index++;
             }
             str[str.length - 2] = "{{avg_" + k + "}}";
-            str[str.length - 1] = "{{sort_" + (str.length - 2) + "_" + k + "}}";
+            str[str.length - 1] = "{{sort_avg_" + k + "}}";
             Style style = this.getDataCellStyle();
             RowRenderData row = this.build(str, style);
             TableStyle tableStyle = this.getTableStyle();
