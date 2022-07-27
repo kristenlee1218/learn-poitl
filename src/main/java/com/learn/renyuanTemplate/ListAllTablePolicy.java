@@ -192,8 +192,8 @@ public class ListAllTablePolicy extends AbstractRenderPolicy<Object> {
             str[2] = "{{post_" + k + "}}";
             str[3] = "{{avg_" + k + "}}";
             str[4] = "{{sort_avg_" + k + "}}";
+            
             int index = 5;
-
             if (group.length > 0) {
                 for (int i = 0; i < items.length; i++) {
                     str[index] = "{{avg_group0" + (i + 1) + "_" + k + "}}";
