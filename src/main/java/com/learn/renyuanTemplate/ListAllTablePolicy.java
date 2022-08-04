@@ -24,16 +24,16 @@ import java.util.*;
 public class ListAllTablePolicy extends AbstractRenderPolicy<Object> {
 
     //第一种测试情况（信息中心_2020年第1批综合测评统计报表(1655863588387)）(14)
-//    public static String[] group = new String[]{"对党忠诚", "勇于创新", "治企有方", "兴企有为", "清正廉洁"};
-//    public static String[][] items = new String[][]{{"政治品质", "政治本领"}, {"创新精神", "创新成果"}, {"经营管理能力", "抓党建强党建能力"}, {"担当作为", "履职绩效"}, {"一岗双责", "廉洁从业"}};
-//    public static String[][] data = new String[][]{{"刘备", "董事长", "80.00", "1", "78.96", "75.69", "74.98", "73.69", "80.56", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}, {"关羽", "总经理", "79.00", "2", "78.86", "75.77", "74.39", "73.28", "80.46", "83.46", "89.82", "74.99", "78.26", "85.99", "82.33", "78.93", "84.41", "91.29", "73.48"}, {"刘备", "董事长", "80.00", "1", "78.96", "75.69", "74.98", "73.69", "80.56", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}, {"刘备", "董事长", "80.00", "1", "78.96", "75.69", "74.98", "73.69", "80.56", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}, {"刘备", "董事长", "80.00", "1", "78.96", "75.69", "74.98", "73.69", "80.56", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}, {"刘备", "董事长", "80.00", "1", "78.96", "75.69", "74.98", "73.69", "80.56", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}, {"刘备", "董事长", "80.00", "1", "78.96", "75.69", "74.98", "73.69", "80.56", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}, {"刘备", "董事长", "80.00", "1", "78.96", "75.69", "74.98", "73.69", "80.56", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}, {"刘备", "董事长", "80.00", "1", "78.96", "75.69", "74.98", "73.69", "80.56", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}, {"刘备", "董事长", "80.00", "1", "78.96", "75.69", "74.98", "73.69", "80.56", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}};
-//    public static String[] item = new String[]{};
+    public static String[] group = new String[]{"对党忠诚", "勇于创新", "治企有方", "兴企有为", "清正廉洁"};
+    public static String[][] items = new String[][]{{"政治品质", "政治本领"}, {"创新精神", "创新成果"}, {"经营管理能力", "抓党建强党建能力"}, {"担当作为", "履职绩效"}, {"一岗双责", "廉洁从业"}};
+    public static String[][] data = new String[][]{{"刘备", "董事长", "80.00", "1", "78.96", "75.69", "74.98", "73.69", "80.56", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}, {"关羽", "总经理", "79.00", "2", "78.86", "75.77", "74.39", "73.28", "80.46", "83.46", "89.82", "74.99", "78.26", "85.99", "82.33", "78.93", "84.41", "91.29", "73.48"}, {"刘备", "董事长", "80.00", "1", "78.96", "75.69", "74.98", "73.69", "80.56", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}, {"刘备", "董事长", "80.00", "1", "78.96", "75.69", "74.98", "73.69", "80.56", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}, {"刘备", "董事长", "80.00", "1", "78.96", "75.69", "74.98", "73.69", "80.56", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}, {"刘备", "董事长", "80.00", "1", "78.96", "75.69", "74.98", "73.69", "80.56", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}, {"刘备", "董事长", "80.00", "1", "78.96", "75.69", "74.98", "73.69", "80.56", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}, {"刘备", "董事长", "80.00", "1", "78.96", "75.69", "74.98", "73.69", "80.56", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}, {"刘备", "董事长", "80.00", "1", "78.96", "75.69", "74.98", "73.69", "80.56", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}, {"刘备", "董事长", "80.00", "1", "78.96", "75.69", "74.98", "73.69", "80.56", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}};
+    public static String[] item = new String[]{};
 
     // 第二种测试情况（河北建投二级单位_2022年第1批综合考核评价统计报表(1653979325662)）
-    public static String[] group = new String[]{};
-    public static String[][] items = new String[][]{};
-    public static String[] item = new String[]{"政治品质", "政治本领", "创新精神", "创新成果", "经营管理能力", "抓党建强党建能力", "担当作为", "履职绩效", "一岗双责", "廉洁从业"};
-    public static String[][] data = new String[][]{{"刘备", "董事长", "80.00", "1", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}, {"关羽", "总经理", "79.00", "2", "83.46", "89.82", "74.99", "78.26", "85.99", "82.33", "78.93", "84.41", "91.29", "73.48"}};
+//    public static String[] group = new String[]{};
+//    public static String[][] items = new String[][]{};
+//    public static String[] item = new String[]{"政治品质", "政治本领", "创新精神", "创新成果", "经营管理能力", "抓党建强党建能力", "担当作为", "履职绩效", "一岗双责", "廉洁从业"};
+//    public static String[][] data = new String[][]{{"刘备", "董事长", "80.00", "1", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}, {"关羽", "总经理", "79.00", "2", "83.46", "89.82", "74.99", "78.26", "85.99", "82.33", "78.93", "84.41", "91.29", "73.48"}};
 
     // 计算行和列
     int col;
@@ -81,7 +81,7 @@ public class ListAllTablePolicy extends AbstractRenderPolicy<Object> {
                 tableRow.getCell(i).setWidth("500");
             }
         }
-        table.setCellMargins(2, 2, 2, 2);
+        table.setCellMargins(2, 10, 2, 10);
         table.setTableAlignment(TableRowAlign.CENTER);
     }
 
@@ -170,18 +170,18 @@ public class ListAllTablePolicy extends AbstractRenderPolicy<Object> {
     }
 
     // 设置行数据
-//    public void setTableCellData(XWPFTable table) {
-//        for (int i = 0; i < data.length; i++) {
-//            String[] str = new String[col];
-//            str[0] = String.valueOf(i + 1);
-//            System.arraycopy(data[i], 0, str, 1, data[i].length);
-//            Style style = this.getDataCellStyle();
-//            RowRenderData dataRow = this.build(style, str);
-//            TableStyle tableStyle = this.getTableStyle();
-//            dataRow.setRowStyle(tableStyle);
-//            MiniTableRenderPolicy.Helper.renderRow(table, i + 3, dataRow);
-//        }
-//    }
+    public void setTableCellData(XWPFTable table) {
+        for (int i = 0; i < data.length; i++) {
+            String[] str = new String[col];
+            str[0] = String.valueOf(i + 1);
+            System.arraycopy(data[i], 0, str, 1, data[i].length);
+            Style style = this.getDataCellStyle();
+            RowRenderData dataRow = this.build(str, style);
+            TableStyle tableStyle = this.getTableStyle();
+            dataRow.setRowStyle(tableStyle);
+            MiniTableRenderPolicy.Helper.renderRow(table, i + 3, dataRow);
+        }
+    }
 
     // 设置数据行的标签
     public void setTableCellTag(XWPFTable table) {
@@ -250,8 +250,8 @@ public class ListAllTablePolicy extends AbstractRenderPolicy<Object> {
     // 设置 cell 格样式
     public Style getCellStyle() {
         Style cellStyle = new Style();
-        cellStyle.setFontFamily("宋体");
-        cellStyle.setFontSize(10);
+        cellStyle.setFontFamily("仿宋");
+        cellStyle.setFontSize(12);
         cellStyle.setColor("000000");
         return cellStyle;
     }
@@ -266,8 +266,8 @@ public class ListAllTablePolicy extends AbstractRenderPolicy<Object> {
     // 设置 cell 格样式
     public Style getDataCellStyle() {
         Style cellStyle = new Style();
-        cellStyle.setFontFamily("宋体");
-        cellStyle.setFontSize(8);
+        cellStyle.setFontFamily("仿宋");
+        cellStyle.setFontSize(9);
         cellStyle.setColor("000000");
         return cellStyle;
     }
