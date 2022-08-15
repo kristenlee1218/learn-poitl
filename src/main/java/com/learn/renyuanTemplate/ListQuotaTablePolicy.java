@@ -130,7 +130,6 @@ public class ListQuotaTablePolicy extends AbstractRenderPolicy<Object> {
             // 构建第三行的数组
             String[] strHeader2 = new String[col];
             int index = 3 + config.length;
-            ;
             for (String[] str : items) {
                 strHeader2[index] = "小计";
                 for (String s : str) {
