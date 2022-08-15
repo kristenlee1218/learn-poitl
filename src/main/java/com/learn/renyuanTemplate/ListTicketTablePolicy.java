@@ -26,6 +26,7 @@ public class ListTicketTablePolicy extends AbstractRenderPolicy<Object> {
 
     public static String[] voteType = new String[]{"A1", "A2", "A3", "B", "C"};
     public static String[][] data = new String[][]{{"刘备", "董事长", "80.00", "1", "78.96", "1", "74.98", "1", "80.56", "1", "89.22", "1", "78.25", "1"}, {"关羽", "总经理", "80.00", "2", "78.96", "2", "74.98", "2", "80.56", "2", "89.22", "2", "78.25", "2"}, {"刘备", "董事长", "80.00", "1", "78.96", "1", "74.98", "1", "80.56", "1", "89.22", "1", "78.25", "1"}, {"关羽", "总经理", "80.00", "2", "78.96", "2", "74.98", "2", "80.56", "2", "89.22", "2", "78.25", "2"}, {"刘备", "董事长", "80.00", "1", "78.96", "1", "74.98", "1", "80.56", "1", "89.22", "1", "78.25", "1"}, {"关羽", "总经理", "80.00", "2", "78.96", "2", "74.98", "2", "80.56", "2", "89.22", "2", "78.25", "2"}, {"刘备", "董事长", "80.00", "1", "78.96", "1", "74.98", "1", "80.56", "1", "89.22", "1", "78.25", "1"}, {"关羽", "总经理", "80.00", "2", "78.96", "2", "74.98", "2", "80.56", "2", "89.22", "2", "78.25", "2"}, {"刘备", "董事长", "80.00", "1", "78.96", "1", "74.98", "1", "80.56", "1", "89.22", "1", "78.25", "1"}, {"关羽", "总经理", "80.00", "2", "78.96", "2", "74.98", "2", "80.56", "2", "89.22", "2", "78.25", "2"}};
+    public static String[] config = new String[]{"姓名", "现任职务"};
 
     // 计算行和列
     int col;
@@ -92,11 +93,10 @@ public class ListTicketTablePolicy extends AbstractRenderPolicy<Object> {
         // 构建第二行的数组、并垂直合并与水平合并
         String[] strHeader1 = new String[3 + voteType.length + 1];
         strHeader1[0] = "序号";
-        strHeader1[1] = "姓名";
-        strHeader1[2] = "职务";
+        System.arraycopy(config, 0, strHeader1, 1, config.length);
         strHeader1[strHeader1.length - 1] = "全体";
 
-        int index = 3;
+        int index = config.length + 1;
         int start = index;
         // 水平合并 voteType 的名字
         for (int i = 0; i < voteType.length + 1; i++) {
@@ -137,7 +137,7 @@ public class ListTicketTablePolicy extends AbstractRenderPolicy<Object> {
             str[1] = "{{leadername_" + k + "}}";
             str[2] = "{{post_" + k + "}}";
 
-            int index = 3;
+            int index = config.length + 1;
             for (String s : voteType) {
                 str[index] = "{{avg_" + s + "_" + k + "}}";
                 str[++index] = "{{sort_avg_" + s + "_" + k + "}}";
