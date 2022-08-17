@@ -55,9 +55,9 @@ public class ListQuotaTablePolicy extends AbstractRenderPolicy<Object> {
 
         // 计算行列
         if (group.length > 0) {
-            col = this.countCol(items) + 5;
+            col = this.countCol(items) + config.length + 3;
         } else {
-            col = item.length + 5;
+            col = item.length + config.length + 3;
         }
         row = data.length + 3;
 
@@ -107,13 +107,13 @@ public class ListQuotaTablePolicy extends AbstractRenderPolicy<Object> {
     public void setTableHeader(XWPFTable table) {
         if (group.length > 0) {
             // 构建第二行的数组、并垂直合并与水平合并
-            String[] strHeader1 = new String[3 + config.length + group.length];
+            String[] strHeader1 = new String[group.length + config.length + 3];
             strHeader1[0] = "序号";
             System.arraycopy(config, 0, strHeader1, 1, config.length);
             strHeader1[config.length + 1] = "汇总得分";
             strHeader1[config.length + 2] = "排名";
 
-            int start = 3 + config.length;
+            int start = config.length + 3;
             int end;
             // 水平合并 group 的名字
             for (String[] value : items) {
@@ -129,7 +129,7 @@ public class ListQuotaTablePolicy extends AbstractRenderPolicy<Object> {
 
             // 构建第三行的数组
             String[] strHeader2 = new String[col];
-            int index = 3 + config.length;
+            int index = config.length + 3;
             for (String[] str : items) {
                 strHeader2[index] = "小计";
                 for (String s : str) {
@@ -155,7 +155,7 @@ public class ListQuotaTablePolicy extends AbstractRenderPolicy<Object> {
             strHeader1[config.length + 1] = "汇总得分";
             strHeader1[config.length + 2] = "排名";
 
-            int index = 3 + config.length;
+            int index = config.length + 3;
             for (String s : item) {
                 strHeader1[index++] = s;
             }
@@ -171,18 +171,18 @@ public class ListQuotaTablePolicy extends AbstractRenderPolicy<Object> {
     }
 
     // 设置行数据
-    public void setTableCellData(XWPFTable table) {
-        for (int i = 0; i < data.length; i++) {
-            String[] str = new String[col];
-            str[0] = String.valueOf(i + 1);
-            System.arraycopy(data[i], 0, str, 1, data[i].length);
-            Style style = this.getDataCellStyle();
-            RowRenderData dataRow = this.build(str, style);
-            TableStyle tableStyle = this.getTableStyle();
-            dataRow.setRowStyle(tableStyle);
-            MiniTableRenderPolicy.Helper.renderRow(table, i + 3, dataRow);
-        }
-    }
+//    public void setTableCellData(XWPFTable table) {
+//        for (int i = 0; i < data.length; i++) {
+//            String[] str = new String[col];
+//            str[0] = String.valueOf(i + 1);
+//            System.arraycopy(data[i], 0, str, 1, data[i].length);
+//            Style style = this.getDataCellStyle();
+//            RowRenderData dataRow = this.build(str, style);
+//            TableStyle tableStyle = this.getTableStyle();
+//            dataRow.setRowStyle(tableStyle);
+//            MiniTableRenderPolicy.Helper.renderRow(table, i + 3, dataRow);
+//        }
+//    }
 
     // 设置数据行的标签
     public void setTableCellTag(XWPFTable table) {
@@ -194,7 +194,7 @@ public class ListQuotaTablePolicy extends AbstractRenderPolicy<Object> {
             str[3] = "{{avg_" + k + "}}";
             str[4] = "{{sort_avg_" + k + "}}";
 
-            int index = 3 + config.length;
+            int index = config.length + 3;
             if (group.length > 0) {
                 for (int i = 0; i < items.length; i++) {
                     str[index] = "{{avg_group0" + (i + 1) + "_" + k + "}}";

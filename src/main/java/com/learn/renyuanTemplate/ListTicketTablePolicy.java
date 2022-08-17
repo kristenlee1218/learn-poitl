@@ -44,7 +44,7 @@ public class ListTicketTablePolicy extends AbstractRenderPolicy<Object> {
         // 当前位置的容器
         BodyContainer bodyContainer = BodyContainerFactory.getBodyContainer(run);
         // 计算行列
-        col = (voteType.length + 1) * 2 + 3;
+        col = (voteType.length + 1) * 2 + config.length + 1;
         row = data.length + 3;
 
         // 当前位置插入表格
@@ -91,7 +91,7 @@ public class ListTicketTablePolicy extends AbstractRenderPolicy<Object> {
 
     public void setTableHeader(XWPFTable table) {
         // 构建第二行的数组、并垂直合并与水平合并
-        String[] strHeader1 = new String[3 + voteType.length + 1];
+        String[] strHeader1 = new String[voteType.length + config.length + 2];
         strHeader1[0] = "序号";
         System.arraycopy(config, 0, strHeader1, 1, config.length);
         strHeader1[strHeader1.length - 1] = "全体";
@@ -154,18 +154,18 @@ public class ListTicketTablePolicy extends AbstractRenderPolicy<Object> {
     }
 
     // 设置行数据
-    public void setTableCellData(XWPFTable table) {
-        for (int i = 0; i < data.length; i++) {
-            String[] str = new String[col];
-            str[0] = String.valueOf(i + 1);
-            System.arraycopy(data[i], 0, str, 1, data[i].length);
-            Style style = this.getDataCellStyle();
-            RowRenderData dataRow = this.build(str, style);
-            TableStyle tableStyle = this.getTableStyle();
-            dataRow.setRowStyle(tableStyle);
-            MiniTableRenderPolicy.Helper.renderRow(table, i + 3, dataRow);
-        }
-    }
+//    public void setTableCellData(XWPFTable table) {
+//        for (int i = 0; i < data.length; i++) {
+//            String[] str = new String[col];
+//            str[0] = String.valueOf(i + 1);
+//            System.arraycopy(data[i], 0, str, 1, data[i].length);
+//            Style style = this.getDataCellStyle();
+//            RowRenderData dataRow = this.build(str, style);
+//            TableStyle tableStyle = this.getTableStyle();
+//            dataRow.setRowStyle(tableStyle);
+//            MiniTableRenderPolicy.Helper.renderRow(table, i + 3, dataRow);
+//        }
+//    }
 
     // 根据 String[] 构建一行的数据，同一行使用一个 Style
     public RowRenderData build(String[] cellStr, Style style) {
