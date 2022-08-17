@@ -1,3 +1,4 @@
+///*
 //package com.learn.mzcp;
 //
 //import com.deepoove.poi.data.MiniTableRenderData;
@@ -25,11 +26,13 @@
 //
 //import java.util.*;
 //
+//*/
 ///**
 // * @author ：Kristen
 // * @date ：2022/6/22
 // * @description :
-// */
+// *//*
+//
 //public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
 //
 //    private VoteElement element;
@@ -134,7 +137,7 @@
 //        TableStyle style = new TableStyle();
 //        style.setAlign(STJc.CENTER);
 //        style.setBackgroundColor("DCDCDC");
-//        String title = "{{#title}}";
+//        String title = "{{title}}";
 //        RowRenderData header0 = RowRenderData.build(new TextRenderData(title, cellStyle));
 //        header0.setRowStyle(style);
 //        TableTools.mergeCellsHorizonal(table, 0, 0, col - 1);
@@ -570,4 +573,4 @@
 //    public void setSystem(VoteRuleSystem system) {
 //        this.system = system;
 //    }
-//}
+//}*/
