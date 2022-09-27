@@ -23,7 +23,7 @@ public class TestSelectPeoplePolicy2 {
             {
                 // 构建 table
                 SelectPeoplePolicy2 policy = new SelectPeoplePolicy2();
-//                builder.bind("table", policy);
+                builder.bind("table", policy);
             }
         };
 
