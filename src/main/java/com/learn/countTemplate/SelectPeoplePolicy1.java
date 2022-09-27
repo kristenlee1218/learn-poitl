@@ -20,13 +20,18 @@ import java.util.*;
  * @author ：Kristen
  * @date ：2022/9/26
  * @description : 选人用人1
- * 当两个题目的评分值均为 4:不了解:0;6:不好:0;8:一般:0;10:好:0、则将两个题合成一个 sheet
+ * 当两个题目的评分值均为 4:不了解:0;6:不好:0;8:一般:0;10:好:0、则将两个题合成一个表格
+ * <p>
+ * 如果两个题目的评分值不一致、则模版需要写两个问题的标记、两个问题分别调用本 policy，则会生成两个表格
  */
 public class SelectPeoplePolicy1 extends AbstractRenderPolicy<Object> {
 
-    public static String[] voteType = new String[]{"A1/A2", "A3", "B", "C"};
-    public static String option = "4:不了解:0;6:不好:0;8:一般:0;10:好:0";
-    public static String[] question = new String[]{"1、对本单位选人用人工作的总体评价", "2、对本单位从严管理监督干部情况的评价"};
+//    public static String[] voteType = new String[]{"A1/A2", "A3", "B", "C"};
+//    public static String option = "4:不了解:0;6:不好:0;8:一般:0;10:好:0";
+//    public static String[] question = new String[]{"1、对本单位选人用人工作的总体评价", "2、对本单位从严管理监督干部情况的评价"};
+    public static String[] voteType = new String[]{"A1", "A2", "A3", "B", "C"};
+    public static String option = "2:极差:0;4:不了解:0;6:不好:0;8:一般:0;10:好:0";
+    public static String[] question = new String[]{"1、对本单位从严管理监督干部情况的评价"};
 
     // 计算行和列
     int col;
@@ -114,7 +119,7 @@ public class SelectPeoplePolicy1 extends AbstractRenderPolicy<Object> {
         TableTools.mergeCellsHorizonal(table, 1, startHeader1, startHeader1 + 2 * optionMap.size() - 1);
 
         // 第2行值的数组
-        String[] strHeader2 = new String[(voteType.length + 1) * 4 + 1];
+        String[] strHeader2 = new String[(voteType.length + 1) * optionMap.size() + 1];
         int header2Index = 1;
         for (int i = 0; i < voteType.length + 1; i++) {
             for (int j = 0; j < optionMap.keySet().toArray().length; j++) {
@@ -123,7 +128,7 @@ public class SelectPeoplePolicy1 extends AbstractRenderPolicy<Object> {
         }
 
         // 第2行水平合并单元格 合计部分
-        int startHeader2 = voteType.length * 4 + 1;
+        int startHeader2 = voteType.length * optionMap.size() + 1;
         for (int i = 0; i < optionMap.size(); i++) {
             TableTools.mergeCellsHorizonal(table, 2, startHeader2, startHeader2 + 1);
             startHeader2++;
@@ -131,16 +136,24 @@ public class SelectPeoplePolicy1 extends AbstractRenderPolicy<Object> {
 
         // 第3行值的数组 票种部分
         String[] strHeader3 = new String[col - 1];
-        for (int i = 0; i < voteType.length * 4; i++) {
+        for (int i = 0; i < voteType.length * optionMap.size(); i++) {
             strHeader3[i + 1] = "得票";
         }
 
         // 第3行值的数组 合计部分
-        for (int i = voteType.length * 4 + 1; i < strHeader3.length; i++) {
-            if (i % 2 == 0) {
-                strHeader3[i] = "比例";
+        for (int i = voteType.length * optionMap.size() + 1; i < strHeader3.length; i++) {
+            if ((voteType.length * optionMap.size()) % 2 == 0) {
+                if (i % 2 == 0) {
+                    strHeader3[i] = "比例";
+                } else {
+                    strHeader3[i] = "得票";
+                }
             } else {
-                strHeader3[i] = "得票";
+                if (i % 2 == 0) {
+                    strHeader3[i] = "得票";
+                } else {
+                    strHeader3[i] = "比例";
+                }
             }
         }
 
@@ -169,7 +182,7 @@ public class SelectPeoplePolicy1 extends AbstractRenderPolicy<Object> {
         }
     }
 
-    // 将题目的选项 “4:不了解:0;6:不好:0;8:一般:0;10:好:0” 存入 map，key 为显示的值，value 为分值
+    // 将题目的选项 如：“4:不了解:0;6:不好:0;8:一般:0;10:好:0” 存入 map，key 为显示的值，value 为分值
     public LinkedHashMap<String, Integer> splitOption(String option) {
         LinkedHashMap<String, Integer> optionMap = new LinkedHashMap<>();
         String[] strArray = option.replaceAll(":0", "").split(";");
