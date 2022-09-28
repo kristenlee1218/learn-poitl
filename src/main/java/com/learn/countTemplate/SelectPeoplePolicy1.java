@@ -174,10 +174,10 @@ public class SelectPeoplePolicy1 extends AbstractRenderPolicy<Object> {
 
     // 设置第1列
     public void setTableQuestion(XWPFTable table) {
-        Style cellStyle = this.getCellStyle();
+        Style cellDataStyle = this.getDataCellStyle();
         TableStyle tableStyle = this.getTableStyle();
         for (int i = 0; i < question.length; i++) {
-            RowRenderData questionData = RowRenderData.build(new TextRenderData(question[i], cellStyle));
+            RowRenderData questionData = RowRenderData.build(new TextRenderData(question[i], cellDataStyle));
             questionData.setRowStyle(tableStyle);
             MiniTableRenderPolicy.Helper.renderRow(table, i + 4, questionData);
         }

@@ -23,7 +23,7 @@ public class TestNewLeaderPolicy {
             {
                 // 构建 table
                 NewLeaderPolicy policy = new NewLeaderPolicy();
-//                builder.bind("table", policy);
+                builder.bind("table", policy);
             }
         };
 
