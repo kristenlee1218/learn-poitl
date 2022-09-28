@@ -26,10 +26,10 @@ import java.util.*;
  */
 public class SelectPeoplePolicy1 extends AbstractRenderPolicy<Object> {
 
-    //    public static String[] voteType = new String[]{"A1/A2", "A3", "B", "C"};
-//    public static String option = "4:不了解:0;6:不好:0;8:一般:0;10:好:0";
+    public static String[] voteType = new String[]{"A1/A2", "A3", "B", "C"};
+    //    public static String option = "4:不了解:0;6:不好:0;8:一般:0;10:好:0";
 //    public static String[] question = new String[]{"1、对本单位选人用人工作的总体评价", "2、对本单位从严管理监督干部情况的评价"};
-    public static String[] voteType = new String[]{"A1", "A2", "A3", "B", "C"};
+    //public static String[] voteType = new String[]{"A1", "A2", "A3", "B", "C"};
     public static String option = "2:极差:0;4:不了解:0;6:不好:0;8:一般:0;10:好:0";
     public static String[] question = new String[]{"1、对本单位选人用人工作的总体评价"};
 
