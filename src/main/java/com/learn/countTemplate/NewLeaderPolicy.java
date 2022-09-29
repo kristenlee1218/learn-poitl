@@ -25,11 +25,14 @@ import java.util.List;
  */
 public class NewLeaderPolicy extends AbstractRenderPolicy<Object> {
 
-    public static String[] voteType = new String[]{"A1/A2", "A3", "B", "C"};
+    public static String[] voteType = new String[]{"A1", "A2", "A3", "B", "C"};
     public static String option = "4:不了解:0;6:不认同:0;8:基本认同:0;10:认同:0";
     public static String[] question = new String[]{"对提拔任用该干部的看法"};
-    public static String[] properties = new String[]{"序号", "姓名", "出生年月", "原任职务", "现任职务", "任职时间"};
+    public static String[] properties = new String[]{"序号", "姓名", "出生年月", "原任职务", "现任职务"};
     public static String[] data = new String[]{};
+
+    //public static String[] voteType = new String[]{"A1/A2", "A3", "B", "C"};
+    //public static String[] properties = new String[]{"序号", "姓名", "出生年月", "原任职务", "现任职务", "任职时间"};
 
     // 计算行和列
     int col;
@@ -158,7 +161,7 @@ public class NewLeaderPolicy extends AbstractRenderPolicy<Object> {
 
         // 第4行值的数组 合计部分
         for (int i = voteType.length * optionMap.size() + properties.length; i < strHeader4.length; i++) {
-            if ((voteType.length * optionMap.size()) % 2 == 0) {
+            if ((voteType.length * optionMap.size() + properties.length) % 2 == 0) {
                 if (i % 2 == 0) {
                     strHeader4[i] = "得票";
                 } else {
