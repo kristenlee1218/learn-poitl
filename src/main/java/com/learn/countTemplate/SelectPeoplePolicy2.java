@@ -21,6 +21,9 @@ import java.util.List;
  * @author ：Kristen
  * @date ：2022/9/26
  * @description : 选人用人 2
+ * ¤1¤2¤3¤5¤6¤7¤
+ *
+ * concat('¤',str_organ23,'¤') like '%¤6¤%'
  */
 public class SelectPeoplePolicy2 extends AbstractRenderPolicy<Object> {
 

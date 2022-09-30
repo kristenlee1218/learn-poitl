@@ -23,6 +23,10 @@ import java.util.*;
  * 当两个题目的评分值均为 4:不了解:0;6:不好:0;8:一般:0;10:好:0、则将两个题合成一个表格
  * <p>
  * 如果两个题目的评分值不一致、则模版需要写两个问题的标记、两个问题分别调用本 policy，则会生成两个表格
+ *
+ * ¤1¤2¤3¤5¤6¤7¤
+ *
+ * concat('¤',str_organ23,'¤') like '%¤6¤%'
  */
 public class SelectPeoplePolicy1 extends AbstractRenderPolicy<Object> {
 
