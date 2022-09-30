@@ -3,7 +3,6 @@ package com.learn.countTemplate;
 import com.deepoove.poi.XWPFTemplate;
 import com.deepoove.poi.config.Configure;
 import com.deepoove.poi.config.ConfigureBuilder;
-import com.learn.renyuanTemplate.ListQuotaTablePolicy;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
