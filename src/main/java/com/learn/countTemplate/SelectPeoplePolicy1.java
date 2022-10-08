@@ -23,19 +23,24 @@ import java.util.*;
  * 当两个题目的评分值均为 4:不了解:0;6:不好:0;8:一般:0;10:好:0、则将两个题合成一个表格
  * <p>
  * 如果两个题目的评分值不一致、则模版需要写两个问题的标记、两个问题分别调用本 policy，则会生成两个表格
- *
+ * <p>
  * ¤1¤2¤3¤5¤6¤7¤
- *
+ * <p>
  * concat('¤',str_organ23,'¤') like '%¤6¤%'
  */
 public class SelectPeoplePolicy1 extends AbstractRenderPolicy<Object> {
 
     public static String[] voteType = new String[]{"A1/A2", "A3", "B", "C"};
-    //    public static String option = "4:不了解:0;6:不好:0;8:一般:0;10:好:0";
-//    public static String[] question = new String[]{"1、对本单位选人用人工作的总体评价", "2、对本单位从严管理监督干部情况的评价"};
-    //public static String[] voteType = new String[]{"A1", "A2", "A3", "B", "C"};
-    public static String option = "2:极差:0;4:不了解:0;6:不好:0;8:一般:0;10:好:0";
-    public static String[] question = new String[]{"1、对本单位选人用人工作的总体评价"};
+    public static String option = "4:不了解:0;6:不好:0;8:一般:0;10:好:0";
+    public static String[] question = new String[]{"1、对本单位选人用人工作的总体评价", "2、对本单位从严管理监督干部情况的评价"};
+    public static String[] itemId = new String[]{"organ21", "organ22"};
+    public static String[][] data = new String[][]{{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25"},
+            {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25"}};
+
+    //    public sta tic String[] voteType = new String[]{"A1", "A2", "A3", "B", "C"};
+//    public static String option = "2:极差:0;4:不了解:0;6:不好:0;8:一般:0;10:好:0";
+//    public static String[] question = new String[]{"1、对本单位选人用人工作的总体评价"};
+//    public static String[] itemId = new String[]{"organ21"};
 
     // 计算行和列
     int col;
@@ -65,6 +70,7 @@ public class SelectPeoplePolicy1 extends AbstractRenderPolicy<Object> {
         this.setTableHeader(table);
         this.setTableQuestion(table);
         //this.setTableTag(table);
+        this.setTableData(table);
     }
 
     // 整个 table 的样式在此设置
@@ -178,12 +184,54 @@ public class SelectPeoplePolicy1 extends AbstractRenderPolicy<Object> {
 
     // 设置第1列
     public void setTableQuestion(XWPFTable table) {
-        Style cellDataStyle = this.getDataCellStyle();
+        Style cellStyle = this.getCellStyle();
         TableStyle tableStyle = this.getTableStyle();
         for (int i = 0; i < question.length; i++) {
-            RowRenderData questionData = RowRenderData.build(new TextRenderData(question[i], cellDataStyle));
+            RowRenderData questionData = RowRenderData.build(new TextRenderData(question[i], cellStyle));
             questionData.setRowStyle(tableStyle);
             MiniTableRenderPolicy.Helper.renderRow(table, i + 4, questionData);
+        }
+    }
+
+    public void setTableTag(XWPFTable table) {
+        for (int i = 0; i < question.length; i++) {
+            // 设置 tag（票种类型部分）
+            String[] strTag = new String[col];
+            int index = 1;
+            for (String s : voteType) {
+                for (int k = 0; k < optionMap.size(); k++) {
+                    strTag[index] = "count_" + itemId[i] + "_" + optionMap.values().toArray()[k].toString() + "__" + s.replaceAll("/", "_");
+                    index++;
+                }
+            }
+            // 设置 tag（合计部分）
+            for (int j = 0; j < optionMap.values().toArray().length; j++) {
+                strTag[index++] = "count_" + itemId[i] + "_" + optionMap.values().toArray()[j].toString() + "_";
+                strTag[index++] = "rate_" + itemId[i] + "_" + optionMap.values().toArray()[j].toString() + "_";
+
+            }
+            // 设置 tag（最后一行部分）
+            strTag[col - 1] = "rate_" + itemId[i] + "_7_";
+
+            // 构建
+            Style style = this.getCellStyle();
+            RowRenderData tag = this.build(strTag, style);
+            TableStyle tableStyle = this.getTableStyle();
+            tag.setRowStyle(tableStyle);
+            MiniTableRenderPolicy.Helper.renderRow(table, i + 4, tag);
+        }
+    }
+
+    public void setTableData(XWPFTable table) {
+        for (int i = 0; i < data.length; i++) {
+            String[] strData = new String[col];
+            System.arraycopy(data[i], 0, strData, 1, data[i].length);
+            // 构建
+            Style style = this.getCellStyle();
+            RowRenderData tag = this.build(strData, style);
+            TableStyle tableStyle = this.getTableStyle();
+            tag.setRowStyle(tableStyle);
+            MiniTableRenderPolicy.Helper.renderRow(table, i + 4, tag);
         }
     }
 
