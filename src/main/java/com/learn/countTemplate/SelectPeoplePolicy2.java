@@ -24,6 +24,8 @@ import java.util.List;
  * ¤1¤2¤3¤5¤6¤7¤
  *
  * concat('¤',str_organ23,'¤') like '%¤6¤%'
+ *
+ * sect#REPLACE(CONCAT(organ23,''),'10','')  like '%1%'#@A1;A2
  */
 public class SelectPeoplePolicy2 extends AbstractRenderPolicy<Object> {
 

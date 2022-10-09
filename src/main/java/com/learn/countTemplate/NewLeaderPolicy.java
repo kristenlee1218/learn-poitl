@@ -66,7 +66,7 @@ public class NewLeaderPolicy extends AbstractRenderPolicy<Object> {
         this.setTableStyle(table);
         this.setTableTitle(table);
         this.setTableHeader(table);
-        this.setTableTag(table);
+        //this.setTableTag(table);
         this.setTableData(table);
     }
 
