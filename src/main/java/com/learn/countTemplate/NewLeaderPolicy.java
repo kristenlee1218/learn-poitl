@@ -22,21 +22,24 @@ import java.util.List;
  * @author ：Kristen
  * @date ：2022/9/26
  * @description : 新提拔
- *
+ * 需要在每个 tag 之后加行号 _行号
+ * <p>
  * ¤1¤2¤3¤5¤6¤7¤
- * 
+ * <p>
  * concat('¤',str_organ23,'¤') like '%¤6¤%'
  */
 public class NewLeaderPolicy extends AbstractRenderPolicy<Object> {
 
-    public static String[] voteType = new String[]{"A1", "A2", "A3", "B", "C"};
+    //    public static String[] voteType = new String[]{"A1", "A2", "A3", "B", "C"};
+//    public static String[] properties = new String[]{"序号", "姓名", "出生年月", "原任职务", "现任职务"};
     public static String option = "4:不了解:0;6:不认同:0;8:基本认同:0;10:认同:0";
     public static String[] question = new String[]{"对提拔任用该干部的看法"};
-    public static String[] properties = new String[]{"序号", "姓名", "出生年月", "原任职务", "现任职务"};
-    public static String[] data = new String[]{};
+    public static String[][] data = new String[][]{{"1", "2", "3", "4", "5", "6", "7", "8", "9",
+            "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23",
+            "24", "25", "26", "27", "28", "29", "30", "31", "32"}};
 
-    //public static String[] voteType = new String[]{"A1/A2", "A3", "B", "C"};
-    //public static String[] properties = new String[]{"序号", "姓名", "出生年月", "原任职务", "现任职务", "任职时间"};
+    public static String[] voteType = new String[]{"A1/A2", "A3", "B", "C"};
+    public static String[] properties = new String[]{"序号", "姓名", "出生年月", "原任职务", "现任职务", "任职时间"};
 
     // 计算行和列
     int col;
@@ -63,7 +66,8 @@ public class NewLeaderPolicy extends AbstractRenderPolicy<Object> {
         this.setTableStyle(table);
         this.setTableTitle(table);
         this.setTableHeader(table);
-        //this.setTableTag(table);
+        this.setTableTag(table);
+        this.setTableData(table);
     }
 
     // 整个 table 的样式在此设置
@@ -198,6 +202,55 @@ public class NewLeaderPolicy extends AbstractRenderPolicy<Object> {
         MiniTableRenderPolicy.Helper.renderRow(table, 4, header4);
     }
 
+    // 设置标签
+    public void setTableTag(XWPFTable table) {
+        String[] strTag = new String[col];
+
+        // 设置 tag（人员基本情况部分）
+        strTag[0] = "sequence";
+        strTag[1] = "leadername";
+        strTag[2] = "leaderbirthday";
+        strTag[3] = "old_post";
+        strTag[4] = "post";
+        strTag[5] = "startdate";
+
+        // 设置 tag（票种部分）
+        int index = properties.length;
+        for (String s : voteType) {
+            for (int k = 0; k < optionMap.size(); k++) {
+                strTag[index] = "count_leader21_" + optionMap.values().toArray()[k].toString() + "__" + s.replaceAll("/", "_");
+                index++;
+            }
+        }
+
+        // 设置 tag（合计部分）
+        for (int j = 0; j < optionMap.values().toArray().length; j++) {
+            strTag[index++] = "count_leader21_" + optionMap.values().toArray()[j].toString() + "_";
+            strTag[index++] = "rate_leader21_" + optionMap.values().toArray()[j].toString() + "_";
+        }
+
+        // 设置 tag（最后一行部分）
+        strTag[col - 2] = "rate_leader21_7_";
+        strTag[col - 1] = "sort_" + (col - 2);
+
+        // 构建
+        Style style = this.getCellStyle();
+        RowRenderData tag = this.build(strTag, style);
+        TableStyle tableStyle = this.getTableStyle();
+        tag.setRowStyle(tableStyle);
+        MiniTableRenderPolicy.Helper.renderRow(table, 5, tag);
+    }
+
+    public void setTableData(XWPFTable table) {
+        String[] strTag = data[0];
+        // 构建
+        Style style = this.getCellStyle();
+        RowRenderData tag = this.build(strTag, style);
+        TableStyle tableStyle = this.getTableStyle();
+        tag.setRowStyle(tableStyle);
+        MiniTableRenderPolicy.Helper.renderRow(table, 5, tag);
+    }
+
     // 将题目的选项 如：“4:不了解:0;6:不认同:0;8:基本认同:0;10:认同:0” 存入 map，key 为显示的值，value 为分值
     public LinkedHashMap<String, Integer> splitOption(String option) {
         LinkedHashMap<String, Integer> optionMap = new LinkedHashMap<>();
@@ -224,7 +277,7 @@ public class NewLeaderPolicy extends AbstractRenderPolicy<Object> {
     public Style getCellStyle() {
         Style cellStyle = new Style();
         cellStyle.setFontFamily("宋体");
-        cellStyle.setFontSize(10);
+        cellStyle.setFontSize(12);
         cellStyle.setColor("000000");
         return cellStyle;
     }
