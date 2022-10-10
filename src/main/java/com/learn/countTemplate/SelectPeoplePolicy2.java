@@ -35,6 +35,7 @@ public class SelectPeoplePolicy2 extends AbstractRenderPolicy<Object> {
     public static String[] item = new String[]{"1、落实中央关于领导班子和干部队伍建设工作要求有差距", "2、选人用人把关不严、质量不高", "3、坚持事业为上不够，不能做到以事择人、人岗相适", "4、激励担当作为用人导向不鲜明，论资排辈情况严重", "5、选人用人“个人说了算”", "6、任人唯亲、拉帮结派", "7、跑官要官、买官卖官、说情打招呼", "8、执行干部选拔任用政策规定不严格", "9、干部队伍建设统筹谋划不够，结构不合理", "10、干部队伍能力素质不适应工作要求"};
     public static String option = "4:不了解:0;6:不好:0;8:一般:0;10:好:0";
     public static String[] data = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+    public static String[] itemId = new String[]{"organ23"};
 
     // 计算行和列
     int col;
@@ -172,10 +173,10 @@ public class SelectPeoplePolicy2 extends AbstractRenderPolicy<Object> {
             // 设置 tag（票种部分）
             int index = 1;
             for (int j = 0; j < optionMap.size(); j++) {
-                strTag[index++] = "sect#REPLACE(CONCAT(organ23,''),'" + optionMap.values().toArray()[j] + "','')  like '%" + (i - 3) + "% '#@" + voteType[j].replaceAll("/", "");
-                strTag[index++] = "sectrate#REPLACE(CONCAT(organ23,''),'" + optionMap.values().toArray()[j] + "','')  like '%" + (i - 3) + "% '#@" + voteType[j].replaceAll("/", "");
-                strTag[col - 2] = "sect#REPLACE(CONCAT(organ23,''),'" + optionMap.values().toArray()[j] + "','')  like '%" + (i - 3) + "% '#";
-                strTag[col - 1] = "sectrate#REPLACE(CONCAT(organ23,''),'" + optionMap.values().toArray()[j] + "','')  like '%" + (i - 3) + "% '#";
+                strTag[index++] = "{{sect#REPLACE(CONCAT(" + itemId[0] + ",''),'" + optionMap.values().toArray()[j] + "','')  like '%" + (i - 3) + "% '#@" + voteType[j].replaceAll("/", "") + "}}";
+                strTag[index++] = "{{sectrate#REPLACE(CONCAT(" + itemId[0] + ",''),'" + optionMap.values().toArray()[j] + "','')  like '%" + (i - 3) + "% '#@" + voteType[j].replaceAll("/", "") + "}}";
+                strTag[col - 2] = "{{sect#REPLACE(CONCAT(" + itemId[0] + ",''),'" + optionMap.values().toArray()[j] + "','')  like '%" + (i - 3) + "% '#}}";
+                strTag[col - 1] = "{{sectrate#REPLACE(CONCAT(" + itemId[0] + ",''),'" + optionMap.values().toArray()[j] + "','')  like '%" + (i - 3) + "% '#}}";
             }
             Style style = this.getCellStyle();
             RowRenderData tag = this.build(strTag, style);

@@ -200,18 +200,18 @@ public class SelectPeoplePolicy1 extends AbstractRenderPolicy<Object> {
             int index = 1;
             for (String s : voteType) {
                 for (int k = 0; k < optionMap.size(); k++) {
-                    strTag[index] = "count_" + itemId[i] + "_" + optionMap.values().toArray()[k].toString() + "__" + s.replaceAll("/", "_");
+                    strTag[index] = "{{count_" + itemId[i] + "_" + optionMap.values().toArray()[k].toString() + "__" + s.replaceAll("/", "_}}");
                     index++;
                 }
             }
             // 设置 tag（合计部分）
             for (int j = 0; j < optionMap.values().toArray().length; j++) {
-                strTag[index++] = "count_" + itemId[i] + "_" + optionMap.values().toArray()[j].toString() + "_";
-                strTag[index++] = "rate_" + itemId[i] + "_" + optionMap.values().toArray()[j].toString() + "_";
+                strTag[index++] = "{{count_" + itemId[i] + "_" + optionMap.values().toArray()[j].toString() + "_}}";
+                strTag[index++] = "{{rate_" + itemId[i] + "_" + optionMap.values().toArray()[j].toString() + "_}}";
             }
 
             // 设置 tag（最后一行部分）
-            strTag[col - 1] = "rate_" + itemId[i] + "_7_";
+            strTag[col - 1] = "{{rate_" + itemId[i] + "_7_}}";
 
             // 构建
             Style style = this.getCellStyle();

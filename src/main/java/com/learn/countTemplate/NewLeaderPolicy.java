@@ -207,31 +207,31 @@ public class NewLeaderPolicy extends AbstractRenderPolicy<Object> {
         String[] strTag = new String[col];
 
         // 设置 tag（人员基本情况部分）
-        strTag[0] = "sequence";
-        strTag[1] = "leadername";
-        strTag[2] = "leaderbirthday";
-        strTag[3] = "old_post";
-        strTag[4] = "post";
-        strTag[5] = "startdate";
+        strTag[0] = "{{sequence}}";
+        strTag[1] = "{{leadername}}";
+        strTag[2] = "{{leaderbirthday}}";
+        strTag[3] = "{{old_post}}";
+        strTag[4] = "{{post}}";
+        strTag[5] = "{{startdate}}";
 
         // 设置 tag（票种部分）
         int index = properties.length;
         for (String s : voteType) {
             for (int k = 0; k < optionMap.size(); k++) {
-                strTag[index] = "count_leader21_" + optionMap.values().toArray()[k].toString() + "__" + s.replaceAll("/", "_");
+                strTag[index] = "{{count_leader21_" + optionMap.values().toArray()[k].toString() + "__" + s.replaceAll("/", "_}}");
                 index++;
             }
         }
 
         // 设置 tag（合计部分）
         for (int j = 0; j < optionMap.values().toArray().length; j++) {
-            strTag[index++] = "count_leader21_" + optionMap.values().toArray()[j].toString() + "_";
-            strTag[index++] = "rate_leader21_" + optionMap.values().toArray()[j].toString() + "_";
+            strTag[index++] = "{{count_leader21_" + optionMap.values().toArray()[j].toString() + "_}}";
+            strTag[index++] = "{{rate_leader21_" + optionMap.values().toArray()[j].toString() + "_}}";
         }
 
         // 设置 tag（最后一行部分）
-        strTag[col - 2] = "rate_leader21_7_";
-        strTag[col - 1] = "sort_" + (col - 2);
+        strTag[col - 2] = "{{rate_leader21_7_}}";
+        strTag[col - 1] = "{{sort_}}" + (col - 2);
 
         // 构建
         Style style = this.getCellStyle();
