@@ -15,6 +15,7 @@ import org.apache.poi.xwpf.usermodel.*;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.STJc;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -22,24 +23,23 @@ import java.util.List;
  * @date ：2022/9/26
  * @description : 选人用人 2
  * ¤1¤2¤3¤5¤6¤7¤
- *
+ * <p>
  * concat('¤',str_organ23,'¤') like '%¤6¤%'
- *
+ * <p>
  * sect#REPLACE(CONCAT(organ23,''),'10','')  like '%1%'#@A1;A2
  */
 public class SelectPeoplePolicy2 extends AbstractRenderPolicy<Object> {
 
     public static String[] voteType = new String[]{"A1/A2", "A3", "B", "C"};
     public static String[] question = new String[]{"3、您认为本单位选人用人工作存在的主要问题是什么？（可多选）"};
-    public static String[] item = new String[]{"1、落实中央关于领导班子和干部队伍建设工作要求有差距",
-            "2、选人用人把关不严、质量不高", "3、坚持事业为上不够，不能做到以事择人、人岗相适",
-            "4、激励担当作为用人导向不鲜明，论资排辈情况严重", "5、选人用人“个人说了算”",
-            "6、任人唯亲、拉帮结派", "7、跑官要官、买官卖官、说情打招呼", "8、执行干部选拔任用政策规定不严格",
-            "9、干部队伍建设统筹谋划不够，结构不合理", "10、干部队伍能力素质不适应工作要求"};
+    public static String[] item = new String[]{"1、落实中央关于领导班子和干部队伍建设工作要求有差距", "2、选人用人把关不严、质量不高", "3、坚持事业为上不够，不能做到以事择人、人岗相适", "4、激励担当作为用人导向不鲜明，论资排辈情况严重", "5、选人用人“个人说了算”", "6、任人唯亲、拉帮结派", "7、跑官要官、买官卖官、说情打招呼", "8、执行干部选拔任用政策规定不严格", "9、干部队伍建设统筹谋划不够，结构不合理", "10、干部队伍能力素质不适应工作要求"};
+    public static String option = "4:不了解:0;6:不好:0;8:一般:0;10:好:0";
+    public static String[] data = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
 
     // 计算行和列
     int col;
     int row;
+    LinkedHashMap<String, Integer> optionMap;
 
     @Override
     public void afterRender(RenderContext<Object> renderContext) {
@@ -53,6 +53,7 @@ public class SelectPeoplePolicy2 extends AbstractRenderPolicy<Object> {
         // 当前位置的容器
         BodyContainer bodyContainer = BodyContainerFactory.getBodyContainer(run);
         // 计算行列
+        optionMap = this.splitOption(option);
         col = (voteType.length + 1) * 2 + 1;
         row = item.length + 4;
 
@@ -63,7 +64,8 @@ public class SelectPeoplePolicy2 extends AbstractRenderPolicy<Object> {
         this.setTableQuestion(table);
         this.setTableHeader(table);
         this.setTableItem(table);
-        //this.setTableTag(table);
+        // this.setTableTag(table);
+        this.setTableData(table);
     }
 
     // 整个 table 的样式在此设置
@@ -160,6 +162,51 @@ public class SelectPeoplePolicy2 extends AbstractRenderPolicy<Object> {
             itemData.setRowStyle(tableStyle);
             MiniTableRenderPolicy.Helper.renderRow(table, i + 4, itemData);
         }
+    }
+
+    // 设置标签
+    public void setTableTag(XWPFTable table) {
+        for (int i = 4; i < row; i++) {
+            String[] strTag = new String[col];
+
+            // 设置 tag（票种部分）
+            int index = 1;
+            for (int j = 0; j < optionMap.size(); j++) {
+                strTag[index++] = "sect#REPLACE(CONCAT(organ23,''),'" + optionMap.values().toArray()[j] + "','')  like '%" + (i - 3) + "% '#@" + voteType[j].replaceAll("/", "");
+                strTag[index++] = "sectrate#REPLACE(CONCAT(organ23,''),'" + optionMap.values().toArray()[j] + "','')  like '%" + (i - 3) + "% '#@" + voteType[j].replaceAll("/", "");
+                strTag[col - 2] = "sect#REPLACE(CONCAT(organ23,''),'" + optionMap.values().toArray()[j] + "','')  like '%" + (i - 3) + "% '#";
+                strTag[col - 1] = "sectrate#REPLACE(CONCAT(organ23,''),'" + optionMap.values().toArray()[j] + "','')  like '%" + (i - 3) + "% '#";
+            }
+            Style style = this.getCellStyle();
+            RowRenderData tag = this.build(strTag, style);
+            TableStyle tableStyle = this.getTableStyle();
+            tag.setRowStyle(tableStyle);
+            MiniTableRenderPolicy.Helper.renderRow(table, i, tag);
+        }
+    }
+
+    // 设置标签
+    public void setTableData(XWPFTable table) {
+        for (int i = 4; i < row; i++) {
+            String[] strTag = new String[col];
+            System.arraycopy(data, 0, strTag, 1, data.length);
+            Style style = this.getCellStyle();
+            RowRenderData tag = this.build(strTag, style);
+            TableStyle tableStyle = this.getTableStyle();
+            tag.setRowStyle(tableStyle);
+            MiniTableRenderPolicy.Helper.renderRow(table, i, tag);
+        }
+    }
+
+    // 将题目的选项 如：“4:不了解:0;6:不好:0;8:一般:0;10:好:0” 存入 map，key 为显示的值，value 为分值
+    public LinkedHashMap<String, Integer> splitOption(String option) {
+        LinkedHashMap<String, Integer> optionMap = new LinkedHashMap<>();
+        String[] strArray = option.replaceAll(":0", "").split(";");
+        for (int i = strArray.length - 1; i >= 0; i--) {
+            String[] str = strArray[i].split(":");
+            optionMap.put(str[1], Integer.valueOf(str[0]));
+        }
+        return optionMap;
     }
 
     // 根据 String[] 构建一行的数据，同一行使用一个 Style

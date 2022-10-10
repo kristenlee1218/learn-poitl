@@ -208,8 +208,8 @@ public class SelectPeoplePolicy1 extends AbstractRenderPolicy<Object> {
             for (int j = 0; j < optionMap.values().toArray().length; j++) {
                 strTag[index++] = "count_" + itemId[i] + "_" + optionMap.values().toArray()[j].toString() + "_";
                 strTag[index++] = "rate_" + itemId[i] + "_" + optionMap.values().toArray()[j].toString() + "_";
-
             }
+
             // 设置 tag（最后一行部分）
             strTag[col - 1] = "rate_" + itemId[i] + "_7_";
 
