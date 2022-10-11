@@ -65,8 +65,8 @@ public class SelectPeoplePolicy2 extends AbstractRenderPolicy<Object> {
         this.setTableQuestion(table);
         this.setTableHeader(table);
         this.setTableItem(table);
-        // this.setTableTag(table);
-        this.setTableData(table);
+        this.setTableTag(table);
+        // this.setTableData(table);
     }
 
     // 整个 table 的样式在此设置
@@ -172,11 +172,13 @@ public class SelectPeoplePolicy2 extends AbstractRenderPolicy<Object> {
 
             // 设置 tag（票种部分）
             int index = 1;
+            int count = 0;
             for (int j = 0; j < optionMap.size(); j++) {
-                strTag[index++] = "{{sect#REPLACE(CONCAT(" + itemId[0] + ",''),'" + optionMap.values().toArray()[j] + "','')  like '%" + (i - 3) + "% '#@" + voteType[j].replaceAll("/", "") + "}}";
-                strTag[index++] = "{{sectrate#REPLACE(CONCAT(" + itemId[0] + ",''),'" + optionMap.values().toArray()[j] + "','')  like '%" + (i - 3) + "% '#@" + voteType[j].replaceAll("/", "") + "}}";
+                strTag[index++] = "{{sect#REPLACE(CONCAT(" + itemId[0] + ",''),'" + optionMap.values().toArray()[j] + "','')  like '%" + (i - 3) + "% '#@" + voteType[count / 2].replaceAll("/", "") + "}}";
+                strTag[index++] = "{{sectrate#REPLACE(CONCAT(" + itemId[0] + ",''),'" + optionMap.values().toArray()[j] + "','')  like '%" + (i - 3) + "% '#@" + voteType[count / 2].replaceAll("/", "") + "}}";
                 strTag[col - 2] = "{{sect#REPLACE(CONCAT(" + itemId[0] + ",''),'" + optionMap.values().toArray()[j] + "','')  like '%" + (i - 3) + "% '#}}";
                 strTag[col - 1] = "{{sectrate#REPLACE(CONCAT(" + itemId[0] + ",''),'" + optionMap.values().toArray()[j] + "','')  like '%" + (i - 3) + "% '#}}";
+                count += 2;
             }
             Style style = this.getCellStyle();
             RowRenderData tag = this.build(strTag, style);
@@ -186,7 +188,7 @@ public class SelectPeoplePolicy2 extends AbstractRenderPolicy<Object> {
         }
     }
 
-    // 设置标签
+    // 设置数据
     public void setTableData(XWPFTable table) {
         for (int i = 4; i < row; i++) {
             String[] strTag = new String[col];
