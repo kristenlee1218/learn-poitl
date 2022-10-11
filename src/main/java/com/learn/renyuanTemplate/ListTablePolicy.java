@@ -264,7 +264,6 @@ public class ListTablePolicy extends AbstractRenderPolicy<Object> {
                             }
                         }
                         index++;
-                        System.out.println(index);
                     }
                 } else {
                     for (int i = 0; i < item.length; i++) {
