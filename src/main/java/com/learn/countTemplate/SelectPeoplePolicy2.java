@@ -32,14 +32,15 @@ public class SelectPeoplePolicy2 extends AbstractRenderPolicy<Object> {
 
     public static String[] voteType = new String[]{"A1/A2", "A3", "B", "C"};
     public static String[] question = new String[]{"3、您认为本单位选人用人工作存在的主要问题是什么？（可多选）"};
-    public static String[] item = new String[]{"1、落实中央关于领导班子和干部队伍建设工作要求有差距", "2、选人用人把关不严、质量不高", "3、坚持事业为上不够，不能做到以事择人、人岗相适", "4、激励担当作为用人导向不鲜明，论资排辈情况严重", "5、选人用人“个人说了算”", "6、任人唯亲、拉帮结派", "7、跑官要官、买官卖官、说情打招呼", "8、执行干部选拔任用政策规定不严格", "9、干部队伍建设统筹谋划不够，结构不合理", "10、干部队伍能力素质不适应工作要求"};
-    public static String option = "4:不了解:0;6:不好:0;8:一般:0;10:好:0";
+    public static String option = "1:落实党中央关于领导班子和干部队伍建设工作要求有差距:0;2:选人用人把关不严、质量不高:0;3:坚持事业为上不够，不能做到以事择人、人岗相适:0;4:激励担当作为用人导向不鲜明，论资排辈情况严重:0;5:选人用人“个人说了算”:0;6:任人唯亲、拉帮结派:0;7:跑官要官、买官卖官、说情打招呼:0;8:执行干部选拔任用政策规定不严格:0;9:干部队伍建设统筹谋划不够，结构不合理:0;10:干部队伍能力素质不适应工作要求:0";
     public static String[] data = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
     public static String[] itemId = new String[]{"organ23"};
 
     // 计算行和列
     int col;
     int row;
+    // 除去 title、表格头的数据开始行
+    int base = 4;
     LinkedHashMap<String, Integer> optionMap;
 
     @Override
@@ -56,7 +57,7 @@ public class SelectPeoplePolicy2 extends AbstractRenderPolicy<Object> {
         // 计算行列
         optionMap = this.splitOption(option);
         col = (voteType.length + 1) * 2 + 1;
-        row = item.length + 4;
+        row = optionMap.size() + base;
 
         // 当前位置插入表格
         XWPFTable table = bodyContainer.insertNewTable(run, row, col);
@@ -66,7 +67,7 @@ public class SelectPeoplePolicy2 extends AbstractRenderPolicy<Object> {
         this.setTableHeader(table);
         this.setTableItem(table);
         this.setTableTag(table);
-        // this.setTableData(table);
+        this.setTableData(table);
     }
 
     // 整个 table 的样式在此设置
@@ -142,7 +143,6 @@ public class SelectPeoplePolicy2 extends AbstractRenderPolicy<Object> {
             }
         }
 
-
         // 构建第2-3行
         Style style = this.getCellStyle();
         RowRenderData header1 = this.build(strHeader1, style);
@@ -158,8 +158,8 @@ public class SelectPeoplePolicy2 extends AbstractRenderPolicy<Object> {
     public void setTableItem(XWPFTable table) {
         Style cellDataStyle = this.getDataCellStyle();
         TableStyle tableStyle = this.getTableStyle();
-        for (int i = 0; i < item.length; i++) {
-            RowRenderData itemData = RowRenderData.build(new TextRenderData(item[i], cellDataStyle));
+        for (int i = 0; i < optionMap.size(); i++) {
+            RowRenderData itemData = RowRenderData.build(new TextRenderData((i + 1) + "、" + optionMap.keySet().toArray()[i].toString(), cellDataStyle));
             itemData.setRowStyle(tableStyle);
             MiniTableRenderPolicy.Helper.renderRow(table, i + 4, itemData);
         }
@@ -167,18 +167,16 @@ public class SelectPeoplePolicy2 extends AbstractRenderPolicy<Object> {
 
     // 设置标签
     public void setTableTag(XWPFTable table) {
-        for (int i = 4; i < row; i++) {
+        for (int i = base; i < row; i++) {
             String[] strTag = new String[col];
 
             // 设置 tag（票种部分）
             int index = 1;
-            int count = 0;
-            for (int j = 0; j < optionMap.size(); j++) {
-                strTag[index++] = "{{sect#REPLACE(CONCAT(" + itemId[0] + ",''),'" + optionMap.values().toArray()[j] + "','')  like '%" + (i - 3) + "% '#@" + voteType[count / 2].replaceAll("/", "") + "}}";
-                strTag[index++] = "{{sectrate#REPLACE(CONCAT(" + itemId[0] + ",''),'" + optionMap.values().toArray()[j] + "','')  like '%" + (i - 3) + "% '#@" + voteType[count / 2].replaceAll("/", "") + "}}";
-                strTag[col - 2] = "{{sect#REPLACE(CONCAT(" + itemId[0] + ",''),'" + optionMap.values().toArray()[j] + "','')  like '%" + (i - 3) + "% '#}}";
-                strTag[col - 1] = "{{sectrate#REPLACE(CONCAT(" + itemId[0] + ",''),'" + optionMap.values().toArray()[j] + "','')  like '%" + (i - 3) + "% '#}}";
-                count += 2;
+            for (String s : voteType) {
+                strTag[index++] = "{{sect#CONCAT(" + itemId[0] + ",'') like '%" + (i - base + 1) + "%'#@" + s.replaceAll("/", "") + "}}";
+                strTag[index++] = "{{sectrate#CONCAT(" + itemId[0] + ",'') like '%" + (i - base + 1) + "%'#@" + s.replaceAll("/", "") + "}}";
+                strTag[col - 2] = "{{sect#CONCAT(" + itemId[0] + ",'') like '%" + (i - base + 1) + "%'#}}";
+                strTag[col - 1] = "{{sectrate#CONCAT(" + itemId[0] + ",'') like '%" + (i - base + 1) + "%'#}}";
             }
             Style style = this.getCellStyle();
             RowRenderData tag = this.build(strTag, style);
@@ -190,7 +188,7 @@ public class SelectPeoplePolicy2 extends AbstractRenderPolicy<Object> {
 
     // 设置数据
     public void setTableData(XWPFTable table) {
-        for (int i = 4; i < row; i++) {
+        for (int i = base; i < row; i++) {
             String[] strTag = new String[col];
             System.arraycopy(data, 0, strTag, 1, data.length);
             Style style = this.getCellStyle();
@@ -201,12 +199,17 @@ public class SelectPeoplePolicy2 extends AbstractRenderPolicy<Object> {
         }
     }
 
-    // 将题目的选项 如：“4:不了解:0;6:不好:0;8:一般:0;10:好:0” 存入 map，key 为显示的值，value 为分值
+    // 将题目的选项 如：“1:落实党中央关于领导班子和干部队伍建设工作要求有差距:0;
+    // 2:选人用人把关不严、质量不高:0;3:坚持事业为上不够，不能做到以事择人、人岗相适:0;
+    // 4:激励担当作为用人导向不鲜明，论资排辈情况严重:0;5:选人用人“个人说了算”:0;
+    // 6:任人唯亲、拉帮结派:0;7:跑官要官、买官卖官、说情打招呼:0;
+    // 8:执行干部选拔任用政策规定不严格:0;9:干部队伍建设统筹谋划不够，结构不合理:0;
+    // 10:干部队伍能力素质不适应工作要求:0” 存入 map，key 为显示的值，value 为分值
     public LinkedHashMap<String, Integer> splitOption(String option) {
         LinkedHashMap<String, Integer> optionMap = new LinkedHashMap<>();
         String[] strArray = option.replaceAll(":0", "").split(";");
-        for (int i = strArray.length - 1; i >= 0; i--) {
-            String[] str = strArray[i].split(":");
+        for (String s : strArray) {
+            String[] str = s.split(":");
             optionMap.put(str[1], Integer.valueOf(str[0]));
         }
         return optionMap;
