@@ -189,7 +189,7 @@ public class NewLeaderPolicy extends AbstractRenderPolicy<Object> {
         }
         strHeader4[strHeader4.length - 1] = "排名";
 
-        // 构建第1-4行
+        // 构建第 1-4 行
         Style style = this.getCellStyle();
         RowRenderData header1 = this.build(strHeader1, style);
         RowRenderData header2 = this.build(strHeader2, style);
