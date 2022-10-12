@@ -31,16 +31,16 @@ public class PaymentExampleTest {
     @BeforeEach
     public void init() {
         Style headTextStyle = new Style();
-        TableStyle headStyle = new TableStyle();
-        TableStyle rowStyle = new TableStyle();
+
         headTextStyle.setFontFamily("Hei");
         headTextStyle.setFontSize(9);
         headTextStyle.setColor("7F7F7F");
 
+        TableStyle headStyle = new TableStyle();
         headStyle.setBackgroundColor("F2F2F2");
         headStyle.setAlign(STJc.CENTER);
 
-        rowStyle = new TableStyle();
+        TableStyle rowStyle = new TableStyle();
         rowStyle.setAlign(STJc.CENTER);
 
         data.setNO("KB.6890451");

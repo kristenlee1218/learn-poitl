@@ -70,7 +70,6 @@ public class SwaggerToWordExampleTest {
         view.setHost(swagger.getHost());
         view.setSchemes(swagger.getSchemes());
         List<Resource> resources = new ArrayList<>();
-
         List<Endpoint> endpoints = new ArrayList<>();
         Map<String, Path> paths = swagger.getPaths();
         if (null == paths) {
@@ -88,7 +87,6 @@ public class SwaggerToWordExampleTest {
                 endpoint.setDelete(HttpMethod.DELETE == method);
                 endpoint.setPut(HttpMethod.PUT == method);
                 endpoint.setPost(HttpMethod.POST == method);
-
                 endpoint.setSummary(operation.getSummary());
                 endpoint.setDescription(operation.getDescription());
                 endpoint.setTag(operation.getTags());
@@ -105,8 +103,8 @@ public class SwaggerToWordExampleTest {
                         parameter.setRequired(para.getRequired());
                         List<TextRenderData> schema = new ArrayList<>();
                         if (para instanceof AbstractSerializableParameter) {
-                            Property items = ((AbstractSerializableParameter) para).getItems();
-                            String type = ((AbstractSerializableParameter) para).getType();
+                            Property items = ((AbstractSerializableParameter<?>) para).getItems();
+                            String type = ((AbstractSerializableParameter<?>) para).getType();
                             // if array
                             if (ArrayProperty.isType(type)) {
                                 schema.add(new TextRenderData("<"));
@@ -119,13 +117,13 @@ public class SwaggerToWordExampleTest {
                             if (StringUtils.isNotBlank(type)) {
                                 schema.add(new TextRenderData(type));
                             }
-                            if (StringUtils.isNotBlank(((AbstractSerializableParameter) para).getCollectionFormat())) {
-                                schema.add(new TextRenderData("(" + ((AbstractSerializableParameter) para).getCollectionFormat() + ")"));
+                            if (StringUtils.isNotBlank(((AbstractSerializableParameter<?>) para).getCollectionFormat())) {
+                                schema.add(new TextRenderData("(" + ((AbstractSerializableParameter<?>) para).getCollectionFormat() + ")"));
                             }
                         }
                         if (para instanceof BodyParameter) {
                             Model schemaModel = ((BodyParameter) para).getSchema();
-                            schema.addAll(fomartSchemaModel(schemaModel));
+                            schema.addAll(formatSchemaModel(schemaModel));
                         }
                         parameter.setSchema(schema);
                         parameters.add(parameter);
@@ -140,7 +138,7 @@ public class SwaggerToWordExampleTest {
                         response.setCode(code);
                         response.setDescription(resp.getDescription());
                         Model schemaModel = resp.getResponseSchema();
-                        response.setSchema(fomartSchemaModel(schemaModel));
+                        response.setSchema(formatSchemaModel(schemaModel));
 
                         if (null != resp.getHeaders()) {
                             List<Header> headers = new ArrayList<>();
@@ -212,31 +210,31 @@ public class SwaggerToWordExampleTest {
         return map;
     }
 
-    private Object valueOfProperty(Map<String, Model> definitions, Property prop, Set<String> keyCache) {
+    private Object valueOfProperty(Map<String, Model> definitions, Property property, Set<String> keyCache) {
         Object value;
-        if (prop instanceof RefProperty) {
-            String ref = ((RefProperty) prop).get$ref().substring("#/definitions/".length());
+        if (property instanceof RefProperty) {
+            String ref = ((RefProperty) property).get$ref().substring("#/definitions/".length());
             if (keyCache.contains(ref)) {
-                value = ((RefProperty) prop).get$ref();
+                value = ((RefProperty) property).get$ref();
             } else {
                 value = valueOfModel(definitions, definitions.get(ref), keyCache);
             }
-        } else if (prop instanceof ArrayProperty) {
+        } else if (property instanceof ArrayProperty) {
             List<Object> list = new ArrayList<>();
-            Property insideItems = ((ArrayProperty) prop).getItems();
+            Property insideItems = ((ArrayProperty) property).getItems();
             list.add(valueOfProperty(definitions, insideItems, keyCache));
             value = list;
-        } else if (prop instanceof AbstractNumericProperty) {
+        } else if (property instanceof AbstractNumericProperty) {
             value = 0;
-        } else if (prop instanceof BooleanProperty) {
+        } else if (property instanceof BooleanProperty) {
             value = false;
         } else {
-            value = prop.getType();
+            value = property.getType();
         }
         return value;
     }
 
-    private List<TextRenderData> fomartSchemaModel(Model schemaModel) {
+    private List<TextRenderData> formatSchemaModel(Model schemaModel) {
         List<TextRenderData> schema = new ArrayList<>();
         if (null == schemaModel) {
             return schema;
