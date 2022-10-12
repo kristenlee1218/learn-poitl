@@ -286,6 +286,7 @@ public class NewLeaderPolicy extends AbstractRenderPolicy<Object> {
         return cellStyle;
     }
 
+
     // 设置 table 格样式
     public TableStyle getTableStyle() {
         TableStyle tableStyle = new TableStyle();
