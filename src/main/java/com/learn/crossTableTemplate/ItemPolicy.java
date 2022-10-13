@@ -30,9 +30,9 @@ public class ItemPolicy extends AbstractRenderPolicy<Object> {
     public static String[] value = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33"};
 
     // 计算行
-    int row = item.length + 4;
+    int row;
     // 计算列
-    int col = voteType.length + 2;
+    int col;
     int base = 3;
 
     @Override
@@ -46,6 +46,11 @@ public class ItemPolicy extends AbstractRenderPolicy<Object> {
         XWPFRun run = renderContext.getRun();
         // 当前位置的容器
         BodyContainer bodyContainer = BodyContainerFactory.getBodyContainer(run);
+
+        // 计算行
+        row = item.length + 4;
+        // 计算列
+        col = voteType.length + 2;
 
         // 当前位置插入表格
         XWPFTable table = bodyContainer.insertNewTable(run, row, col);

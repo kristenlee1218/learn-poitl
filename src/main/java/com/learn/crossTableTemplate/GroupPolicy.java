@@ -67,10 +67,10 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
 //    public static String[] value = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33"};
 
     // 计算行
-    int row = this.countRow(item) + 4;
+    int row;
     // 计算列、先判断有无外部董事
-    boolean isHaveWBDS = this.checkWBDS(voteType);
-    int col = this.calculateColumn(voteType, voteTypeGroup, isHaveWBDS);
+    boolean isHaveWBDS;
+    int col;
     int base = 3;
 
     @Override
@@ -84,6 +84,13 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
         XWPFRun run = renderContext.getRun();
         // 当前位置的容器
         BodyContainer bodyContainer = BodyContainerFactory.getBodyContainer(run);
+
+        // 计算行
+        row = this.countRow(item) + 4;
+        // 计算列、先判断有无外部董事
+        isHaveWBDS = this.checkWBDS(voteType);
+        col = this.calculateColumn(voteType, voteTypeGroup, isHaveWBDS);
+
         // 当前位置插入表格
         XWPFTable table = bodyContainer.insertNewTable(run, row, col);
 
