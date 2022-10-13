@@ -51,6 +51,8 @@ public class ListTablePolicy extends AbstractRenderPolicy<Object> {
     // 计算行和列
     int col;
     int row;
+    int colBase = 3;
+    int rowBase = 3;
 
     @Override
     public void afterRender(RenderContext<Object> renderContext) {
@@ -68,15 +70,15 @@ public class ListTablePolicy extends AbstractRenderPolicy<Object> {
         if (group.length > 0 || items.length > 0 || item.length > 0) {
             // 计算行列
             if (group.length > 0) {
-                col = this.countCol(items) + config.length + 3;
+                col = this.countCol(items) + config.length + colBase;
             } else {
-                col = item.length + config.length + 3;
+                col = item.length + config.length + colBase;
             }
         } else {
             // 计算行列
-            col = (voteType.length + 1) * 2 + 3;
+            col = (voteType.length + 1) * 2 + colBase;
         }
-        row = data.length + 3;
+        row = data.length + rowBase;
 
         // 当前位置插入表格
         XWPFTable table = bodyContainer.insertNewTable(run, row, col);
@@ -125,13 +127,13 @@ public class ListTablePolicy extends AbstractRenderPolicy<Object> {
         if (group.length > 0 || items.length > 0 || item.length > 0) {
             if (group.length > 0) {
                 // 构建第二行的数组、并垂直合并与水平合并
-                String[] strHeader1 = new String[group.length + config.length + 3];
+                String[] strHeader1 = new String[group.length + config.length + colBase];
                 strHeader1[0] = "序号";
                 System.arraycopy(config, 0, strHeader1, 1, config.length);
                 strHeader1[config.length + 1] = "汇总得分";
                 strHeader1[config.length + 2] = "排名";
 
-                int start = config.length + 3;
+                int start = config.length + colBase;
                 int end;
                 // 水平合并 group 的名字
                 for (String[] value : items) {
@@ -141,13 +143,13 @@ public class ListTablePolicy extends AbstractRenderPolicy<Object> {
                 }
 
                 for (int i = 0; i < group.length; i++) {
-                    strHeader1[i + 5] = group[i];
+                    strHeader1[i + config.length + colBase] = group[i];
                     TableTools.mergeCellsVertically(table, i, 1, 2);
                 }
 
                 // 构建第三行的数组
                 String[] strHeader2 = new String[col];
-                int index = config.length + 3;
+                int index = config.length + colBase;
                 for (String[] str : items) {
                     strHeader2[index] = "小计";
                     for (String s : str) {
@@ -173,7 +175,7 @@ public class ListTablePolicy extends AbstractRenderPolicy<Object> {
                 strHeader1[config.length + 1] = "汇总得分";
                 strHeader1[config.length + 2] = "排名";
 
-                int index = config.length + 3;
+                int index = config.length + colBase;
                 for (String s : item) {
                     strHeader1[index++] = s;
                 }
@@ -252,7 +254,7 @@ public class ListTablePolicy extends AbstractRenderPolicy<Object> {
                 str[3] = "{{avg_" + k + "}}";
                 str[4] = "{{sort_avg_" + k + "}}";
 
-                int index = config.length + 3;
+                int index = config.length + colBase;
                 if (group.length > 0) {
                     for (int i = 0; i < items.length; i++) {
                         str[index] = "{{avg_group0" + (i + 1) + "_" + k + "}}";
@@ -299,7 +301,7 @@ public class ListTablePolicy extends AbstractRenderPolicy<Object> {
                 RowRenderData row = this.build(str, style);
                 TableStyle tableStyle = this.getTableStyle();
                 row.setRowStyle(tableStyle);
-                MiniTableRenderPolicy.Helper.renderRow(table, k + 3, row);
+                MiniTableRenderPolicy.Helper.renderRow(table, k + rowBase, row);
             }
         }
     }

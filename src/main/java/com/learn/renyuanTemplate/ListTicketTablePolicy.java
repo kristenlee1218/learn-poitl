@@ -31,6 +31,8 @@ public class ListTicketTablePolicy extends AbstractRenderPolicy<Object> {
     // 计算行和列
     int col;
     int row;
+    int colBase = 1;
+    int rowBase = 3;
 
     @Override
     public void afterRender(RenderContext<Object> renderContext) {
@@ -44,8 +46,8 @@ public class ListTicketTablePolicy extends AbstractRenderPolicy<Object> {
         // 当前位置的容器
         BodyContainer bodyContainer = BodyContainerFactory.getBodyContainer(run);
         // 计算行列
-        col = (voteType.length + 1) * 2 + config.length + 1;
-        row = data.length + 3;
+        col = (voteType.length + 1) * 2 + config.length + colBase;
+        row = data.length + rowBase;
 
         // 当前位置插入表格
         XWPFTable table = bodyContainer.insertNewTable(run, row, col);
@@ -96,7 +98,7 @@ public class ListTicketTablePolicy extends AbstractRenderPolicy<Object> {
         System.arraycopy(config, 0, strHeader1, 1, config.length);
         strHeader1[strHeader1.length - 1] = "全体";
 
-        int index = config.length + 1;
+        int index = config.length + colBase;
         int start = index;
         // 水平合并 voteType 的名字
         for (int i = 0; i < voteType.length + 1; i++) {
@@ -149,7 +151,7 @@ public class ListTicketTablePolicy extends AbstractRenderPolicy<Object> {
             RowRenderData row = this.build(str, style);
             TableStyle tableStyle = this.getTableStyle();
             row.setRowStyle(tableStyle);
-            MiniTableRenderPolicy.Helper.renderRow(table, k + 3, row);
+            MiniTableRenderPolicy.Helper.renderRow(table, k + rowBase, row);
         }
     }
 
