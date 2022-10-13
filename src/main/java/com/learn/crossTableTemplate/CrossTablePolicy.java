@@ -65,7 +65,11 @@ public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
     // 计算列、先判断有无外部董事
     boolean isHaveWBDS;
     int col;
-    int base = 3;
+
+    // 标题+表头所占的固定行数
+    int rowBase = 3;
+    // group 和 item 所占的固定列数
+    int colBase = 2;
 
     @Override
     protected void afterRender(RenderContext<Object> renderContext) {
@@ -141,7 +145,7 @@ public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
         if (group.length > 0) {
             if ((voteTypeGroup != null && voteTypeGroup.length > 0) && (innerEvaluate != null && innerEvaluate.length > 0)) {
                 // 处理第二行，先判断第二行的表头内容
-                int length = voteTypeGroup.length + 2;
+                int length = voteTypeGroup.length + colBase;
                 // 判断是否包含外部董事
                 if (isHaveWBDS) {
                     length++;
@@ -217,11 +221,10 @@ public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
                 header2.setRowStyle(tableStyle);
                 MiniTableRenderPolicy.Helper.renderRow(table, 2, header2);
             } else {
-                int length = voteType.length + 2;
                 Style cellStyle = this.getCellStyle();
-                String[] strHeader1 = new String[length];
+                String[] strHeader1 = new String[voteType.length + colBase];
                 strHeader1[0] = "评价内容";
-                strHeader1[length - 1] = "全体";
+                strHeader1[voteType.length + colBase - 1] = "全体";
                 System.arraycopy(voteType, 0, strHeader1, 1, voteType.length);
                 // 构建第二行
                 RowRenderData header1 = this.build(strHeader1, cellStyle);
@@ -239,10 +242,9 @@ public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
                 MiniTableRenderPolicy.Helper.renderRow(table, 1, header1);
             }
         } else {
-            int length = voteType.length + 2;
-            String[] strHeader1 = new String[length];
+            String[] strHeader1 = new String[voteType.length + colBase];
             strHeader1[0] = "指标";
-            strHeader1[length - 1] = "全体";
+            strHeader1[voteType.length + colBase - 1] = "全体";
             System.arraycopy(voteType, 0, strHeader1, 1, voteType.length);
 
             // 构建第二行
@@ -261,7 +263,7 @@ public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
 
     // group 的设置、集中在第1列
     public void setGroup(XWPFTable table) {
-        int start = base;
+        int start = rowBase;
         int end;
         Style cellStyle = this.getCellStyle();
         TableStyle tableStyle = this.getTableStyle();
@@ -281,7 +283,7 @@ public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
         if (group.length > 0) {
             // item 的设置、集中在第 2 列
             // 构建 item 列
-            int index = base;
+            int index = rowBase;
             Style cellStyle = this.getCellStyle();
             TableStyle tableStyle = this.getTableStyle();
             for (String[] str : items) {
@@ -293,9 +295,9 @@ public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
             }
 
             // 合并 item 列
-            int column = 3;
+            int column = rowBase;
             for (int i = 0; i < col / 2 - 1; i++) {
-                int start = base;
+                int start = rowBase;
                 int end;
                 for (String[] str : items) {
                     end = start + str.length;
@@ -311,7 +313,7 @@ public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
             for (int i = 0; i < item.length; i++) {
                 RowRenderData itemData = RowRenderData.build(new TextRenderData(item[i], cellStyle));
                 itemData.setRowStyle(tableStyle);
-                MiniTableRenderPolicy.Helper.renderRow(table, i + 3, itemData);
+                MiniTableRenderPolicy.Helper.renderRow(table, i + rowBase, itemData);
             }
         }
     }
@@ -336,7 +338,7 @@ public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
         if (group.length > 0) {
             // 设置计算分数的单元格值（除最后一行）
             int index = 0;
-            int start = base;
+            int start = rowBase;
             Set<Integer> set = this.calculateGroupStartRow(items, start);
             Style cellStyle = this.getDataCellStyle();
             TableStyle tableStyle = this.getTableStyle();
@@ -371,7 +373,7 @@ public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
         } else {
             Style cellStyle = this.getCellStyle();
             TableStyle tableStyle = this.getTableStyle();
-            int start = 3;
+            int start = rowBase;
             int index = 0;
             for (int i = start; i < row; i++) {
                 String[] str = new String[col];
