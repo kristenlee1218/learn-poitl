@@ -71,6 +71,7 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
     // 计算列、先判断有无外部董事
     boolean isHaveWBDS = this.checkWBDS(voteType);
     int col = this.calculateColumn(voteType, voteTypeGroup, isHaveWBDS);
+    int base = 3;
 
     @Override
     protected void afterRender(RenderContext<Object> renderContext) {
@@ -234,7 +235,7 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
 
     // group 的设置、集中在第1列
     public void setGroup(XWPFTable table) {
-        int start = 3;
+        int start = base;
         int end;
         Style cellStyle = this.getCellStyle();
         TableStyle tableStyle = this.getTableStyle();
@@ -252,7 +253,7 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
     public void setItem(XWPFTable table) {
         // item 的设置、集中在第 2 列
         // 构建 item 列
-        int index = 3;
+        int index = base;
         Style cellStyle = this.getCellStyle();
         TableStyle tableStyle = this.getTableStyle();
         for (String[] items : item) {
@@ -266,7 +267,7 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
         // 合并 item 列
         int column = 3;
         for (int i = 0; i < col / 2 - 1; i++) {
-            int start = 3;
+            int start = base;
             int end;
             for (String[] str : item) {
                 end = start + str.length;
@@ -295,7 +296,7 @@ public class GroupPolicy extends AbstractRenderPolicy<Object> {
     public void setTableData(XWPFTable table) {
         // 设置计算分数的单元格值（除最后一行）
         int index = 0;
-        int start = 3;
+        int start = base;
         Set<Integer> set = this.calculateGroupStartRow(item, start);
         Style cellStyle = this.getDataCellStyle();
         TableStyle tableStyle = this.getTableStyle();

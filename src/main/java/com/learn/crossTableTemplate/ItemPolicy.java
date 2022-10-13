@@ -33,6 +33,7 @@ public class ItemPolicy extends AbstractRenderPolicy<Object> {
     int row = item.length + 4;
     // 计算列
     int col = voteType.length + 2;
+    int base = 3;
 
     @Override
     protected void afterRender(RenderContext<Object> renderContext) {
@@ -137,7 +138,7 @@ public class ItemPolicy extends AbstractRenderPolicy<Object> {
     public void setTableData(XWPFTable table) {
         Style cellStyle = this.getCellStyle();
         TableStyle tableStyle = this.getTableStyle();
-        int start = 3;
+        int start = base;
         int index = 0;
         for (int i = start; i < row; i++) {
             String[] str = new String[col];
