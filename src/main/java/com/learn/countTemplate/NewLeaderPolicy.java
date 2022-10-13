@@ -39,13 +39,15 @@ public class NewLeaderPolicy extends AbstractRenderPolicy<Object> {
             "24", "25", "26", "27", "28", "29", "30", "31", "32"}};
 
     public static String[] voteType = new String[]{"A1/A2", "A3", "B", "C"};
-    //public static String[] properties = new String[]{"序号", "姓名", "出生年月", "原任职务", "现任职务", "任职时间"};
-    public static String[] properties = new String[]{"姓名", "出生年月", "原任职务", "现任职务", "任职时间"};
+    //public static String[] config = new String[]{"序号", "姓名", "出生年月", "原任职务", "现任职务", "任职时间"};
+    public static String[] config = new String[]{"姓名", "出生年月", "原任职务", "现任职务", "任职时间"};
 
     // 计算行和列
     int col;
     int row;
     LinkedHashMap<String, Integer> optionMap;
+    int colBase = 1;
+    int rowBase = 5;
 
     @Override
     public void afterRender(RenderContext<Object> renderContext) {
@@ -61,8 +63,8 @@ public class NewLeaderPolicy extends AbstractRenderPolicy<Object> {
 
         // 计算行列
         optionMap = this.splitOption(option);
-        row = 5 + data.length;
-        col = properties.length + 1 + voteType.length * optionMap.size() + (optionMap.size() + 1) * 2;
+        row = data.length + rowBase;
+        col = config.length + colBase + voteType.length * optionMap.size() + (optionMap.size() + 1) * 2;
 
         // 当前位置插入表格
         XWPFTable table = bodyContainer.insertNewTable(run, row, col);
@@ -113,10 +115,10 @@ public class NewLeaderPolicy extends AbstractRenderPolicy<Object> {
         strHeader1[1] = question[0];
 
         // 第1行水平合并单元格 对提拔任用该干部的看法部分
-        TableTools.mergeCellsHorizonal(table, 1, properties.length + 1, col - 1);
+        TableTools.mergeCellsHorizonal(table, 1, config.length + colBase, col - 1);
         // 第1行水平合并单元格 被评议对象的基本情况部分
-        TableTools.mergeCellsHorizonal(table, 1, 0, properties.length);
-        TableTools.mergeCellsHorizonal(table, 2, 0, properties.length);
+        TableTools.mergeCellsHorizonal(table, 1, 0, config.length);
+        TableTools.mergeCellsHorizonal(table, 2, 0, config.length);
 
         // 第1行垂直合并单元格
         TableTools.mergeCellsVertically(table, 0, 1, 2);
@@ -139,10 +141,10 @@ public class NewLeaderPolicy extends AbstractRenderPolicy<Object> {
         TableTools.mergeCellsHorizonal(table, 2, startHeader2, startHeader2 + 2 * (optionMap.size() + 1) - 1);
 
         // 第3行值的数组
-        String[] strHeader3 = new String[properties.length + (optionMap.size()) * (voteType.length + 1) + 2];
+        String[] strHeader3 = new String[config.length + (optionMap.size()) * (voteType.length + 1) + 2];
         strHeader3[0] = "序号";
-        System.arraycopy(properties, 0, strHeader3, 1, properties.length);
-        int header3Index = properties.length + 1;
+        System.arraycopy(config, 0, strHeader3, colBase, config.length);
+        int header3Index = config.length + 1;
         for (int i = 0; i < voteType.length + 1; i++) {
             for (int j = 0; j < optionMap.keySet().toArray().length; j++) {
                 strHeader3[header3Index++] = optionMap.keySet().toArray()[j].toString();
@@ -151,7 +153,7 @@ public class NewLeaderPolicy extends AbstractRenderPolicy<Object> {
         strHeader3[strHeader3.length - 1] = "认同度";
 
         // 第3行水平合并单元格 合计部分
-        int startHeader3 = voteType.length * optionMap.size() + properties.length + 1;
+        int startHeader3 = voteType.length * optionMap.size() + config.length + 1;
         for (int i = 0; i < optionMap.size(); i++) {
             TableTools.mergeCellsHorizonal(table, 3, startHeader3, startHeader3 + 1);
             startHeader3++;
@@ -161,19 +163,19 @@ public class NewLeaderPolicy extends AbstractRenderPolicy<Object> {
         TableTools.mergeCellsHorizonal(table, 3, startHeader3, startHeader3 + 1);
 
         // 第3行垂直合并单元格 属性部分
-        for (int i = 0; i < properties.length + 1; i++) {
+        for (int i = 0; i < config.length + 1; i++) {
             TableTools.mergeCellsVertically(table, i, 3, 4);
         }
 
         // 第4行数组的值
         String[] strHeader4 = new String[col];
         for (int i = 0; i < voteType.length * optionMap.size(); i++) {
-            strHeader4[i + properties.length + 1] = "得票";
+            strHeader4[i + config.length + 1] = "得票";
         }
 
         // 第4行值的数组 合计部分
-        for (int i = voteType.length * optionMap.size() + properties.length + 1; i < strHeader4.length; i++) {
-            if ((voteType.length * optionMap.size() + properties.length + 1) % 2 == 0) {
+        for (int i = voteType.length * optionMap.size() + config.length + 1; i < strHeader4.length; i++) {
+            if ((voteType.length * optionMap.size() + config.length + 1) % 2 == 0) {
                 if (i % 2 == 0) {
                     strHeader4[i] = "得票";
                 } else {
@@ -219,7 +221,7 @@ public class NewLeaderPolicy extends AbstractRenderPolicy<Object> {
         strTag[5] = "{{startdate}}";
 
         // 设置 tag（票种部分）
-        int index = properties.length + 1;
+        int index = config.length + 1;
         for (String s : voteType) {
             for (int k = 0; k < optionMap.size(); k++) {
                 strTag[index] = "{{count_leader21_" + optionMap.values().toArray()[k].toString() + "__" + s.replaceAll("/", "_}}");
@@ -242,7 +244,7 @@ public class NewLeaderPolicy extends AbstractRenderPolicy<Object> {
         RowRenderData tag = this.build(strTag, style);
         TableStyle tableStyle = this.getTableStyle();
         tag.setRowStyle(tableStyle);
-        MiniTableRenderPolicy.Helper.renderRow(table, 5, tag);
+        MiniTableRenderPolicy.Helper.renderRow(table, rowBase, tag);
     }
 
     public void setTableData(XWPFTable table) {
@@ -252,7 +254,7 @@ public class NewLeaderPolicy extends AbstractRenderPolicy<Object> {
         RowRenderData tag = this.build(strTag, style);
         TableStyle tableStyle = this.getTableStyle();
         tag.setRowStyle(tableStyle);
-        MiniTableRenderPolicy.Helper.renderRow(table, 5, tag);
+        MiniTableRenderPolicy.Helper.renderRow(table, rowBase, tag);
     }
 
     // 将题目的选项 如：“4:不了解:0;6:不认同:0;8:基本认同:0;10:认同:0” 存入 map，key 为显示的值，value 为分值

@@ -39,9 +39,9 @@ public class SelectPeoplePolicy2 extends AbstractRenderPolicy<Object> {
     // 计算行和列
     int col;
     int row;
-    // 除去 title、表格头的数据开始行
-    int base = 4;
     LinkedHashMap<String, Integer> optionMap;
+    int colBase = 1;
+    int rowBase = 4;
 
     @Override
     public void afterRender(RenderContext<Object> renderContext) {
@@ -56,8 +56,8 @@ public class SelectPeoplePolicy2 extends AbstractRenderPolicy<Object> {
         BodyContainer bodyContainer = BodyContainerFactory.getBodyContainer(run);
         // 计算行列
         optionMap = this.splitOption(option);
-        col = (voteType.length + 1) * 2 + 1;
-        row = optionMap.size() + base;
+        col = (voteType.length + 1) * 2 + colBase;
+        row = optionMap.size() + rowBase;
 
         // 当前位置插入表格
         XWPFTable table = bodyContainer.insertNewTable(run, row, col);
@@ -161,22 +161,22 @@ public class SelectPeoplePolicy2 extends AbstractRenderPolicy<Object> {
         for (int i = 0; i < optionMap.size(); i++) {
             RowRenderData itemData = RowRenderData.build(new TextRenderData((i + 1) + "、" + optionMap.keySet().toArray()[i].toString(), cellDataStyle));
             itemData.setRowStyle(tableStyle);
-            MiniTableRenderPolicy.Helper.renderRow(table, i + 4, itemData);
+            MiniTableRenderPolicy.Helper.renderRow(table, i + rowBase, itemData);
         }
     }
 
     // 设置标签
     public void setTableTag(XWPFTable table) {
-        for (int i = base; i < row; i++) {
+        for (int i = rowBase; i < row; i++) {
             String[] strTag = new String[col];
 
             // 设置 tag（票种部分）
             int index = 1;
             for (String s : voteType) {
-                strTag[index++] = "{{sect#CONCAT(" + itemId[0] + ",'') like '%" + (i - base + 1) + "%'#@" + s.replaceAll("/", "") + "}}";
-                strTag[index++] = "{{sectrate#CONCAT(" + itemId[0] + ",'') like '%" + (i - base + 1) + "%'#@" + s.replaceAll("/", "") + "}}";
-                strTag[col - 2] = "{{sect#CONCAT(" + itemId[0] + ",'') like '%" + (i - base + 1) + "%'#}}";
-                strTag[col - 1] = "{{sectrate#CONCAT(" + itemId[0] + ",'') like '%" + (i - base + 1) + "%'#}}";
+                strTag[index++] = "{{sect#CONCAT(" + itemId[0] + ",'') like '%" + (i - rowBase + 1) + "%'#@" + s.replaceAll("/", "") + "}}";
+                strTag[index++] = "{{sectrate#CONCAT(" + itemId[0] + ",'') like '%" + (i - rowBase + 1) + "%'#@" + s.replaceAll("/", "") + "}}";
+                strTag[col - 2] = "{{sect#CONCAT(" + itemId[0] + ",'') like '%" + (i - rowBase + 1) + "%'#}}";
+                strTag[col - 1] = "{{sectrate#CONCAT(" + itemId[0] + ",'') like '%" + (i - rowBase + 1) + "%'#}}";
             }
             Style style = this.getCellStyle();
             RowRenderData tag = this.build(strTag, style);
@@ -188,9 +188,9 @@ public class SelectPeoplePolicy2 extends AbstractRenderPolicy<Object> {
 
     // 设置数据
     public void setTableData(XWPFTable table) {
-        for (int i = base; i < row; i++) {
+        for (int i = rowBase; i < row; i++) {
             String[] strTag = new String[col];
-            System.arraycopy(data, 0, strTag, 1, data.length);
+            System.arraycopy(data, 0, strTag, colBase, data.length);
             Style style = this.getCellStyle();
             RowRenderData tag = this.build(strTag, style);
             TableStyle tableStyle = this.getTableStyle();

@@ -46,6 +46,8 @@ public class SelectPeoplePolicy1 extends AbstractRenderPolicy<Object> {
     int col;
     int row;
     LinkedHashMap<String, Integer> optionMap;
+    int colBase = 1;
+    int rowBase = 4;
 
     @Override
     public void afterRender(RenderContext<Object> renderContext) {
@@ -60,8 +62,8 @@ public class SelectPeoplePolicy1 extends AbstractRenderPolicy<Object> {
         BodyContainer bodyContainer = BodyContainerFactory.getBodyContainer(run);
         // 计算行列
         optionMap = this.splitOption(option);
-        row = 4 + question.length;
-        col = voteType.length * optionMap.size() + optionMap.size() * 2 + 2;
+        row = rowBase + question.length;
+        col = voteType.length * optionMap.size() + optionMap.size() * 2 + colBase + 1;
 
         // 当前位置插入表格
         XWPFTable table = bodyContainer.insertNewTable(run, row, col);
@@ -189,7 +191,7 @@ public class SelectPeoplePolicy1 extends AbstractRenderPolicy<Object> {
         for (int i = 0; i < question.length; i++) {
             RowRenderData questionData = RowRenderData.build(new TextRenderData(question[i], cellStyle));
             questionData.setRowStyle(tableStyle);
-            MiniTableRenderPolicy.Helper.renderRow(table, i + 4, questionData);
+            MiniTableRenderPolicy.Helper.renderRow(table, i + rowBase, questionData);
         }
     }
 
@@ -225,13 +227,13 @@ public class SelectPeoplePolicy1 extends AbstractRenderPolicy<Object> {
     public void setTableData(XWPFTable table) {
         for (int i = 0; i < data.length; i++) {
             String[] strData = new String[col];
-            System.arraycopy(data[i], 0, strData, 1, data[i].length);
+            System.arraycopy(data[i], 0, strData, colBase, data[i].length);
             // 构建
             Style style = this.getCellStyle();
             RowRenderData tag = this.build(strData, style);
             TableStyle tableStyle = this.getTableStyle();
             tag.setRowStyle(tableStyle);
-            MiniTableRenderPolicy.Helper.renderRow(table, i + 4, tag);
+            MiniTableRenderPolicy.Helper.renderRow(table, i + rowBase, tag);
         }
     }
 
