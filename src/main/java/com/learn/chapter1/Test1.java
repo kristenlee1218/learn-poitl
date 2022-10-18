@@ -15,7 +15,7 @@ public class Test1 {
     public static void main(String[] args) throws IOException {
         // 编译模板、渲染数据
         XWPFTemplate template = XWPFTemplate.compile("src/main/resources/charpter1/template1.docx").render(new HashMap<String, Object>() {{
-            put("title", "Hi, poi-tl Word 模板引擎");
+            put("title-1", "Hi, poi-tl Word 模板引擎");
         }});
         FileOutputStream out = new FileOutputStream("src/main/resources/charpter1/template1_out.docx");
         // 输出到流

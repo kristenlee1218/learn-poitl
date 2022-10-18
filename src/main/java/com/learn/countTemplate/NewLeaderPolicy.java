@@ -66,6 +66,9 @@ public class NewLeaderPolicy extends AbstractRenderPolicy<Object> {
         row = data.length + rowBase;
         col = config.length + colBase + voteType.length * optionMap.size() + (optionMap.size() + 1) * 2;
 
+        System.out.println("row: " + row);
+        System.out.println("col: " + col);
+
         // 当前位置插入表格
         XWPFTable table = bodyContainer.insertNewTable(run, row, col);
         this.setTableStyle(table);
@@ -191,7 +194,7 @@ public class NewLeaderPolicy extends AbstractRenderPolicy<Object> {
         }
         strHeader4[strHeader4.length - 1] = "排名";
 
-        // 构建第 1-4 行
+        // 构建第 1-4 行，
         Style style = this.getCellStyle();
         RowRenderData header1 = this.build(strHeader1, style);
         RowRenderData header2 = this.build(strHeader2, style);
