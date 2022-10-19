@@ -66,9 +66,6 @@ public class NewLeaderPolicy extends AbstractRenderPolicy<Object> {
         row = data.length + rowBase;
         col = config.length + colBase + voteType.length * optionMap.size() + (optionMap.size() + 1) * 2;
 
-        System.out.println("row: " + row);
-        System.out.println("col: " + col);
-
         // 当前位置插入表格
         XWPFTable table = bodyContainer.insertNewTable(run, row, col);
         this.setTableStyle(table);
