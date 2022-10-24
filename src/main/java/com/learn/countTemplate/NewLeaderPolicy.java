@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class NewLeaderPolicy extends AbstractRenderPolicy<Object> {
 
-    //    public static String[] voteType = new String[]{"A1", "A2", "A3", "B", "C"};
+//    public static String[] voteType = new String[]{"A1", "A2", "A3", "B", "C"};
 //    public static String[] properties = new String[]{"序号", "姓名", "出生年月", "原任职务", "现任职务"};
     public static String option = "4:不了解:0;6:不认同:0;8:基本认同:0;10:认同:0";
     public static String[] question = new String[]{"对提拔任用该干部的看法"};
