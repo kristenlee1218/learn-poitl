@@ -173,7 +173,7 @@ public class NewLeaderPolicy extends AbstractRenderPolicy<Object> {
             strHeader4[i + config.length + 1] = "得票";
         }
 
-        // 第4行值的数组 合计部分
+        // 第4行值的数组（合计部分）
         for (int i = voteType.length * optionMap.size() + config.length + 1; i < strHeader4.length; i++) {
             if ((voteType.length * optionMap.size() + config.length + 1) % 2 == 0) {
                 if (i % 2 == 0) {
@@ -191,7 +191,7 @@ public class NewLeaderPolicy extends AbstractRenderPolicy<Object> {
         }
         strHeader4[strHeader4.length - 1] = "排名";
 
-        // 构建第 1-4 行，
+        // 构建第 1-4 行
         Style style = this.getCellStyle();
         RowRenderData header1 = this.build(strHeader1, style);
         RowRenderData header2 = this.build(strHeader2, style);
