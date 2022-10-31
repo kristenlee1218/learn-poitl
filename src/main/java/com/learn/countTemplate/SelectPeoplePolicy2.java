@@ -66,7 +66,7 @@ public class SelectPeoplePolicy2 extends AbstractRenderPolicy<Object> {
         this.setTableQuestion(table);
         this.setTableHeader(table);
         this.setTableItem(table);
-        this.setTableTag(table);
+        //this.setTableTag(table);
         this.setTableData(table);
     }
 
@@ -80,11 +80,17 @@ public class SelectPeoplePolicy2 extends AbstractRenderPolicy<Object> {
         for (XWPFTableRow tableRow : table.getRows()) {
             for (int i = 0; i < tableRow.getTableCells().size(); i++) {
                 tableRow.getCell(i).setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
-                tableRow.getCell(i).setWidth("500");
+                if (i == 0) {
+                    tableRow.getCell(i).setWidth("2000");
+                    table.setTableAlignment(TableRowAlign.LEFT);
+                    table.setCellMargins(2, 0, 2, 0);
+                } else {
+                    tableRow.getCell(i).setWidth("500");
+                    table.setTableAlignment(TableRowAlign.CENTER);
+                    table.setCellMargins(2, 2, 2, 2);
+                }
             }
         }
-        table.setCellMargins(2, 2, 2, 2);
-        table.setTableAlignment(TableRowAlign.CENTER);
     }
 
     // 设置第一行标题的样式
