@@ -15,7 +15,7 @@ import java.util.HashMap;
  */
 public class TestCrossTableTemplate {
     public static void main(String[] args) throws IOException {
-        // 准备数据
+        // 准备数据，生成一个构建器
         ConfigureBuilder builder = Configure.newBuilder();
         // 编译模板
         Configure configure = builder.build();
