@@ -104,7 +104,7 @@ public class OrganDuibiPiaoTablePolicy extends AbstractRenderPolicy<Object> {
             TableTools.mergeCellsHorizonal(table, 1, start, ++start);
         }
 
-        System.arraycopy(voteType, 0, strHeader1, 2, voteType.length);
+        System.arraycopy(voteType, 0, strHeader1, config.length + colBase, voteType.length);
         for (int i = 0; i < index; i++) {
             TableTools.mergeCellsVertically(table, i, 1, 2);
         }

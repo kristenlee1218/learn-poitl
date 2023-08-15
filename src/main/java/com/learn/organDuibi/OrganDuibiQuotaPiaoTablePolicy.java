@@ -128,7 +128,7 @@ public class OrganDuibiQuotaPiaoTablePolicy extends AbstractRenderPolicy<Object>
                 start++;
             }
 
-            System.arraycopy(group, 0, strHeader1, 4, group.length);
+            System.arraycopy(group, 0, strHeader1, config.length + colBase, group.length);
             for (int i = 0; i < config.length + colBase; i++) {
                 TableTools.mergeCellsVertically(table, i, 1, 2);
             }
