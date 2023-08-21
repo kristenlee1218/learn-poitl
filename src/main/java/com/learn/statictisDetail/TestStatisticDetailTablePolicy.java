@@ -32,6 +32,5 @@ public class TestStatisticDetailTablePolicy {
         template.write(out);
         out.flush();
         out.close();
-
     }
 }
