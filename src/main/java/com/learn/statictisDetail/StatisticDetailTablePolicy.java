@@ -33,16 +33,7 @@ public class StatisticDetailTablePolicy extends AbstractRenderPolicy<Object> {
 //    public static String votertype = "A1;A2;A3";
 //    public static int score = 10;
 
-//    public static String[] group = new String[]{"对党忠诚", "勇于创新", "治企有方", "兴企有为", "清正廉洁"};
-//    public static String[] item = new String[]{"政治品质", "政治本领", "创新精神", "创新成果", "经营管理能力", "抓党建强党建能力", "担当作为", "履职绩效", "一岗双责", "廉洁从业"};
-//    public static String[] item = new String[]{};
-//    public static String[] voteType = new String[]{"A1、A2、A3票"};
-//    public static String filterName = "领导班子成员";
-//    public static String voteRuleName = "A1、A2、A3票";
-//    public static String votertype = "A1;A2;A3";
-//    public static int score = 10;
-
-    public static String[] group = new String[]{};
+    public static String[] group = new String[]{"对党忠诚", "勇于创新", "治企有方", "兴企有为", "清正廉洁"};
     public static String[][] items = new String[][]{{"政治品质", "政治本领"}, {"创新精神", "创新成果"}, {"经营管理能力", "抓党建强党建能力"}, {"担当作为", "履职绩效"}, {"一岗双责", "廉洁从业"}};
     public static String[] item = new String[]{"政治品质", "政治本领", "创新精神", "创新成果", "经营管理能力", "抓党建强党建能力", "担当作为", "履职绩效", "一岗双责", "廉洁从业"};
     public static String[] voteType = new String[]{"A1、A2、A3票"};
@@ -50,6 +41,15 @@ public class StatisticDetailTablePolicy extends AbstractRenderPolicy<Object> {
     public static String voteRuleName = "A1、A2、A3票";
     public static String votertype = "A1;A2;A3";
     public static int score = 10;
+
+//    public static String[] group = new String[]{};
+//    public static String[][] items = new String[][]{{"政治品质", "政治本领"}, {"创新精神", "创新成果"}, {"经营管理能力", "抓党建强党建能力"}, {"担当作为", "履职绩效"}, {"一岗双责", "廉洁从业"}};
+//    public static String[] item = new String[]{"政治品质", "政治本领", "创新精神", "创新成果", "经营管理能力", "抓党建强党建能力", "担当作为", "履职绩效", "一岗双责", "廉洁从业"};
+//    public static String[] voteType = new String[]{"A1、A2、A3票"};
+//    public static String filterName = "领导班子成员";
+//    public static String voteRuleName = "A1、A2、A3票";
+//    public static String votertype = "A1;A2;A3";
+//    public static int score = 10;
 
 
     // 标题+表头+加权总数所占的固定行数
@@ -88,6 +88,7 @@ public class StatisticDetailTablePolicy extends AbstractRenderPolicy<Object> {
         this.setItem(table);
         this.setText(table);
         this.setLastRow(table);
+        this.setTag(table);
     }
 
     // 整个 table 的样式在此设置
@@ -141,7 +142,6 @@ public class StatisticDetailTablePolicy extends AbstractRenderPolicy<Object> {
             }
             TableTools.mergeCellsHorizonal(table, 1, 2, col - 1);
             TableTools.mergeCellsHorizonal(table, 1, 0, 1);
-            TableTools.mergeCellsHorizonal(table, 2, col - 2, col - 1);
             TableTools.mergeCellsHorizonal(table, 2, 0, 1);
         }
         // 构建第二行
@@ -252,6 +252,40 @@ public class StatisticDetailTablePolicy extends AbstractRenderPolicy<Object> {
         MiniTableRenderPolicy.Helper.renderRow(table, row - 1, total);
     }
 
+    // count#organ01=10#@A1;A2;A3
+    public void setTag(XWPFTable table) {
+        Style cellStyle = this.getCellStyle();
+        TableStyle tableStyle = this.getTableStyle();
+        String[] str = new String[col];
+        if (group.length > 0) {
+            for (int i = 1; i <= item.length; i++) {
+                for (int j = 1; j <= score; j++) {
+                    if (i >= 10) {
+                        str[j + colBase - 1] = "count#organ" + i + "=" + (10 - j + 1) + "#@" + votertype;
+                    } else {
+                        str[j + colBase - 1] = "count#organ0" + i + "=" + (10 - j + 1) + "#@" + votertype;
+                    }
+                }
+                RowRenderData tag = this.build(str, cellStyle);
+                tag.setRowStyle(tableStyle);
+                MiniTableRenderPolicy.Helper.renderRow(table, i + rowBase - 1, tag);
+            }
+        } else {
+            for (int i = 1; i <= item.length; i++) {
+                for (int j = 1; j <= score; j++) {
+                    if (i >= 10) {
+                        str[j + 1] = "count#organ" + i + "=" + (10 - j + 1) + "#@" + votertype;
+                    } else {
+                        str[j + 1] = "count#organ0" + i + "=" + (10 - j + 1) + "#@" + votertype;
+                    }
+                }
+                RowRenderData tag = this.build(str, cellStyle);
+                tag.setRowStyle(tableStyle);
+                MiniTableRenderPolicy.Helper.renderRow(table, i + rowBase - 1, tag);
+            }
+        }
+    }
+
     // 计算行（区分有没有一级指标）
     public int getRow(String[] group) {
         // 有一级指标和二级指标
@@ -276,7 +310,7 @@ public class StatisticDetailTablePolicy extends AbstractRenderPolicy<Object> {
         if (group.length > 0) {
             col = score + colBase + 2;
         } else {
-            col = score + colBase + 1;
+            col = score + colBase;
         }
         return col;
     }
