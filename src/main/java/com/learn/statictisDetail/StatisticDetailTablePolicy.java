@@ -27,20 +27,30 @@ public class StatisticDetailTablePolicy extends AbstractRenderPolicy<Object> {
 
 //    public static String[] group = new String[]{"政治思想建设", "企业发展质量", "党建工作质量", "作风建设成效"};
 //    public static String[][] items = new String[][]{{"政治忠诚", "政治担当", "社会责任"}, {"改革创新", "经营效益", "管理效能", "风险管控"}, {"选人用人", "基层党建", "党风廉政"}, {"团结协作", "联系群众"}};
-//    public static String[] item = new String[]{};
+//    public static String[] item = new String[]{"政治忠诚", "政治担当", "社会责任","改革创新", "经营效益", "管理效能", "风险管控","选人用人", "基层党建", "党风廉政","团结协作", "联系群众"};
 //    public static String filterName = "领导班子成员";
 //    public static String voteRuleName = "A1、A2、A3票";
 //    public static String votertype = "A1;A2;A3";
 //    public static int score = 10;
 
-    public static String[] group = new String[]{"对党忠诚", "勇于创新", "治企有方", "兴企有为","清正廉洁"};
-    public static String[][] items = new String[][]{{"政治品质", "政治本领"}, {"创新精神", "创新成果"},{"经营管理能力", "抓党建强党建能力"}, {"担当作为", "履职绩效"}, {"一岗双责", "廉洁从业"}};
-    public static String[] item = new String[]{};
+//    public static String[] group = new String[]{"对党忠诚", "勇于创新", "治企有方", "兴企有为", "清正廉洁"};
+//    public static String[] item = new String[]{"政治品质", "政治本领", "创新精神", "创新成果", "经营管理能力", "抓党建强党建能力", "担当作为", "履职绩效", "一岗双责", "廉洁从业"};
+//    public static String[] item = new String[]{};
+//    public static String[] voteType = new String[]{"A1、A2、A3票"};
+//    public static String filterName = "领导班子成员";
+//    public static String voteRuleName = "A1、A2、A3票";
+//    public static String votertype = "A1;A2;A3";
+//    public static int score = 10;
+
+    public static String[] group = new String[]{};
+    public static String[][] items = new String[][]{{"政治品质", "政治本领"}, {"创新精神", "创新成果"}, {"经营管理能力", "抓党建强党建能力"}, {"担当作为", "履职绩效"}, {"一岗双责", "廉洁从业"}};
+    public static String[] item = new String[]{"政治品质", "政治本领", "创新精神", "创新成果", "经营管理能力", "抓党建强党建能力", "担当作为", "履职绩效", "一岗双责", "廉洁从业"};
     public static String[] voteType = new String[]{"A1、A2、A3票"};
     public static String filterName = "领导班子成员";
     public static String voteRuleName = "A1、A2、A3票";
     public static String votertype = "A1;A2;A3";
     public static int score = 10;
+
 
     // 标题+表头+加权总数所占的固定行数
     int rowBase = 3;
@@ -119,10 +129,6 @@ public class StatisticDetailTablePolicy extends AbstractRenderPolicy<Object> {
     // 设置 header
     public void setTableHeader(XWPFTable table) {
         if (group.length > 0) {
-            // 构建第二行
-            String[] strHeader1 = new String[2];
-            strHeader1[0] = "评价内容";
-            strHeader1[1] = filterName + "（" + voteRuleName + "）";
             for (int i = 0; i < 3; i++) {
                 TableTools.mergeCellsVertically(table, i, 1, 2);
             }
@@ -130,23 +136,32 @@ public class StatisticDetailTablePolicy extends AbstractRenderPolicy<Object> {
             TableTools.mergeCellsHorizonal(table, 1, 0, 2);
             TableTools.mergeCellsHorizonal(table, 2, col - 2, col - 1);
             TableTools.mergeCellsHorizonal(table, 2, 0, 2);
-
-            String[] strHeader2 = new String[score + 2];
-            for (int i = score; i > 0; i--) {
-                strHeader2[strHeader2.length - i - 1] = String.valueOf(i);
+        } else {
+            for (int i = 0; i < 2; i++) {
+                TableTools.mergeCellsVertically(table, i, 1, 2);
             }
-            strHeader2[strHeader2.length - 1] = "评分";
-
-            Style cellStyle = this.getCellStyle();
-            RowRenderData header1 = this.build(strHeader1, cellStyle);
-            RowRenderData header2 = this.build(strHeader2, cellStyle);
-            TableStyle tableStyle = this.getTableStyle();
-            header1.setRowStyle(tableStyle);
-            header2.setRowStyle(tableStyle);
-            MiniTableRenderPolicy.Helper.renderRow(table, 1, header1);
-            MiniTableRenderPolicy.Helper.renderRow(table, 2, header2);
-
+            TableTools.mergeCellsHorizonal(table, 1, 2, col - 1);
+            TableTools.mergeCellsHorizonal(table, 1, 0, 1);
+            TableTools.mergeCellsHorizonal(table, 2, col - 2, col - 1);
+            TableTools.mergeCellsHorizonal(table, 2, 0, 1);
         }
+        // 构建第二行
+        String[] strHeader1 = new String[2];
+        strHeader1[0] = "评价内容";
+        strHeader1[1] = filterName + "（" + voteRuleName + "）";
+        String[] strHeader2 = new String[score + 2];
+        for (int i = score; i > 0; i--) {
+            strHeader2[strHeader2.length - i - 1] = String.valueOf(i);
+        }
+        strHeader2[strHeader2.length - 1] = "评分";
+        Style cellStyle = this.getCellStyle();
+        RowRenderData header1 = this.build(strHeader1, cellStyle);
+        RowRenderData header2 = this.build(strHeader2, cellStyle);
+        TableStyle tableStyle = this.getTableStyle();
+        header1.setRowStyle(tableStyle);
+        header2.setRowStyle(tableStyle);
+        MiniTableRenderPolicy.Helper.renderRow(table, 1, header1);
+        MiniTableRenderPolicy.Helper.renderRow(table, 2, header2);
     }
 
     // group 的设置、集中在第1列
@@ -208,8 +223,13 @@ public class StatisticDetailTablePolicy extends AbstractRenderPolicy<Object> {
         int end = row - 1;
         Style cellStyle = this.getCellStyle();
         TableStyle tableStyle = this.getTableStyle();
+        RowRenderData textData;
+        if (group.length > 0) {
+            textData = RowRenderData.build(new TextRenderData("", cellStyle), new TextRenderData("", cellStyle), new TextRenderData("得票", cellStyle));
+        } else {
+            textData = RowRenderData.build(new TextRenderData("", cellStyle), new TextRenderData("得票", cellStyle));
+        }
         for (int i = start; i < end; i++) {
-            RowRenderData textData = RowRenderData.build(new TextRenderData("", cellStyle), new TextRenderData("", cellStyle), new TextRenderData("得票", cellStyle));
             textData.setRowStyle(tableStyle);
             MiniTableRenderPolicy.Helper.renderRow(table, i, textData);
         }
@@ -217,10 +237,16 @@ public class StatisticDetailTablePolicy extends AbstractRenderPolicy<Object> {
 
     // 设置最后一行
     public void setLastRow(XWPFTable table) {
-        // 最后一行的加权总得分
-        TableTools.mergeCellsHorizonal(table, row - 1, col - 2, col - 1);
-        TableTools.mergeCellsHorizonal(table, row - 1, colBase, col - 3);
-        TableTools.mergeCellsHorizonal(table, row - 1, 0, colBase - 1);
+        if (group.length > 0) {
+            // 最后一行的加权总得分
+            TableTools.mergeCellsHorizonal(table, row - 1, col - 2, col - 1);
+            TableTools.mergeCellsHorizonal(table, row - 1, colBase, col - 3);
+            TableTools.mergeCellsHorizonal(table, row - 1, 0, colBase - 1);
+        } else {
+            TableTools.mergeCellsHorizonal(table, row - 1, col - 2, col - 1);
+            TableTools.mergeCellsHorizonal(table, row - 1, 2, col - 3);
+            TableTools.mergeCellsHorizonal(table, row - 1, 0, 1);
+        }
         Style cellStyle = this.getCellStyle();
         RowRenderData total = RowRenderData.build(new TextRenderData("加权汇总得分", cellStyle), new TextRenderData("——————————", cellStyle), new TextRenderData("avg@" + votertype, cellStyle));
         TableStyle tableStyle = this.getTableStyle();
@@ -231,11 +257,7 @@ public class StatisticDetailTablePolicy extends AbstractRenderPolicy<Object> {
     // 计算行（区分有没有一级指标）
     public int getRow(String[] group) {
         // 有一级指标和二级指标
-        if (group.length > 0) {
-            row = this.countRow(items) + rowBase + 1;
-        } else {
-            row = item.length + rowBase + 1;
-        }
+        row = this.countRow(items) + rowBase + 1;
         return row;
     }
 
