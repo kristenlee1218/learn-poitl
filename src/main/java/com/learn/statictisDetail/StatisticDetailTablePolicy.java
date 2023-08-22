@@ -88,7 +88,6 @@ public class StatisticDetailTablePolicy extends AbstractRenderPolicy<Object> {
         this.setItem(table);
         this.setText(table);
         this.setLastRow(table);
-
     }
 
     // 整个 table 的样式在此设置
@@ -237,13 +236,12 @@ public class StatisticDetailTablePolicy extends AbstractRenderPolicy<Object> {
 
     // 设置最后一行
     public void setLastRow(XWPFTable table) {
+        // 最后一行的加权总得分
+        TableTools.mergeCellsHorizonal(table, row - 1, col - 2, col - 1);
         if (group.length > 0) {
-            // 最后一行的加权总得分
-            TableTools.mergeCellsHorizonal(table, row - 1, col - 2, col - 1);
             TableTools.mergeCellsHorizonal(table, row - 1, colBase, col - 3);
             TableTools.mergeCellsHorizonal(table, row - 1, 0, colBase - 1);
         } else {
-            TableTools.mergeCellsHorizonal(table, row - 1, col - 2, col - 1);
             TableTools.mergeCellsHorizonal(table, row - 1, 2, col - 3);
             TableTools.mergeCellsHorizonal(table, row - 1, 0, 1);
         }
