@@ -30,7 +30,7 @@ public class ListTablePolicy extends AbstractRenderPolicy<Object> {
     public static String[][] data = new String[][]{{"刘备", "董事长", "80.00", "1", "78.96", "75.69", "74.98", "73.69", "80.56", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}, {"关羽", "总经理", "79.00", "2", "78.86", "75.77", "74.39", "73.28", "80.46", "83.46", "89.82", "74.99", "78.26", "85.99", "82.33", "78.93", "84.41", "91.29", "73.48"}, {"刘备", "董事长", "80.00", "1", "78.96", "75.69", "74.98", "73.69", "80.56", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}, {"刘备", "董事长", "80.00", "1", "78.96", "75.69", "74.98", "73.69", "80.56", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}, {"刘备", "董事长", "80.00", "1", "78.96", "75.69", "74.98", "73.69", "80.56", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}, {"刘备", "董事长", "80.00", "1", "78.96", "75.69", "74.98", "73.69", "80.56", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}, {"刘备", "董事长", "80.00", "1", "78.96", "75.69", "74.98", "73.69", "80.56", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}, {"刘备", "董事长", "80.00", "1", "78.96", "75.69", "74.98", "73.69", "80.56", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}, {"刘备", "董事长", "80.00", "1", "78.96", "75.69", "74.98", "73.69", "80.56", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}, {"刘备", "董事长", "80.00", "1", "78.96", "75.69", "74.98", "73.69", "80.56", "83.46", "89.22", "74.36", "78.25", "85.99", "82.13", "78.93", "79.41", "71.29", "75.48"}};
     public static String[] item = new String[]{};
     public static String[] voteType = new String[]{};
-    public static String[] config = new String[]{"姓名", "现任职务"};
+    public static String[] config = new String[]{"姓名", "出生年月", "原任职务", "现任职务", "任职时间"};
 
     // 第二种测试情况（河北建投二级单位_2022年第1批综合考核评价统计报表(1653979325662)）
 //    public static String[] group = new String[]{};
@@ -144,6 +144,10 @@ public class ListTablePolicy extends AbstractRenderPolicy<Object> {
 
                 for (int i = 0; i < group.length; i++) {
                     strHeader1[i + config.length + colBase] = group[i];
+                }
+
+                // 垂直合并
+                for (int i = 0; i < config.length + colBase; i++) {
                     TableTools.mergeCellsVertically(table, i, 1, 2);
                 }
 
@@ -250,19 +254,22 @@ public class ListTablePolicy extends AbstractRenderPolicy<Object> {
                 String[] str = new String[col];
                 str[0] = "{{sequence_" + k + "}}";
                 str[1] = "{{leadername_" + k + "}}";
-                str[2] = "{{post_" + k + "}}";
-                str[3] = "{{avg_" + k + "}}";
-                str[4] = "{{sort_avg_" + k + "}}";
+                str[2] = "{{leaderbirthday_" + k + "}}";
+                str[3] = "{{old_post_" + k + "}}";
+                str[4] = "{{post_" + k + "}}";
+                str[5] = "{{startdate_" + k + "}}";
+                str[6] = "{{avg_" + k + "}}";
+                str[7] = "{{sort_avg_" + k + "}}";
 
                 int index = config.length + colBase;
                 if (group.length > 0) {
                     for (int i = 0; i < items.length; i++) {
                         str[index] = "{{avg_group0" + (i + 1) + "_" + k + "}}";
                         for (int j = 0; j < items[i].length; j++) {
-                            if (index - 5 - i < 9) {
-                                str[++index] = "{{avg_leader0" + (index - 5 - i) + "_" + k + "}}";
+                            if (index - config.length - colBase - i < 9) {
+                                str[++index] = "{{avg_leader0" + (index - config.length - colBase - i) + "_" + k + "}}";
                             } else {
-                                str[++index] = "{{avg_leader" + (index - 5 - i) + "_" + k + "}}";
+                                str[++index] = "{{avg_leader" + (index - config.length - colBase - i) + "_" + k + "}}";
                             }
                         }
                         index++;
@@ -287,7 +294,12 @@ public class ListTablePolicy extends AbstractRenderPolicy<Object> {
                 String[] str = new String[col];
                 str[0] = "{{sequence_" + k + "}}";
                 str[1] = "{{leadername_" + k + "}}";
-                str[2] = "{{post_" + k + "}}";
+                str[2] = "{{leaderbirthday_" + k + "}}";
+                str[3] = "{{old_post_" + k + "}}";
+                str[4] = "{{post_" + k + "}}";
+                str[5] = "{{startdate_" + k + "}}";
+                str[6] = "{{avg_" + k + "}}";
+                str[7] = "{{sort_avg_" + k + "}}";
 
                 int index = config.length + 1;
                 for (String s : voteType) {
