@@ -98,7 +98,7 @@ public class RenyuanDuibiQuotaPiaoTablePolicy extends AbstractRenderPolicy<Objec
         cellStyle.setFontFamily("黑体");
         TableStyle tableStyle = new TableStyle();
         tableStyle.setAlign(STJc.CENTER);
-        tableStyle.setBackgroundColor("E7E6E6");
+        tableStyle.setBackgroundColor("F5F5F5");
         String title = "{{title}}";
         RowRenderData header0 = RowRenderData.build(new TextRenderData(title, cellStyle));
         header0.setRowStyle(tableStyle);

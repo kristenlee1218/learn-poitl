@@ -101,7 +101,7 @@ public class OrganDuibiQuotaPiaoTablePolicy extends AbstractRenderPolicy<Object>
         cellStyle.setFontFamily("黑体");
         TableStyle tableStyle = new TableStyle();
         tableStyle.setAlign(STJc.CENTER);
-        tableStyle.setBackgroundColor("DCDCDC");
+        tableStyle.setBackgroundColor("F5F5F5");
         String title = "{{title}}" + voteType + "票";
         RowRenderData header0 = RowRenderData.build(new TextRenderData(title, cellStyle));
         header0.setRowStyle(tableStyle);
