@@ -71,8 +71,8 @@ public class SelectPeoplePolicy1 extends AbstractRenderPolicy<Object> {
         this.setTableTitle(table);
         this.setTableHeader(table);
         this.setTableQuestion(table);
-        //this.setTableTag(table);
-        this.setTableData(table);
+        this.setTableTag(table);
+        //this.setTableData(table);
     }
 
     // 整个 table 的样式在此设置
@@ -106,7 +106,7 @@ public class SelectPeoplePolicy1 extends AbstractRenderPolicy<Object> {
         cellStyle.setFontFamily("黑体");
         TableStyle tableStyle = new TableStyle();
         tableStyle.setAlign(STJc.CENTER);
-        tableStyle.setBackgroundColor("DCDCDC");
+        tableStyle.setBackgroundColor("E7E6E6");
         String title = "{{title}}";
         RowRenderData header0 = RowRenderData.build(new TextRenderData(title, cellStyle));
         header0.setRowStyle(tableStyle);
@@ -226,7 +226,7 @@ public class SelectPeoplePolicy1 extends AbstractRenderPolicy<Object> {
             RowRenderData tag = this.build(strTag, style);
             TableStyle tableStyle = this.getTableStyle();
             tag.setRowStyle(tableStyle);
-            MiniTableRenderPolicy.Helper.renderRow(table, i + 4, tag);
+            MiniTableRenderPolicy.Helper.renderRow(table, i + rowBase, tag);
         }
     }
 

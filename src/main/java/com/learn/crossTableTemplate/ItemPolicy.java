@@ -89,7 +89,7 @@ public class ItemPolicy extends AbstractRenderPolicy<Object> {
         cellStyle.setColor("000000");
         TableStyle tableStyle = new TableStyle();
         tableStyle.setAlign(STJc.CENTER);
-        tableStyle.setBackgroundColor("DCDCDC");
+        tableStyle.setBackgroundColor("E7E6E6");
         String title = "{{title}}";
         RowRenderData header0 = RowRenderData.build(new TextRenderData(title, cellStyle));
         header0.setRowStyle(tableStyle);
