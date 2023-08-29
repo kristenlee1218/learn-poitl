@@ -109,20 +109,7 @@ public class SelectPeoplePolicy2 extends AbstractRenderPolicy<Object> {
         MiniTableRenderPolicy.Helper.renderRow(table, 0, header0);
     }
 
-    // 设置第二行问题的样式
-    public void setTableQuestion(XWPFTable table) {
-        Style cellStyle = new Style();
-        cellStyle.setFontSize(8);
-        cellStyle.setColor("000000");
-        cellStyle.setFontFamily("黑体");
-        TableStyle tableStyle = new TableStyle();
-        String questionName = question[0];
-        RowRenderData header1 = RowRenderData.build(new TextRenderData(questionName, cellStyle));
-        header1.setRowStyle(tableStyle);
-        TableTools.mergeCellsHorizonal(table, 1, 0, col - 1);
-        MiniTableRenderPolicy.Helper.renderRow(table, 1, header1);
-    }
-
+    // 设置 header
     public void setTableHeader(XWPFTable table) {
         // 第2行值的数组
         String[] strHeader1 = new String[voteType.length + 2];
@@ -158,6 +145,20 @@ public class SelectPeoplePolicy2 extends AbstractRenderPolicy<Object> {
         header2.setRowStyle(tableStyle);
         MiniTableRenderPolicy.Helper.renderRow(table, 2, header1);
         MiniTableRenderPolicy.Helper.renderRow(table, 3, header2);
+    }
+
+    // 设置第二行问题的样式
+    public void setTableQuestion(XWPFTable table) {
+        Style cellStyle = new Style();
+        cellStyle.setFontSize(8);
+        cellStyle.setColor("000000");
+        cellStyle.setFontFamily("黑体");
+        TableStyle tableStyle = new TableStyle();
+        String questionName = question[0];
+        RowRenderData header1 = RowRenderData.build(new TextRenderData(questionName, cellStyle));
+        header1.setRowStyle(tableStyle);
+        TableTools.mergeCellsHorizonal(table, 1, 0, col - 1);
+        MiniTableRenderPolicy.Helper.renderRow(table, 1, header1);
     }
 
     // 设置第1列
