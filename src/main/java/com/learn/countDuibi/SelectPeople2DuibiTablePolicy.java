@@ -9,6 +9,7 @@ import com.deepoove.poi.render.RenderContext;
  * @description :
  */
 public class SelectPeople2DuibiTablePolicy extends AbstractRenderPolicy<Object> {
+
     @Override
     public void doRender(RenderContext<Object> context) throws Exception {
 
