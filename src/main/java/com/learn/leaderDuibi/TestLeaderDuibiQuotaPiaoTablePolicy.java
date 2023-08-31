@@ -13,7 +13,7 @@ import java.util.HashMap;
  * @date ：2023/8/15
  * @description :
  */
-public class TestLeaderDuibiPiaoTablePolicyDuibiPiaoTablePolicy {
+public class TestLeaderDuibiQuotaPiaoTablePolicy {
     public static void main(String[] args) throws IOException {
         // 准备数据
         ConfigureBuilder builder = Configure.newBuilder();
@@ -22,7 +22,7 @@ public class TestLeaderDuibiPiaoTablePolicyDuibiPiaoTablePolicy {
         HashMap<String, Object> data = new HashMap<String, Object>() {
             {
                 // 构建 table
-                LeaderDuibiPiaoTablePolicy tablePolicy = new LeaderDuibiPiaoTablePolicy();
+                LeaderDuibiQuotaTablePolicy tablePolicy = new LeaderDuibiQuotaTablePolicy();
                 builder.bind("table", tablePolicy);
             }
         };
