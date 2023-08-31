@@ -1,4 +1,4 @@
-package com.learn.renyuanTemplate;
+package com.learn.leaderDuibi;
 
 import com.deepoove.poi.data.MiniTableRenderData;
 import com.deepoove.poi.data.RowRenderData;
@@ -19,14 +19,13 @@ import java.util.List;
 
 /**
  * @author ：Kristen
- * @date ：2022/7/25
- * @description :
+ * @date ：2023/8/15
+ * @description : 人员对比表分票（所有票种）汇总表格
  */
-public class ListPiaoTablePolicy extends AbstractRenderPolicy<Object> {
-
+public class LeaderDuibiPiaoTablePolicy extends AbstractRenderPolicy<Object> {
     public static String[] voteType = new String[]{"A1", "A2", "A3", "B", "C"};
     public static String[][] data = new String[][]{{"刘备", "董事长", "80.00", "1", "78.96", "1", "74.98", "1", "80.56", "1", "89.22", "1", "78.25", "1"}, {"关羽", "总经理", "80.00", "2", "78.96", "2", "74.98", "2", "80.56", "2", "89.22", "2", "78.25", "2"}, {"刘备", "董事长", "80.00", "1", "78.96", "1", "74.98", "1", "80.56", "1", "89.22", "1", "78.25", "1"}, {"关羽", "总经理", "80.00", "2", "78.96", "2", "74.98", "2", "80.56", "2", "89.22", "2", "78.25", "2"}, {"刘备", "董事长", "80.00", "1", "78.96", "1", "74.98", "1", "80.56", "1", "89.22", "1", "78.25", "1"}, {"关羽", "总经理", "80.00", "2", "78.96", "2", "74.98", "2", "80.56", "2", "89.22", "2", "78.25", "2"}, {"刘备", "董事长", "80.00", "1", "78.96", "1", "74.98", "1", "80.56", "1", "89.22", "1", "78.25", "1"}, {"关羽", "总经理", "80.00", "2", "78.96", "2", "74.98", "2", "80.56", "2", "89.22", "2", "78.25", "2"}, {"刘备", "董事长", "80.00", "1", "78.96", "1", "74.98", "1", "80.56", "1", "89.22", "1", "78.25", "1"}, {"关羽", "总经理", "80.00", "2", "78.96", "2", "74.98", "2", "80.56", "2", "89.22", "2", "78.25", "2"}};
-    public static String[] config = new String[]{"姓名", "现任职务"};
+    public static String[] config = new String[]{"单位名称", "姓名", "现任职务"};
 
     // 计算行和列
     int col;
@@ -105,7 +104,7 @@ public class ListPiaoTablePolicy extends AbstractRenderPolicy<Object> {
             TableTools.mergeCellsHorizonal(table, 1, start, ++start);
         }
 
-        System.arraycopy(voteType, 0, strHeader1, 3, voteType.length);
+        System.arraycopy(voteType, 0, strHeader1, config.length + colBase, voteType.length);
         for (int i = 0; i < index; i++) {
             TableTools.mergeCellsVertically(table, i, 1, 2);
         }
@@ -136,8 +135,9 @@ public class ListPiaoTablePolicy extends AbstractRenderPolicy<Object> {
         for (int k = 0; k < data.length; k++) {
             String[] str = new String[col];
             str[0] = "{{sequence_" + k + "}}";
-            str[1] = "{{leadername_" + k + "}}";
-            str[2] = "{{post_" + k + "}}";
+            str[1] = "{{organshortname_" + k + "}}";
+            str[2] = "{{leadername_" + k + "}}";
+            str[3] = "{{post_" + k + "}}";
 
             int index = config.length + 1;
             for (String s : voteType) {

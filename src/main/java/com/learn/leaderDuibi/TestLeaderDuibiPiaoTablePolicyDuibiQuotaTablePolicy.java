@@ -1,4 +1,4 @@
-package com.learn.renyuanDuibi;
+package com.learn.leaderDuibi;
 
 import com.deepoove.poi.XWPFTemplate;
 import com.deepoove.poi.config.Configure;
@@ -13,7 +13,7 @@ import java.util.HashMap;
  * @date ：2023/8/15
  * @description :
  */
-public class TestRenyuanDuibiQuotaTablePolicy {
+public class TestLeaderDuibiPiaoTablePolicyDuibiQuotaTablePolicy {
     public static void main(String[] args) throws IOException {
         // 准备数据
         ConfigureBuilder builder = Configure.newBuilder();
@@ -22,7 +22,7 @@ public class TestRenyuanDuibiQuotaTablePolicy {
         HashMap<String, Object> data = new HashMap<String, Object>() {
             {
                 // 构建 table
-                RenyuanDuibiQuotaTablePolicy tablePolicy = new RenyuanDuibiQuotaTablePolicy();
+                LeaderDuibiPiaoTablePolicyDuibiQuotaTablePolicy tablePolicy = new LeaderDuibiPiaoTablePolicyDuibiQuotaTablePolicy();
                 builder.bind("table", tablePolicy);
             }
         };
