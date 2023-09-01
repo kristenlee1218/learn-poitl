@@ -14,9 +14,7 @@ import com.deepoove.poi.xwpf.BodyContainerFactory;
 import org.apache.poi.xwpf.usermodel.*;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.STJc;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author ：Kristen
@@ -28,7 +26,7 @@ public class SelectPeople1DuibiTablePolicy extends AbstractRenderPolicy<Object> 
     public static String option = "4:不了解:0;6:不好:0;8:一般:0;10:好:0";
     public static String[] question = new String[]{"1、对本单位选人用人工作的总体评价", "2、对本单位从严管理监督干部情况的评价"};
     public static String[] itemId = new String[]{"organ21", "organ22"};
-    public int dataSize = 1;
+    public int dataSize = 10;
 
     // 计算行和列
     int col;
@@ -50,7 +48,7 @@ public class SelectPeople1DuibiTablePolicy extends AbstractRenderPolicy<Object> 
         BodyContainer bodyContainer = BodyContainerFactory.getBodyContainer(run);
         // 计算行列
         optionMap = this.splitOption(option);
-        optionMap.put("好与一般的比例", 0);
+        optionMap.put("好与一般的比例", 7);
         row = rowBase + dataSize;
         col = optionMap.size() * 2 + colBase + 1;
 
@@ -148,6 +146,18 @@ public class SelectPeople1DuibiTablePolicy extends AbstractRenderPolicy<Object> 
             String[] str = new String[col];
             str[0] = "{{sequence_" + i + "}}";
             str[1] = "{{organshortname_" + i + "}}";
+            int index = colBase;
+            Object[] optionStr = optionMap.values().toArray();
+            for (String s : itemId) {
+                for (int k = 0; k < optionStr.length; k++) {
+                    if (k == optionStr.length - 1) {
+                        str[index++] = "{{rate#" + s + ">" + optionStr[k].toString() + "_" + i + "#}}";
+                    } else {
+                        str[index++] = "{{rate#" + s + "=" + optionStr[k].toString() + "_" + i + "#}}";
+                    }
+                }
+            }
+            str[str.length - 1] = "average(6,11)" + "_" + i + "###sort";
 
             // 构建
             Style style = this.getCellStyle();
