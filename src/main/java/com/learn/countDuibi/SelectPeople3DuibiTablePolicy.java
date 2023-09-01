@@ -120,7 +120,7 @@ public class SelectPeople3DuibiTablePolicy extends AbstractRenderPolicy<Object> 
             for (int j = 0; j < itemId.length; j++) {
                 str[colBase + j] = "{{rate#" + itemId[j] + ">7_" + i + "#}}";
             }
-            str[str.length - 1] = "average(2,3)_" + i + "###sort";
+            str[str.length - 1] = "{{average(2,3)_" + i + "_###sort}}";
 
             // 构建
             Style style = this.getCellStyle();
