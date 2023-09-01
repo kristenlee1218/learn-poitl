@@ -15,7 +15,6 @@ import org.apache.poi.xwpf.usermodel.*;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.STJc;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -128,7 +127,7 @@ public class NewLeader1DuibiTablePolicy extends AbstractRenderPolicy<Object> {
 
         // 第2行水平合并单元格 票种部分
         int startHeader2 = 1;
-        int endHeader2 = 0;
+        int endHeader2;
         for (int i = 0; i < strHeader2.length - 2; i++) {
             endHeader2 = startHeader2 + optionMap.size() - 1;
             TableTools.mergeCellsHorizonal(table, 2, startHeader2, endHeader2);

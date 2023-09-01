@@ -230,18 +230,18 @@ public class SelectPeoplePolicy1 extends AbstractRenderPolicy<Object> {
         }
     }
 
-    public void setTableData(XWPFTable table) {
-        for (int i = 0; i < data.length; i++) {
-            String[] strData = new String[col];
-            System.arraycopy(data[i], 0, strData, colBase, data[i].length);
-            // 构建
-            Style style = this.getCellStyle();
-            RowRenderData tag = this.build(strData, style);
-            TableStyle tableStyle = this.getTableStyle();
-            tag.setRowStyle(tableStyle);
-            MiniTableRenderPolicy.Helper.renderRow(table, i + rowBase, tag);
-        }
-    }
+//    public void setTableData(XWPFTable table) {
+//        for (int i = 0; i < data.length; i++) {
+//            String[] strData = new String[col];
+//            System.arraycopy(data[i], 0, strData, colBase, data[i].length);
+//            // 构建
+//            Style style = this.getCellStyle();
+//            RowRenderData tag = this.build(strData, style);
+//            TableStyle tableStyle = this.getTableStyle();
+//            tag.setRowStyle(tableStyle);
+//            MiniTableRenderPolicy.Helper.renderRow(table, i + rowBase, tag);
+//        }
+//    }
 
     // 将题目的选项 如：“4:不了解:0;6:不好:0;8:一般:0;10:好:0” 存入 map，key 为显示的值，value 为分值
     public LinkedHashMap<String, Integer> splitOption(String option) {
