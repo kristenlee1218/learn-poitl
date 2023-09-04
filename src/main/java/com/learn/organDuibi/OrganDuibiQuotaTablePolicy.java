@@ -202,9 +202,9 @@ public class OrganDuibiQuotaTablePolicy extends AbstractRenderPolicy<Object> {
                     str[index] = "{{avg_group0" + (i + 1) + "_" + k + "}}";
                     for (int j = 0; j < items[i].length; j++) {
                         if (index - 4 - i < 9) {
-                            str[++index] = "{{avg_leader0" + (index - 4 - i) + "_" + k + "}}";
+                            str[++index] = "{{avg_organ0" + (index - 4 - i) + "_" + k + "}}";
                         } else {
-                            str[++index] = "{{avg_leader" + (index - 4 - i) + "_" + k + "}}";
+                            str[++index] = "{{avg_organ" + (index - 4 - i) + "_" + k + "}}";
                         }
                     }
                     index++;
@@ -212,9 +212,9 @@ public class OrganDuibiQuotaTablePolicy extends AbstractRenderPolicy<Object> {
             } else {
                 for (int i = 0; i < item.length; i++) {
                     if (i < 9) {
-                        str[i + index] = "{{avg_leader0" + (i + 1) + "_" + k + "}}";
+                        str[i + index] = "{{avg_organ0" + (i + 1) + "_" + k + "}}";
                     } else {
-                        str[i + index] = "{{avg_leader" + (i + 1) + "_" + k + "}}";
+                        str[i + index] = "{{avg_organ" + (i + 1) + "_" + k + "}}";
                     }
                 }
             }
