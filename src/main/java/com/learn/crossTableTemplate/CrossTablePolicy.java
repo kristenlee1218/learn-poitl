@@ -24,13 +24,13 @@ import java.util.*;
 public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
 
     // 第一种测试情况（信息中心_2020年第1批综合测评统计报表(1655863588387)）(14)
-//    public static String[] group = new String[]{"政治思想建设", "企业发展质量", "党建工作质量", "作风建设成效"};
-//    public static String[][] items = new String[][]{{"政治忠诚", "政治担当", "社会责任"}, {"改革创新", "经营效益", "管理效能", "风险管控"}, {"选人用人", "基层党建", "党风廉政"}, {"团结协作", "联系群众"}};
-//    public static String[] item = new String[]{};
-//    public static String[] voteType = new String[]{"领导班子成员A1、A2、A3票", "中层测评B票", "职工代表C票", "外部董事A4票"};
-//    public static String[] voteTypeGroup = new String[]{"内部测评"};
-//    public static String[][] innerEvaluate = new String[][]{{"领导班子成员A1、A2、A3票", "中层测评B票", "职工代表C票"}};
-//    public static String[] value = new String[]{"1.00", "2.00", "3.00", "4.00", "5.00", "6.00", "7.00", "8.00", "9.00", "10.00", "11.00", "12.00", "13.00", "14.00", "15.00", "16.00", "17.00", "18.00", "19.00", "20", "21.00", "22.00", "23.00", "24.00", "25.00", "26.00", "27.00", "28.00", "29.00", "30.00", "31.00", "32.00", "33", "34.00", "35.00", "36.00", "37.00", "38.00", "39.00", "40.00", "41.00", "42.00", "43.00", "44.00", "45.00", "46", "47.00", "48.00", "49.00", "50.00", "51.00", "52.00", "53.00", "54.00", "55.00", "56.00", "57.00", "58.00", "59", "60.00", "61.00", "62.00", "63.00", "64.00", "65.00", "66.00", "67.00", "68.00", "69.00", "70.00", "71.00", "72", "73.00", "74.00", "75.00", "76.00", "77.00", "78.00", "79.00", "80.00", "81.00", "82.00", "83.00", "84.00", "85", "86.00", "87.00", "88.00", "89.00", "90.00", "91.00", "92.00", "93.00", "94.00", "95.00", "96.00", "97.00", "98", "99.00", "100.00", "101.00", "102.00"};
+    public static String[] group = new String[]{"政治思想建设", "企业发展质量", "党建工作质量", "作风建设成效"};
+    public static String[][] items = new String[][]{{"政治忠诚", "政治担当", "社会责任"}, {"改革创新", "经营效益", "管理效能", "风险管控"}, {"选人用人", "基层党建", "党风廉政"}, {"团结协作", "联系群众"}};
+    public static String[] item = new String[]{};
+    public static String[] voteType = new String[]{"领导班子成员（A1、A2、A3票）", "中层测评（B票）", "职工代表（C票）", "外部董事（A4票）"};
+    public static String[] voteTypeGroup = new String[]{"内部测评"};
+    public static String[][] innerEvaluate = new String[][]{{"领导班子成员（A1、A2、A3票）", "中层测评（B票）", "职工代表（C票）"}};
+    public static String[] value = new String[]{"1.00", "2.00", "3.00", "4.00", "5.00", "6.00", "7.00", "8.00", "9.00", "10.00", "11.00", "12.00", "13.00", "14.00", "15.00", "16.00", "17.00", "18.00", "19.00", "20", "21.00", "22.00", "23.00", "24.00", "25.00", "26.00", "27.00", "28.00", "29.00", "30.00", "31.00", "32.00", "33", "34.00", "35.00", "36.00", "37.00", "38.00", "39.00", "40.00", "41.00", "42.00", "43.00", "44.00", "45.00", "46", "47.00", "48.00", "49.00", "50.00", "51.00", "52.00", "53.00", "54.00", "55.00", "56.00", "57.00", "58.00", "59", "60.00", "61.00", "62.00", "63.00", "64.00", "65.00", "66.00", "67.00", "68.00", "69.00", "70.00", "71.00", "72", "73.00", "74.00", "75.00", "76.00", "77.00", "78.00", "79.00", "80.00", "81.00", "82.00", "83.00", "84.00", "85", "86.00", "87.00", "88.00", "89.00", "90.00", "91.00", "92.00", "93.00", "94.00", "95.00", "96.00", "97.00", "98", "99.00", "100.00", "101.00", "102.00"};
 
     //    第二种测试情况（上海大区公司_2021年第1批综合考核评价统计表）(20)
 //    public static String[] group = new String[]{"政治思想建设", "企业发展质量", "党建工作质量", "作风建设成效"};
@@ -51,13 +51,13 @@ public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
 //    public static String[] value = new String[]{"1.00", "2.00", "3.00", "4.00", "5.00", "6.00", "7.00", "8.00", "9.00", "10.00", "11.00", "12.00", "13.00", "14.00", "15.00", "16.00", "17.00", "18.00", "19.00", "20.00", "21.00", "22.00", "23.00", "24.00", "25.00", "26.00", "27.00", "28.00", "29.00", "30.00", "31.00", "32.00", "33.00", "34.00", "35.00", "36.00", "37.00", "38.00", "39.00", "40.00", "41.00", "42.00", "43.00", "44.00", "45.00", "46.00", "47.00", "48.00", "49.00", "50.00", "51.00", "52.00", "53.00", "54.00", "55.00", "56.00", "57.00", "58.00", "59.00", "60.00"};
 
     //    第四种测试情况（河北建投二级单位_2022年第1批综合考核评价统计报表(1653979325662)）
-    public static String[] group = new String[]{};
-    public static String[][] items = new String[][]{{}};
-    public static String[] item = new String[]{"政治方向", "社会责任", "企业党建", "科学管理", "发扬民主", "整体合力", "诚信合力", "联系群众", "廉洁自律", "工作部署"};
-    public static String[] voteType = new String[]{"A票", "B票"};
-    public static String[] voteTypeGroup = new String[]{};
-    public static String[][] innerEvaluate = new String[][]{{}};
-    public static String[] value = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33"};
+//    public static String[] group = new String[]{};
+//    public static String[][] items = new String[][]{{}};
+//    public static String[] item = new String[]{"政治方向", "社会责任", "企业党建", "科学管理", "发扬民主", "整体合力", "诚信合力", "联系群众", "廉洁自律", "工作部署"};
+//    public static String[] voteType = new String[]{"A票", "B票"};
+//    public static String[] voteTypeGroup = new String[]{};
+//    public static String[][] innerEvaluate = new String[][]{{}};
+//    public static String[] value = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33"};
 
     // 计算行
     int row;
@@ -92,6 +92,8 @@ public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
 
         // 当前位置插入表格
         XWPFTable table = bodyContainer.insertNewTable(run, row, col);
+
+        //TableTools.widthTable(table);
 
         this.setTableStyle(table);
         this.setTableTitle(table);
@@ -154,7 +156,7 @@ public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
                 strHeader1[0] = "评价内容";
                 strHeader1[length - 1] = "全体";
                 if (isHaveWBDS) {
-                    strHeader1[length - 2] = "外部董事";
+                    strHeader1[length - 2] = "外部董事（A4票）";
                 }
                 System.arraycopy(voteTypeGroup, 0, strHeader1, 1, voteTypeGroup.length);
 
