@@ -14,31 +14,24 @@ import com.deepoove.poi.xwpf.BodyContainerFactory;
 import org.apache.poi.xwpf.usermodel.*;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.STJc;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author ：Kristen
  * @date ：2023/8/31
  * @description :
  */
-public class SelectPeople3DuibiTablePolicy extends AbstractRenderPolicy<Object> {
+public class SelectPeople4DuibiTablePolicy extends AbstractRenderPolicy<Object> {
 
-    public static String[] voteName = new String[]{"班子成员占比", "原领导班子和中层干部占比", "职工代表占比", "全体人员占比"};
-    public static String[] voteType = new String[]{"A1/A2/A3", "B", "C", ""};
-
-    public static String[] question = new String[]{"3、您认为本单位选人用人工作存在的主要问题是什么？（可多选）"};
-    public static String option = "6:任人唯亲、拉帮结派:0;7:跑官要官、买官卖官、说情打招呼:0;8:执行干部选拔任用政策规定不严格:0;9:干部队伍建设统筹谋划不够，结构不合理:0;10:干部队伍能力素质不适应工作要求:0";
-    public static String[] data = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
-    public static String[] itemId = new String[]{"organ23"};
+    public static String[] question = new String[]{"1、对本单位选人用人工作的总体评价", "2、对本单位从严管理监督干部情况的评价"};
+    public static String[] itemId = new String[]{"organ21", "organ22"};
     public int dataSize = 10;
 
+    // 计算行和列
     int col;
     int row;
-    LinkedHashMap<String, Integer> optionMap;
     int colBase = 2;
-    int rowBase = 4;
+    int rowBase = 2;
 
     @Override
     public void afterRender(RenderContext<Object> renderContext) {
@@ -52,10 +45,8 @@ public class SelectPeople3DuibiTablePolicy extends AbstractRenderPolicy<Object> 
         // 当前位置的容器
         BodyContainer bodyContainer = BodyContainerFactory.getBodyContainer(run);
         // 计算行列
-        optionMap = this.splitOption(option);
-        // 计算行列
         row = rowBase + dataSize;
-        col = optionMap.size() * voteName.length + colBase;
+        col = question.length + colBase + 1;
 
         // 当前位置插入表格
         XWPFTable table = bodyContainer.insertNewTable(run, row, col);
@@ -104,91 +95,40 @@ public class SelectPeople3DuibiTablePolicy extends AbstractRenderPolicy<Object> 
         MiniTableRenderPolicy.Helper.renderRow(table, 0, header0);
     }
 
-    // 设置 header
     public void setTableHeader(XWPFTable table) {
-
         // 第1行值的数组
-        String[] strHeader1 = new String[colBase + question.length];
+        String[] strHeader1 = new String[colBase + question.length + 1];
         strHeader1[0] = "序号";
         strHeader1[1] = "单位名称";
         System.arraycopy(question, 0, strHeader1, colBase, question.length);
+        strHeader1[strHeader1.length - 1] = "平均好与一般的比例";
 
-        // 第1行垂直合并单元格
-        for (int i = 0; i < colBase; i++) {
-            TableTools.mergeCellsVertically(table, i, 1, 3);
-        }
-
-        // 第1行水平合并单元格
-        TableTools.mergeCellsHorizonal(table, 1, colBase, col - 1);
-
-        // 第2行值的数组
-        String[] strHeader2 = new String[colBase + optionMap.size()];
-        Object[] optionStr = optionMap.keySet().toArray();
-        for (int i = 0; i < optionStr.length; i++) {
-            strHeader2[i + colBase] = "（" + (i + 1) + "）、" + optionStr[i].toString();
-        }
-
-        // 第2行水平合并单元格
-        int start = colBase;
-        int end;
-        for (int i = 0; i < optionMap.size(); i++) {
-            end = start + voteName.length;
-            TableTools.mergeCellsHorizonal(table, 2, start, end - 1);
-            start++;
-        }
-
-        // 第3行值的数组
-        String[] strHeader3 = new String[col];
-        int index = colBase;
-        for (int i = 0; i < optionMap.size(); i++) {
-            for (String s : voteName) {
-                strHeader3[index++] = s;
-            }
-        }
-
-        // 构建第1-3行
+        // 构建第1-2行
         Style style = this.getCellStyle();
         RowRenderData header1 = this.build(strHeader1, style);
-        RowRenderData header2 = this.build(strHeader2, style);
-        RowRenderData header3 = this.build(strHeader3, style);
         TableStyle tableStyle = this.getTableStyle();
         header1.setRowStyle(tableStyle);
-        header2.setRowStyle(tableStyle);
-        header3.setRowStyle(tableStyle);
         MiniTableRenderPolicy.Helper.renderRow(table, 1, header1);
-        MiniTableRenderPolicy.Helper.renderRow(table, 2, header2);
-        MiniTableRenderPolicy.Helper.renderRow(table, 3, header3);
     }
 
-    //sectrate#REPLACE(CONCAT(organ23,''),'10','')  like '%1%'#@A1;A2;A3
     public void setTableTag(XWPFTable table) {
         for (int i = 0; i < dataSize; i++) {
-            String[] tag = new String[col];
-            tag[0] = "{{sequence}}";
-            tag[1] = "{{organshortname}}";
-            int index = colBase;
-            Object[] optionValue = optionMap.values().toArray();
-            for (int j = 0; j < optionValue.length; j++) {
-                for (String s : voteType) {
-                    tag[index++] = "{{sectrate#REPLACE(CONCAT(" + itemId[0] + ",''),'" + optionValue[j] + "','')  like '%" + j + "%'#@" + s.replace("/", "_") + "_" + i + "}}";
-                }
+            // 设置 tag（票种类型部分）
+            String[] str = new String[col];
+            str[0] = "{{sort_" + (colBase + question.length) + "_" + i + "}}";
+            str[1] = "{{organshortname_" + i + "}}";
+            for (int j = 0; j < itemId.length; j++) {
+                str[colBase + j] = "{{rate#" + itemId[j] + ">7_" + i + "#}}";
             }
-            Style style = this.getCellStyle();
-            RowRenderData tagData = this.build(tag, style);
-            TableStyle tableStyle = this.getTableStyle();
-            tagData.setRowStyle(tableStyle);
-            MiniTableRenderPolicy.Helper.renderRow(table, rowBase + i, tagData);
-        }
-    }
+            str[str.length - 1] = "{{average(2,3)_" + i + "_###sort}}";
 
-    public LinkedHashMap<String, Integer> splitOption(String option) {
-        LinkedHashMap<String, Integer> optionMap = new LinkedHashMap<>();
-        String[] strArray = option.replaceAll(":0", "").split(";");
-        for (String s : strArray) {
-            String[] str = s.split(":");
-            optionMap.put(str[1], Integer.valueOf(str[0]));
+            // 构建
+            Style style = this.getCellStyle();
+            RowRenderData tag = this.build(str, style);
+            TableStyle tableStyle = this.getTableStyle();
+            tag.setRowStyle(tableStyle);
+            MiniTableRenderPolicy.Helper.renderRow(table, i + rowBase, tag);
         }
-        return optionMap;
     }
 
     // 根据 String[] 构建一行的数据，同一行使用一个 Style
@@ -206,7 +146,7 @@ public class SelectPeople3DuibiTablePolicy extends AbstractRenderPolicy<Object> 
     public Style getCellStyle() {
         Style cellStyle = new Style();
         cellStyle.setFontFamily("宋体");
-        cellStyle.setFontSize(8);
+        cellStyle.setFontSize(10);
         cellStyle.setColor("000000");
         return cellStyle;
     }

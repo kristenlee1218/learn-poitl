@@ -29,7 +29,7 @@ public class SelectPeople2DuibiTablePolicy extends AbstractRenderPolicy<Object> 
     public static String[] voteType = new String[]{"A1/A2/A3", "B", "C", ""};
 
     public static String[] question = new String[]{"3、您认为本单位选人用人工作存在的主要问题是什么？（可多选）"};
-    public static String option = "1:落实党中央关于领导班子和干部队伍建设工作要求有差距:0;2:选人用人把关不严、质量不高:0;3:坚持事业为上不够，不能做到以事择人、人岗相适:0;4:激励担当作为用人导向不鲜明，论资排辈情况严重:0;5:选人用人“个人说了算”:0;6:任人唯亲、拉帮结派:0;7:跑官要官、买官卖官、说情打招呼:0;8:执行干部选拔任用政策规定不严格:0;9:干部队伍建设统筹谋划不够，结构不合理:0;10:干部队伍能力素质不适应工作要求:0";
+    public static String option = "1:落实党中央关于领导班子和干部队伍建设工作要求有差距:0;2:选人用人把关不严、质量不高:0;3:坚持事业为上不够，不能做到以事择人、人岗相适:0;4:激励担当作为用人导向不鲜明，论资排辈情况严重:0;5:选人用人“个人说了算”:0";
     public static String[] data = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
     public static String[] itemId = new String[]{"organ23"};
     public int dataSize = 10;
