@@ -25,7 +25,8 @@ public class SelectPeople4DuibiTablePolicy extends AbstractRenderPolicy<Object> 
 
     public static String[] question = new String[]{"1、对本单位选人用人工作的总体评价", "2、对本单位从严管理监督干部情况的评价"};
     public static String[] itemId = new String[]{"organ21", "organ22"};
-    public int dataSize = 10;
+    public static String[][] data = new String[][]{{"1", "单位名称1", "100%", "99%", "99.55%"}, {"2", "单位名称2", "100%", "99%", "99.55%"}, {"3", "单位名称3", "100%", "99%", "99.55%"}, {"4", "单位名称4", "100%", "99%", "99.55%"}};
+    public int dataSize = 4;
 
     // 计算行和列
     int col;
@@ -53,13 +54,14 @@ public class SelectPeople4DuibiTablePolicy extends AbstractRenderPolicy<Object> 
         this.setTableStyle(table);
         this.setTableTitle(table);
         this.setTableHeader(table);
-        this.setTableTag(table);
+//        this.setTableTag(table);
+        this.setTableData(table);
     }
 
     // 整个 table 的样式在此设置
     public void setTableStyle(XWPFTable table) {
         // 设置 A4 幅面的平铺类型和列数
-        TableTools.widthTable(table, MiniTableRenderData.WIDTH_A4_NARROW_FULL, col);
+        TableTools.widthTable(table, 2100, col);
 
         // 设置 border
         TableTools.borderTable(table, 10);
@@ -67,7 +69,7 @@ public class SelectPeople4DuibiTablePolicy extends AbstractRenderPolicy<Object> 
             for (int i = 0; i < tableRow.getTableCells().size(); i++) {
                 tableRow.getCell(i).setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
                 if (i == 0) {
-                    tableRow.getCell(i).setWidth("2000");
+                    tableRow.getCell(i).setWidth("200");
                     table.setTableAlignment(TableRowAlign.LEFT);
                     table.setCellMargins(2, 0, 2, 0);
                 } else {
@@ -121,6 +123,21 @@ public class SelectPeople4DuibiTablePolicy extends AbstractRenderPolicy<Object> 
                 str[colBase + j] = "{{rate#" + itemId[j] + ">7_" + i + "#}}";
             }
             str[str.length - 1] = "{{average(2,3)_" + i + "_###sort}}";
+
+            // 构建
+            Style style = this.getCellStyle();
+            RowRenderData tag = this.build(str, style);
+            TableStyle tableStyle = this.getTableStyle();
+            tag.setRowStyle(tableStyle);
+            MiniTableRenderPolicy.Helper.renderRow(table, i + rowBase, tag);
+        }
+    }
+
+    public void setTableData(XWPFTable table) {
+        for (int i = 0; i < data.length; i++) {
+            // 设置 tag（票种类型部分）
+            String[] str = new String[col];
+            System.arraycopy(data[i], 0, str, 0, data[i].length);
 
             // 构建
             Style style = this.getCellStyle();

@@ -26,7 +26,7 @@ import java.util.List;
 public class SelectPeople3DuibiTablePolicy extends AbstractRenderPolicy<Object> {
 
     public static String[] voteName = new String[]{"班子成员占比", "原领导班子和中层干部占比", "职工代表占比", "全体人员占比"};
-    public static String[] voteType = new String[]{"A1/A2/A3", "B", "C", ""};
+    public static String[] voteType = new String[]{"A1/A2/A3", "B", "C",""};
 
     public static String[] question = new String[]{"3、您认为本单位选人用人工作存在的主要问题是什么？（可多选）"};
     public static String option = "6:任人唯亲、拉帮结派:0;7:跑官要官、买官卖官、说情打招呼:0;8:执行干部选拔任用政策规定不严格:0;9:干部队伍建设统筹谋划不够，结构不合理:0;10:干部队伍能力素质不适应工作要求:0";
@@ -76,7 +76,7 @@ public class SelectPeople3DuibiTablePolicy extends AbstractRenderPolicy<Object> 
             for (int i = 0; i < tableRow.getTableCells().size(); i++) {
                 tableRow.getCell(i).setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
                 if (i == 0) {
-                    tableRow.getCell(i).setWidth("2000");
+                    tableRow.getCell(i).setWidth("300");
                     table.setTableAlignment(TableRowAlign.LEFT);
                     table.setCellMargins(2, 0, 2, 0);
                 } else {
@@ -160,17 +160,16 @@ public class SelectPeople3DuibiTablePolicy extends AbstractRenderPolicy<Object> 
         MiniTableRenderPolicy.Helper.renderRow(table, 3, header3);
     }
 
-    //sectrate#REPLACE(CONCAT(organ23,''),'10','')  like '%1%'#@A1;A2;A3
     public void setTableTag(XWPFTable table) {
         for (int i = 0; i < dataSize; i++) {
             String[] tag = new String[col];
-            tag[0] = "{{sequence}}";
-            tag[1] = "{{organshortname}}";
+            tag[0] = "{{sequence_" + i + "}}";
+            tag[1] = "{{organshortname_" + i + "}}";
             int index = colBase;
             Object[] optionValue = optionMap.values().toArray();
             for (int j = 0; j < optionValue.length; j++) {
                 for (String s : voteType) {
-                    tag[index++] = "{{sectrate#REPLACE(CONCAT(" + itemId[0] + ",''),'" + optionValue[j] + "','')  like '%" + j + "%'#@" + s.replace("/", "_") + "_" + i + "}}";
+                    tag[index++] = "{{sectrate_" + itemId[0] + "_" + j + "_" + s.replace("/", "") + "_" + i + "}}";
                 }
             }
             Style style = this.getCellStyle();

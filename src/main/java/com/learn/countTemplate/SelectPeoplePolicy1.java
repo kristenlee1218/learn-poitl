@@ -74,7 +74,7 @@ public class SelectPeoplePolicy1 extends AbstractRenderPolicy<Object> {
         this.setTableTitle(table);
         this.setTableHeader(table);
         this.setTableQuestion(table);
-        //this.setTableTag(table);
+        this.setTableTag(table);
         this.setTableData(table);
 
     }
@@ -205,34 +205,34 @@ public class SelectPeoplePolicy1 extends AbstractRenderPolicy<Object> {
         }
     }
 
-//    public void setTableTag(XWPFTable table) {
-//        for (int i = 0; i < question.length; i++) {
-//            // 设置 tag（票种类型部分）
-//            String[] strTag = new String[col];
-//            int index = 1;
-//            for (String s : voteType) {
-//                for (int k = 0; k < optionMap.size(); k++) {
-//                    strTag[index] = "{{count_" + itemId[i] + "_" + optionMap.values().toArray()[k].toString() + "_" + s.replaceAll("/", "" + "}}");
-//                    index++;
-//                }
-//            }
-//            // 设置 tag（合计部分）
-//            for (int j = 0; j < optionMap.values().toArray().length; j++) {
-//                strTag[index++] = "{{count_" + itemId[i] + "_" + optionMap.values().toArray()[j].toString() + "}}";
-//                strTag[index++] = "{{rate_" + itemId[i] + "_" + optionMap.values().toArray()[j].toString() + "}}";
-//            }
-//
-//            // 设置 tag（最后一行部分）
-//            strTag[col - 1] = "{{rate_" + itemId[i] + "_7}}";
-//
-//            // 构建
-//            Style style = this.getCellStyle();
-//            RowRenderData tag = this.build(strTag, style);
-//            TableStyle tableStyle = this.getTableStyle();
-//            tag.setRowStyle(tableStyle);
-//            MiniTableRenderPolicy.Helper.renderRow(table, i + rowBase, tag);
-//        }
-//    }
+    public void setTableTag(XWPFTable table) {
+        for (int i = 0; i < question.length; i++) {
+            // 设置 tag（票种类型部分）
+            String[] strTag = new String[col];
+            int index = 1;
+            for (String s : voteType) {
+                for (int k = 0; k < optionMap.size(); k++) {
+                    strTag[index] = "{{count_" + itemId[i] + "_" + optionMap.values().toArray()[k].toString() + "_" + s.replaceAll("/", "" + "}}");
+                    index++;
+                }
+            }
+            // 设置 tag（合计部分）
+            for (int j = 0; j < optionMap.values().toArray().length; j++) {
+                strTag[index++] = "{{count_" + itemId[i] + "_" + optionMap.values().toArray()[j].toString() + "}}";
+                strTag[index++] = "{{rate_" + itemId[i] + "_" + optionMap.values().toArray()[j].toString() + "}}";
+            }
+
+            // 设置 tag（最后一行部分）
+            strTag[col - 1] = "{{rate_" + itemId[i] + "_7}}";
+
+            // 构建
+            Style style = this.getCellStyle();
+            RowRenderData tag = this.build(strTag, style);
+            TableStyle tableStyle = this.getTableStyle();
+            tag.setRowStyle(tableStyle);
+            MiniTableRenderPolicy.Helper.renderRow(table, i + rowBase, tag);
+        }
+    }
 
     public void setTableData(XWPFTable table) {
         for (int i = 0; i < data.length; i++) {

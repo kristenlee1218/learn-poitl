@@ -66,7 +66,7 @@ public class SelectPeoplePolicy2 extends AbstractRenderPolicy<Object> {
         this.setTableQuestion(table);
         this.setTableHeader(table);
         this.setTableItem(table);
-        //this.setTableTag(table);
+        this.setTableTag(table);
         this.setTableData(table);
     }
 
@@ -206,12 +206,7 @@ public class SelectPeoplePolicy2 extends AbstractRenderPolicy<Object> {
         }
     }
 
-    // 将题目的选项 如：“1:落实党中央关于领导班子和干部队伍建设工作要求有差距:0;
-    // 2:选人用人把关不严、质量不高:0;3:坚持事业为上不够，不能做到以事择人、人岗相适:0;
-    // 4:激励担当作为用人导向不鲜明，论资排辈情况严重:0;5:选人用人“个人说了算”:0;
-    // 6:任人唯亲、拉帮结派:0;7:跑官要官、买官卖官、说情打招呼:0;
-    // 8:执行干部选拔任用政策规定不严格:0;9:干部队伍建设统筹谋划不够，结构不合理:0;
-    // 10:干部队伍能力素质不适应工作要求:0” 存入 map，key 为显示的值，value 为分值
+    // map，key 为显示的值，value 为分值
     public LinkedHashMap<String, Integer> splitOption(String option) {
         LinkedHashMap<String, Integer> optionMap = new LinkedHashMap<>();
         String[] strArray = option.replaceAll(":0", "").split(";");
