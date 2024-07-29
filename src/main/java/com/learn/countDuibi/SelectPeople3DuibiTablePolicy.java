@@ -125,7 +125,7 @@ public class SelectPeople3DuibiTablePolicy extends AbstractRenderPolicy<Object> 
         String[] strHeader2 = new String[colBase + optionMap.size()];
         Object[] optionStr = optionMap.keySet().toArray();
         for (int i = 0; i < optionStr.length; i++) {
-            strHeader2[i + colBase] = "（" + (i + 1) + "）、" + optionStr[i].toString();
+            strHeader2[i + colBase] = "（" + (i + 6) + "）、" + optionStr[i].toString();
         }
 
         // 第2行水平合并单元格
