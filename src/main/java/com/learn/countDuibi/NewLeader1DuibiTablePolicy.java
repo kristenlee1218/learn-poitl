@@ -23,10 +23,6 @@ import java.util.List;
  * @date ：2022/9/26
  * @description : 新提拔
  * 需要在每个 tag 之后加行号 _行号
- * <p>
- * ¤1¤2¤3¤5¤6¤7¤
- * <p>
- * concat('¤',str_organ23,'¤') like '%¤6¤%'
  */
 public class NewLeader1DuibiTablePolicy extends AbstractRenderPolicy<Object> {
 

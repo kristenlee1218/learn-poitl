@@ -36,9 +36,9 @@ public class SelectPeople3DuibiTablePolicy extends AbstractRenderPolicy<Object> 
 
     int col;
     int row;
-    LinkedHashMap<String, Integer> optionMap;
     int colBase = 2;
     int rowBase = 4;
+    LinkedHashMap<String, Integer> optionMap;
 
     @Override
     public void afterRender(RenderContext<Object> renderContext) {

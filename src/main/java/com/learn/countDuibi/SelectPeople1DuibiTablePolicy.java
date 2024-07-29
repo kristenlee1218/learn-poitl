@@ -31,9 +31,9 @@ public class SelectPeople1DuibiTablePolicy extends AbstractRenderPolicy<Object> 
     // 计算行和列
     int col;
     int row;
-    LinkedHashMap<String, Integer> optionMap;
     int colBase = 2;
     int rowBase = 3;
+    LinkedHashMap<String, Integer> optionMap;
 
     @Override
     public void afterRender(RenderContext<Object> renderContext) {
