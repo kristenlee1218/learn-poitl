@@ -69,11 +69,11 @@ public class SelectPeople4DuibiTablePolicy extends AbstractRenderPolicy<Object> 
             for (int i = 0; i < tableRow.getTableCells().size(); i++) {
                 tableRow.getCell(i).setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
                 if (i == 0) {
-                    tableRow.getCell(i).setWidth("200");
+                    tableRow.getCell(i).setWidth("10%");
                     table.setTableAlignment(TableRowAlign.LEFT);
                     table.setCellMargins(2, 0, 2, 0);
                 } else {
-                    tableRow.getCell(i).setWidth("500");
+                    tableRow.getCell(i).setWidth("20%");
                     table.setTableAlignment(TableRowAlign.CENTER);
                     table.setCellMargins(2, 2, 2, 2);
                 }

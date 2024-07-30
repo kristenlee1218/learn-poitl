@@ -302,13 +302,14 @@ public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
             for (String[] str : items) {
                 for (String s : str) {
                     RowRenderData itemData;
-                    if (s.length() > 4 && s.length() < 8) {
-                        itemData = RowRenderData.build(new TextRenderData("", cellStyle), new TextRenderData(s, cell8Style));
-                    } else if (s.length() >= 8) {
-                        itemData = RowRenderData.build(new TextRenderData("", cellStyle), new TextRenderData(s, cell6Style));
-                    } else {
-                        itemData = RowRenderData.build(new TextRenderData("", cellStyle), new TextRenderData(s, cellStyle));
-                    }
+//                    if (s.length() > 4 && s.length() < 8) {
+//                        itemData = RowRenderData.build(new TextRenderData("", cellStyle), new TextRenderData(s, cell8Style));
+//                    } else if (s.length() >= 8) {
+//                        itemData = RowRenderData.build(new TextRenderData("", cellStyle), new TextRenderData(s, cell6Style));
+//                    } else {
+//                        itemData = RowRenderData.build(new TextRenderData("", cellStyle), new TextRenderData(s, cellStyle));
+//                    }
+                    itemData = RowRenderData.build(new TextRenderData("", cellStyle), new TextRenderData(s, cellStyle));
                     itemData.setRowStyle(tableStyle);
                     MiniTableRenderPolicy.Helper.renderRow(table, index++, itemData);
                 }
