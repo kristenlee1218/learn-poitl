@@ -11,11 +11,13 @@ import com.deepoove.poi.render.RenderContext;
 import com.deepoove.poi.util.TableTools;
 import com.deepoove.poi.xwpf.BodyContainer;
 import com.deepoove.poi.xwpf.BodyContainerFactory;
-import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.xwpf.usermodel.*;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.STJc;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author ：Kristen
@@ -243,7 +245,6 @@ public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
                     TableTools.mergeCellsHorizonal(table, 1, i, j);
                     TableTools.mergeCellsHorizonal(table, 2, i, j);
                 }
-
                 for (int i = voteType.length + 1; i >= 0; i--) {
                     TableTools.mergeCellsVertically(table, i, 1, 2);
                 }
