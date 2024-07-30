@@ -295,30 +295,21 @@ public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
             // 构建 item 列
             int index = rowBase;
             Style cellStyle = this.getCellStyle();
+            Style cell8Style = this.getCell8Style();
+            Style cell6Style = this.getCell6Style();
             TableStyle tableStyle = this.getTableStyle();
             for (String[] str : items) {
                 for (String s : str) {
+                    RowRenderData itemData;
                     if (s.length() > 4 && s.length() < 8) {
-                        Style style = new Style();
-                        style.setFontFamily("宋体");
-                        style.setFontSize(8);
-                        style.setColor("000000");
-                        RowRenderData data = RowRenderData.build(new TextRenderData("", cellStyle), new TextRenderData(s, style));
-                        data.setRowStyle(tableStyle);
-                        MiniTableRenderPolicy.Helper.renderRow(table, index++, data);
+                        itemData = RowRenderData.build(new TextRenderData("", cellStyle), new TextRenderData(s, cell8Style));
                     } else if (s.length() >= 8) {
-                        Style style = new Style();
-                        style.setFontFamily("宋体");
-                        style.setFontSize(6);
-                        style.setColor("000000");
-                        RowRenderData data = RowRenderData.build(new TextRenderData("", cellStyle), new TextRenderData(s, style));
-                        data.setRowStyle(tableStyle);
-                        MiniTableRenderPolicy.Helper.renderRow(table, index++, data);
+                        itemData = RowRenderData.build(new TextRenderData("", cellStyle), new TextRenderData(s, cell6Style));
                     } else {
-                        RowRenderData itemData = RowRenderData.build(new TextRenderData("", cellStyle), new TextRenderData(s, cellStyle));
-                        itemData.setRowStyle(tableStyle);
-                        MiniTableRenderPolicy.Helper.renderRow(table, index++, itemData);
+                        itemData = RowRenderData.build(new TextRenderData("", cellStyle), new TextRenderData(s, cellStyle));
                     }
+                    itemData.setRowStyle(tableStyle);
+                    MiniTableRenderPolicy.Helper.renderRow(table, index++, itemData);
                 }
             }
 
@@ -509,11 +500,22 @@ public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
         return cellStyle;
     }
 
-    // 设置 table 格样式
-    public TableStyle getTableStyle() {
-        TableStyle tableStyle = new TableStyle();
-        tableStyle.setAlign(STJc.CENTER);
-        return tableStyle;
+    // 设置 cell 格样式
+    public Style getCell8Style() {
+        Style cellStyle = new Style();
+        cellStyle.setFontFamily("宋体");
+        cellStyle.setFontSize(8);
+        cellStyle.setColor("000000");
+        return cellStyle;
+    }
+
+    // 设置 cell 格样式
+    public Style getCell6Style() {
+        Style cellStyle = new Style();
+        cellStyle.setFontFamily("宋体");
+        cellStyle.setFontSize(6);
+        cellStyle.setColor("000000");
+        return cellStyle;
     }
 
     // 设置 cell 格样式
@@ -523,5 +525,12 @@ public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
         cellStyle.setFontSize(8);
         cellStyle.setColor("000000");
         return cellStyle;
+    }
+
+    // 设置 table 格样式
+    public TableStyle getTableStyle() {
+        TableStyle tableStyle = new TableStyle();
+        tableStyle.setAlign(STJc.CENTER);
+        return tableStyle;
     }
 }
