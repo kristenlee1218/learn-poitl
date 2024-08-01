@@ -124,13 +124,18 @@ public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
         } else {
             TableTools.widthTable(table, MiniTableRenderData.WIDTH_A4_NARROW_FULL, col);
         }
-        TableTools.borderTable(table, 10);
+        TableTools.borderTable(table, 1);
         for (XWPFTableRow tableRow : table.getRows()) {
             for (int i = 0; i < tableRow.getTableCells().size(); i++) {
                 tableRow.getCell(i).setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
                 tableRow.getCell(i).setWidth("500");
             }
         }
+        // 设置一个 table 的边框值
+        table.setBottomBorder(XWPFTable.XWPFBorderType.SINGLE, 20, 0, "000000");
+        table.setTopBorder(XWPFTable.XWPFBorderType.SINGLE, 20, 0, "000000");
+        table.setLeftBorder(XWPFTable.XWPFBorderType.SINGLE, 20, 0, "000000");
+        table.setRightBorder(XWPFTable.XWPFBorderType.SINGLE, 20, 0, "000000");
         table.setCellMargins(5, 10, 5, 10);
         table.setTableAlignment(TableRowAlign.CENTER);
     }
@@ -343,7 +348,8 @@ public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
     public void setLastRow(XWPFTable table) {
         // 最后一行的加权总得分
         Style cellStyle = this.getCellStyle();
-        RowRenderData total = RowRenderData.build(new TextRenderData("加权汇总得分", cellStyle));
+        Style cell9Style = this.getCell9Style();
+        RowRenderData total = RowRenderData.build(new TextRenderData("加权汇总得分", cell9Style));
         TableStyle tableStyle = this.getTableStyle();
         total.setRowStyle(tableStyle);
         if (group.length > 0) {
@@ -498,6 +504,15 @@ public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
         Style cellStyle = new Style();
         cellStyle.setFontFamily("宋体");
         cellStyle.setFontSize(10);
+        cellStyle.setColor("000000");
+        return cellStyle;
+    }
+
+    // 设置 cell 格样式
+    public Style getCell9Style() {
+        Style cellStyle = new Style();
+        cellStyle.setFontFamily("宋体");
+        cellStyle.setFontSize(9);
         cellStyle.setColor("000000");
         return cellStyle;
     }
