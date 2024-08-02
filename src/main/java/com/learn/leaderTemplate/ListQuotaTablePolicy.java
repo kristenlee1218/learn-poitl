@@ -61,15 +61,16 @@ public class ListQuotaTablePolicy extends AbstractRenderPolicy<Object> {
         } else {
             col = item.length + config.length + colBase;
         }
-        row = data.length + rowBase;
+        //row = data.length + rowBase;
+        row = rowBase;
 
         // 当前位置插入表格
         XWPFTable table = bodyContainer.insertNewTable(run, row, col);
         this.setTableStyle(table);
         this.setTableTitle(table);
         this.setTableHeader(table);
+        //this.setTableCellTag(table);
         //this.setTableCellData(table);
-        this.setTableCellTag(table);
     }
 
     // 整个 table 的样式在此设置
@@ -142,8 +143,15 @@ public class ListQuotaTablePolicy extends AbstractRenderPolicy<Object> {
 
             // 构建第二、三行
             Style style = this.getCellStyle();
+            Style[] styles = new Style[col];
+            Arrays.fill(styles, style);
+            for (int i = config.length + colBase + 1; i < col; i++) {
+                if (strHeader2[i].length() >= 8) {
+                    styles[i] = this.getCell6Style();
+                }
+            }
             RowRenderData header1 = this.build(strHeader1, style);
-            RowRenderData header2 = this.build(strHeader2, style);
+            RowRenderData header2 = this.build(strHeader2, styles);
             TableStyle tableStyle = this.getTableStyle();
             header1.setRowStyle(tableStyle);
             header2.setRowStyle(tableStyle);
@@ -165,7 +173,14 @@ public class ListQuotaTablePolicy extends AbstractRenderPolicy<Object> {
                 TableTools.mergeCellsVertically(table, i, 1, 2);
             }
             Style style = this.getCellStyle();
-            RowRenderData header1 = this.build(strHeader1, style);
+            Style[] styles = new Style[col];
+            Arrays.fill(styles, style);
+            for (int i = index + 1; i < col; i++) {
+                if (strHeader1[i].length() >= 8) {
+                    styles[i] = this.getCell6Style();
+                }
+            }
+            RowRenderData header1 = this.build(strHeader1, styles);
             TableStyle tableStyle = this.getTableStyle();
             header1.setRowStyle(tableStyle);
             MiniTableRenderPolicy.Helper.renderRow(table, 1, header1);
@@ -173,18 +188,18 @@ public class ListQuotaTablePolicy extends AbstractRenderPolicy<Object> {
     }
 
     // 设置行数据
-//    public void setTableCellData(XWPFTable table) {
-//        for (int i = 0; i < data.length; i++) {
-//            String[] str = new String[col];
-//            str[0] = String.valueOf(i + 1);
-//            System.arraycopy(data[i], 0, str, 1, data[i].length);
-//            Style style = this.getDataCellStyle();
-//            RowRenderData dataRow = this.build(str, style);
-//            TableStyle tableStyle = this.getTableStyle();
-//            dataRow.setRowStyle(tableStyle);
-//            MiniTableRenderPolicy.Helper.renderRow(table, i + 3, dataRow);
-//        }
-//    }
+    public void setTableCellData(XWPFTable table) {
+        for (int i = 0; i < data.length; i++) {
+            String[] str = new String[col];
+            str[0] = String.valueOf(i + 1);
+            System.arraycopy(data[i], 0, str, 1, data[i].length);
+            Style style = this.getDataCellStyle();
+            RowRenderData dataRow = this.build(str, style);
+            TableStyle tableStyle = this.getTableStyle();
+            dataRow.setRowStyle(tableStyle);
+            MiniTableRenderPolicy.Helper.renderRow(table, i + 3, dataRow);
+        }
+    }
 
     // 设置数据行的标签
     public void setTableCellTag(XWPFTable table) {
@@ -250,11 +265,31 @@ public class ListQuotaTablePolicy extends AbstractRenderPolicy<Object> {
         return new RowRenderData(data, null);
     }
 
+    // 根据 String[] 构建一行的数据，同一行使用一个 Style
+    public RowRenderData build(String[] cellStr, Style[] styles) {
+        List<TextRenderData> data = new ArrayList<>();
+        if (null != cellStr) {
+            for (int i = 0; i < cellStr.length; i++) {
+                data.add(new TextRenderData(cellStr[i], styles[i]));
+            }
+        }
+        return new RowRenderData(data, null);
+    }
+
     // 设置 cell 格样式
     public Style getCellStyle() {
         Style cellStyle = new Style();
         cellStyle.setFontFamily("仿宋");
-        cellStyle.setFontSize(12);
+        cellStyle.setFontSize(10);
+        cellStyle.setColor("000000");
+        return cellStyle;
+    }
+
+    // 设置 cell 格样式
+    public Style getCell6Style() {
+        Style cellStyle = new Style();
+        cellStyle.setFontFamily("仿宋");
+        cellStyle.setFontSize(6);
         cellStyle.setColor("000000");
         return cellStyle;
     }
@@ -270,7 +305,7 @@ public class ListQuotaTablePolicy extends AbstractRenderPolicy<Object> {
     public Style getDataCellStyle() {
         Style cellStyle = new Style();
         cellStyle.setFontFamily("仿宋");
-        cellStyle.setFontSize(9);
+        cellStyle.setFontSize(8);
         cellStyle.setColor("000000");
         return cellStyle;
     }
