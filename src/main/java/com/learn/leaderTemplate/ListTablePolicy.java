@@ -85,7 +85,7 @@ public class ListTablePolicy extends AbstractRenderPolicy<Object> {
         this.setTableStyle(table);
         this.setTableTitle(table);
         this.setTableHeader(table);
-        //this.setTableCellData(table);
+        this.setTableCellData(table);
         this.setTableCellTag(table);
     }
 
@@ -234,18 +234,18 @@ public class ListTablePolicy extends AbstractRenderPolicy<Object> {
     }
 
     // 设置行数据
-//    public void setTableCellData(XWPFTable table) {
-//        for (int i = 0; i < data.length; i++) {
-//            String[] str = new String[col];
-//            str[0] = String.valueOf(i + 1);
-//            System.arraycopy(data[i], 0, str, 1, data[i].length);
-//            Style style = this.getDataCellStyle();
-//            RowRenderData dataRow = this.build(style, str);
-//            TableStyle tableStyle = this.getTableStyle();
-//            dataRow.setRowStyle(tableStyle);
-//            MiniTableRenderPolicy.Helper.renderRow(table, i + 3, dataRow);
-//        }
-//    }
+    public void setTableCellData(XWPFTable table) {
+        for (int i = 0; i < data.length; i++) {
+            String[] str = new String[col];
+            str[0] = String.valueOf(i + 1);
+            System.arraycopy(data[i], 0, str, 1, data[i].length);
+            Style style = this.getDataCellStyle();
+            RowRenderData dataRow = this.build(str, style);
+            TableStyle tableStyle = this.getTableStyle();
+            dataRow.setRowStyle(tableStyle);
+            MiniTableRenderPolicy.Helper.renderRow(table, i + 3, dataRow);
+        }
+    }
 
     // 设置数据行的标签
     public void setTableCellTag(XWPFTable table) {

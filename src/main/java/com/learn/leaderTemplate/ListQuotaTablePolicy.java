@@ -146,7 +146,9 @@ public class ListQuotaTablePolicy extends AbstractRenderPolicy<Object> {
             Style[] styles = new Style[col];
             Arrays.fill(styles, style);
             for (int i = config.length + colBase + 1; i < col; i++) {
-                if (strHeader2[i].length() >= 8) {
+                if (strHeader1[i].length() > 4 && strHeader1[i].length() < 8) {
+                    styles[i] = this.getCell8Style();
+                } else if (strHeader1[i].length() >= 8) {
                     styles[i] = this.getCell6Style();
                 }
             }
@@ -175,8 +177,10 @@ public class ListQuotaTablePolicy extends AbstractRenderPolicy<Object> {
             Style style = this.getCellStyle();
             Style[] styles = new Style[col];
             Arrays.fill(styles, style);
-            for (int i = index + 1; i < col; i++) {
-                if (strHeader1[i].length() >= 8) {
+            for (int i = config.length + colBase + 1; i < col; i++) {
+                if (strHeader1[i].length() > 4 && strHeader1[i].length() < 8) {
+                    styles[i] = this.getCell8Style();
+                } else if (strHeader1[i].length() >= 8) {
                     styles[i] = this.getCell6Style();
                 }
             }
@@ -281,6 +285,15 @@ public class ListQuotaTablePolicy extends AbstractRenderPolicy<Object> {
         Style cellStyle = new Style();
         cellStyle.setFontFamily("仿宋");
         cellStyle.setFontSize(10);
+        cellStyle.setColor("000000");
+        return cellStyle;
+    }
+
+    // 设置 cell 格样式
+    public Style getCell8Style() {
+        Style cellStyle = new Style();
+        cellStyle.setFontFamily("仿宋");
+        cellStyle.setFontSize(8);
         cellStyle.setColor("000000");
         return cellStyle;
     }

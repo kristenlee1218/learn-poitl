@@ -120,7 +120,7 @@ public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
     public void setTableStyle(XWPFTable table) {
         // 设置 A4 幅面的平铺类型和列数
         if (col <= 15) {
-            TableTools.widthTable(table, MiniTableRenderData.WIDTH_A4_FULL, col);
+            TableTools.widthTable(table, MiniTableRenderData.WIDTH_A4_NARROW_FULL, col);
         } else {
             TableTools.widthTable(table, MiniTableRenderData.WIDTH_A4_NARROW_FULL, col);
         }
