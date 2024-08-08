@@ -22,7 +22,7 @@ public class TestItemAveragePolicy {
         HashMap<String, Object> data = new HashMap<String, Object>() {
             {
                 // 构建 table
-                ItemAveragePolicy itemAveragePolicy = new ItemAveragePolicy();
+                LeaderItemAveragePolicy itemAveragePolicy = new LeaderItemAveragePolicy();
                 builder.bind("table", itemAveragePolicy);
             }
         };

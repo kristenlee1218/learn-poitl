@@ -21,7 +21,7 @@ import java.util.List;
  * @date ：2024/8/7
  * @description : 反馈报告中的均分对比表
  */
-public class ItemAveragePolicy extends AbstractRenderPolicy<Object> {
+public class LeaderItemAveragePolicy extends AbstractRenderPolicy<Object> {
 
     int col = item.length + 2;
     int row = 3;
