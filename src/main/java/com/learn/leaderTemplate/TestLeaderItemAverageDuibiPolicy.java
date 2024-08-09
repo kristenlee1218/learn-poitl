@@ -13,7 +13,7 @@ import java.util.HashMap;
  * @date ：2024/8/7
  * @description :
  */
-public class TestItemAveragePolicy {
+public class TestLeaderItemAverageDuibiPolicy {
     public static void main(String[] args) throws IOException {
         // 准备数据
         ConfigureBuilder builder = Configure.newBuilder();
@@ -22,7 +22,7 @@ public class TestItemAveragePolicy {
         HashMap<String, Object> data = new HashMap<String, Object>() {
             {
                 // 构建 table
-                LeaderItemAveragePolicy itemAveragePolicy = new LeaderItemAveragePolicy();
+                LeaderItemAverageDuibiPolicy itemAveragePolicy = new LeaderItemAverageDuibiPolicy();
                 builder.bind("table", itemAveragePolicy);
             }
         };
