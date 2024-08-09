@@ -46,7 +46,7 @@ public class LeaderItemPiaoPolicy extends AbstractRenderPolicy<Object> {
         // 当前位置插入表格
         this.setTableStyle(table);
         this.setItem(table);
-        // this.setCellTag(table);
+        this.setCellTag(table);
     }
 
     // 整个 table 的样式在此设置
@@ -76,6 +76,22 @@ public class LeaderItemPiaoPolicy extends AbstractRenderPolicy<Object> {
         TableStyle tableStyle = this.getTableStyle();
         header1.setRowStyle(tableStyle);
         MiniTableRenderPolicy.Helper.renderRow(table, 0, header1);
+    }
+
+    public void setCellTag(XWPFTable table) {
+        for (int i = 1; i < row; i++) {
+            String[] str = new String[col];
+            str[0] = votertype[i - 1] + "票";
+            for (int j = 0; j < itemId.length; j++) {
+                str[j + 1] = "{{avg_" + itemId[j] + "_" + votertype[i - 1] + "}}";
+            }
+            str[str.length - 1] = "{{avg_" + votertype[i - 1] + "}}";
+            Style style = this.getCellStyle();
+            RowRenderData header = this.build(str, style);
+            TableStyle tableStyle = this.getTableStyle();
+            header.setRowStyle(tableStyle);
+            MiniTableRenderPolicy.Helper.renderRow(table, i, header);
+        }
     }
 
     // 根据 String[] 构建一行的数据，同一行使用一个 Style
