@@ -67,6 +67,7 @@ public class LeaderItemPiaoPolicy extends AbstractRenderPolicy<Object> {
         table.setTableAlignment(TableRowAlign.CENTER);
     }
 
+    // 设置 itemName
     public void setItem(XWPFTable table) {
         String[] strHeader0 = new String[col];
         System.arraycopy(item, 0, strHeader0, 1, item.length);
@@ -78,6 +79,7 @@ public class LeaderItemPiaoPolicy extends AbstractRenderPolicy<Object> {
         MiniTableRenderPolicy.Helper.renderRow(table, 0, header1);
     }
 
+    // 设置标记
     public void setCellTag(XWPFTable table) {
         for (int i = 1; i < row; i++) {
             String[] str = new String[col];

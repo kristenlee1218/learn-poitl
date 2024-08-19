@@ -68,6 +68,7 @@ public class LeaderItemAverageDuibiPolicy extends AbstractRenderPolicy<Object> {
         table.setTableAlignment(TableRowAlign.CENTER);
     }
 
+    // 设置 itemName
     public void setItem(XWPFTable table) {
         String[] strHeader0 = new String[col];
         System.arraycopy(item, 0, strHeader0, 1, item.length);
@@ -79,6 +80,7 @@ public class LeaderItemAverageDuibiPolicy extends AbstractRenderPolicy<Object> {
         MiniTableRenderPolicy.Helper.renderRow(table, 0, header1);
     }
 
+    // 设置标记
     public void setCellTag(XWPFTable table) {
         // 数组填充值
         String[] strHeader1 = new String[col];
