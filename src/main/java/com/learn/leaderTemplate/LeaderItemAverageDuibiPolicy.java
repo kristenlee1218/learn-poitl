@@ -28,7 +28,6 @@ public class LeaderItemAverageDuibiPolicy extends AbstractRenderPolicy<Object> {
     public static String[] item = new String[]{"政治品质", "政治本领", "创新精神", "创新成果", "经营管理能力", "抓党建强党建能力", "担当作为", "履职绩效", "一岗双责", "廉洁从业"};
     public static String[] itemId = new String[]{"leader01", "leader02", "leader03", "leader04", "leader05", "leader06", "leader07", "leader08", "leader09", "leader10"};
 
-
     @Override
     public void afterRender(RenderContext<Object> renderContext) {
         // 清空标签
