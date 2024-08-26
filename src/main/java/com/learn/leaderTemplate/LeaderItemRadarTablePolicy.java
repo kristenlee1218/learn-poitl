@@ -18,17 +18,15 @@ import java.util.List;
 
 /**
  * @author ：Kristen
- * @date ：2024/8/9
- * @description :
+ * @date ：2024/8/7
+ * @description : 反馈报告中的均分对比表
  */
-public class LeaderItemPiaoPolicy extends AbstractRenderPolicy<Object> {
-
-    public static String[] item = new String[]{"政治品质", "政治本领", "创新精神", "创新成果", "经营管理能力", "抓党建强党建能力", "担当作为", "履职绩效", "一岗双责", "廉洁从业"};
-    public static String[] itemId = new String[]{"leader01", "leader02", "leader03", "leader04", "leader05", "leader06", "leader07", "leader08", "leader09", "leader10"};
-    public static String[] votertype = new String[]{"A1", "A2", "A3", "A4", "B", "C"};
+public class LeaderItemRadarTablePolicy extends AbstractRenderPolicy<Object> {
 
     int col = item.length + 2;
-    int row = votertype.length + 1;
+    int row = 3;
+    public static String[] item = new String[]{"政治品质", "政治本领", "创新精神", "创新成果", "经营管理能力", "抓党建强党建能力", "担当作为", "履职绩效", "一岗双责", "廉洁从业"};
+    public static String[] itemId = new String[]{"leader01", "leader02", "leader03", "leader04", "leader05", "leader06", "leader07", "leader08", "leader09", "leader10"};
 
     @Override
     public void afterRender(RenderContext<Object> renderContext) {
@@ -41,6 +39,8 @@ public class LeaderItemPiaoPolicy extends AbstractRenderPolicy<Object> {
         XWPFRun run = renderContext.getRun();
         // 当前位置的容器
         BodyContainer bodyContainer = BodyContainerFactory.getBodyContainer(run);
+        // 计算行列
+
         // 当前位置插入表格
         XWPFTable table = bodyContainer.insertNewTable(run, row, col);
         // 当前位置插入表格
@@ -71,7 +71,7 @@ public class LeaderItemPiaoPolicy extends AbstractRenderPolicy<Object> {
     public void setItem(XWPFTable table) {
         String[] strHeader0 = new String[col];
         System.arraycopy(item, 0, strHeader0, 1, item.length);
-        strHeader0[strHeader0.length - 1] = "各级均值";
+        strHeader0[strHeader0.length - 1] = "总分";
         Style style = this.getCellStyle();
         RowRenderData header1 = this.build(strHeader0, style);
         TableStyle tableStyle = this.getTableStyle();
@@ -81,19 +81,30 @@ public class LeaderItemPiaoPolicy extends AbstractRenderPolicy<Object> {
 
     // 设置标记
     public void setCellTag(XWPFTable table) {
-        for (int i = 1; i < row; i++) {
-            String[] str = new String[col];
-            str[0] = votertype[i - 1] + "票";
-            for (int j = 0; j < itemId.length; j++) {
-                str[j + 1] = "{{avg_" + itemId[j] + "_" + votertype[i - 1] + "}}";
-            }
-            str[str.length - 1] = "{{avg_" + votertype[i - 1] + "}}";
-            Style style = this.getCellStyle();
-            RowRenderData header = this.build(str, style);
-            TableStyle tableStyle = this.getTableStyle();
-            header.setRowStyle(tableStyle);
-            MiniTableRenderPolicy.Helper.renderRow(table, i, header);
+        // 数组填充值
+        String[] strHeader1 = new String[col];
+        String[] strHeader2 = new String[col];
+        for (int i = 0; i < itemId.length; i++) {
+            strHeader1[i + 1] = "avg#" + itemId[i];
         }
+        strHeader1[0] = "指标得分";
+        strHeader1[strHeader1.length - 1] = "avg";
+        for (int i = 0; i < itemId.length; i++) {
+            strHeader2[i + 1] = "listavg#" + itemId[i];
+        }
+        strHeader1[0] = "平均分";
+        strHeader1[strHeader1.length - 1] = "listavg";
+
+        // 设置样式与构建行对象
+        Style style = this.getCellStyle();
+        RowRenderData header1 = this.build(strHeader1, style);
+        RowRenderData header2 = this.build(strHeader2, style);
+        TableStyle tableStyle = this.getTableStyle();
+        header1.setRowStyle(tableStyle);
+        header2.setRowStyle(tableStyle);
+        MiniTableRenderPolicy.Helper.renderRow(table, 1, header1);
+        MiniTableRenderPolicy.Helper.renderRow(table, 2, header2);
+
     }
 
     // 根据 String[] 构建一行的数据，同一行使用一个 Style
