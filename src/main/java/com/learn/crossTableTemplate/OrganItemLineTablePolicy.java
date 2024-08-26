@@ -1,4 +1,4 @@
-package com.learn.leaderTemplate;
+package com.learn.crossTableTemplate;
 
 import com.deepoove.poi.data.RowRenderData;
 import com.deepoove.poi.data.TextRenderData;
@@ -18,13 +18,13 @@ import java.util.List;
 
 /**
  * @author ：Kristen
- * @date ：2024/8/9
+ * @date ：2024/8/26
  * @description :
  */
-public class LeaderItemLineTablePolicy extends AbstractRenderPolicy<Object> {
+public class OrganItemLineTablePolicy extends AbstractRenderPolicy<Object> {
 
-    public static String[] item = new String[]{"政治品质", "政治本领", "创新精神", "创新成果", "经营管理能力", "抓党建强党建能力", "担当作为", "履职绩效", "一岗双责", "廉洁从业"};
-    public static String[] itemId = new String[]{"leader01", "leader02", "leader03", "leader04", "leader05", "leader06", "leader07", "leader08", "leader09", "leader10"};
+    public static String[] item = new String[]{"政治忠诚", "政治担当", "社会责任", "改革创新", "经营效益", "管理效能", "风险管控", "选人用人", "基层党建", "党风廉政"};
+    public static String[] itemId = new String[]{"organ01", "organ02", "organ03", "organ04", "organ05", "organ06", "organ07", "organ08", "organ09", "organ10"};
     public static String[] votertype = new String[]{"A1", "A2", "A3", "A4", "B", "C"};
 
     int col = item.length + 2;
@@ -39,10 +39,11 @@ public class LeaderItemLineTablePolicy extends AbstractRenderPolicy<Object> {
     @Override
     public void doRender(RenderContext<Object> renderContext) throws Exception {
         XWPFRun run = renderContext.getRun();
+
         // 当前位置的容器
         BodyContainer bodyContainer = BodyContainerFactory.getBodyContainer(run);
-        // 当前位置插入表格
         XWPFTable table = bodyContainer.insertNewTable(run, row, col);
+
         // 当前位置插入表格
         this.setTableStyle(table);
         this.setItem(table);
@@ -52,16 +53,20 @@ public class LeaderItemLineTablePolicy extends AbstractRenderPolicy<Object> {
     // 整个 table 的样式在此设置
     public void setTableStyle(XWPFTable table) {
         // 设置 A4 幅面的平铺类型和列数
-        TableTools.widthTable(table, 27, col);
+        TableTools.widthTable(table, 18, col);
 
         // 设置 border
         TableTools.borderTable(table, 10);
         for (XWPFTableRow tableRow : table.getRows()) {
             for (int i = 0; i < tableRow.getTableCells().size(); i++) {
                 tableRow.getCell(i).setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
-                tableRow.getCell(i).setWidth("20");
+                if (i == 0) {
+                    tableRow.getCell(i).setWidth("300");
+                } else {
+                    tableRow.getCell(i).setWidth("15");
+                }
             }
-            tableRow.setHeight(500);
+            tableRow.setHeight(200);
         }
         table.setCellMargins(2, 2, 2, 2);
         table.setTableAlignment(TableRowAlign.CENTER);

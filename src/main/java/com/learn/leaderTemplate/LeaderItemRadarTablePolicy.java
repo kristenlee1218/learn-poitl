@@ -85,12 +85,12 @@ public class LeaderItemRadarTablePolicy extends AbstractRenderPolicy<Object> {
         String[] strHeader1 = new String[col];
         String[] strHeader2 = new String[col];
         for (int i = 0; i < itemId.length; i++) {
-            strHeader1[i + 1] = "avg#" + itemId[i];
+            strHeader1[i + 1] = "avg_" + itemId[i];
         }
         strHeader1[0] = "指标得分";
         strHeader1[strHeader1.length - 1] = "avg";
         for (int i = 0; i < itemId.length; i++) {
-            strHeader2[i + 1] = "listavg#" + itemId[i];
+            strHeader2[i + 1] = "listavg_" + itemId[i];
         }
         strHeader1[0] = "平均分";
         strHeader1[strHeader1.length - 1] = "listavg";
