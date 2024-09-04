@@ -104,7 +104,6 @@ public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
 
         // 当前位置插入表格
         XWPFTable table = bodyContainer.insertNewTable(run, row, col);
-
         this.setTableStyle(table);
         this.setTableTitle(table);
         this.setTableHeader(table);
@@ -114,6 +113,7 @@ public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
         this.setItem(table);
         this.setLastRow(table);
         this.setTableData(table);
+        this.setRemoveRow(table);
     }
 
     // 整个 table 的样式在此设置
@@ -124,7 +124,6 @@ public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
         } else {
             TableTools.widthTable(table, MiniTableRenderData.WIDTH_A4_NARROW_FULL, col);
         }
-        TableTools.borderTable(table, 1);
         for (XWPFTableRow tableRow : table.getRows()) {
             for (int i = 0; i < tableRow.getTableCells().size(); i++) {
                 tableRow.getCell(i).setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
@@ -132,10 +131,10 @@ public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
             }
         }
         // 设置一个 table 的边框值
-        table.setBottomBorder(XWPFTable.XWPFBorderType.SINGLE, 20, 0, "000000");
-        table.setTopBorder(XWPFTable.XWPFBorderType.SINGLE, 20, 0, "000000");
-        table.setLeftBorder(XWPFTable.XWPFBorderType.SINGLE, 20, 0, "000000");
-        table.setRightBorder(XWPFTable.XWPFBorderType.SINGLE, 20, 0, "000000");
+
+        table.setBottomBorder(XWPFTable.XWPFBorderType.SINGLE, 10, 0, "000000");
+        table.setLeftBorder(XWPFTable.XWPFBorderType.SINGLE, 10, 0, "000000");
+        table.setRightBorder(XWPFTable.XWPFBorderType.SINGLE, 10, 0, "000000");
         table.setCellMargins(5, 10, 5, 10);
         table.setTableAlignment(TableRowAlign.CENTER);
     }
@@ -148,7 +147,6 @@ public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
         cellStyle.setColor("000000");
         TableStyle tableStyle = new TableStyle();
         tableStyle.setAlign(STJc.CENTER);
-        tableStyle.setBackgroundColor("F5F5F5");
         String title = "{{title}}";
         RowRenderData header0 = RowRenderData.build(new TextRenderData(title, cellStyle));
         header0.setRowStyle(tableStyle);
@@ -358,6 +356,11 @@ public class CrossTablePolicy extends AbstractRenderPolicy<Object> {
             }
         }
         MiniTableRenderPolicy.Helper.renderRow(table, row - 1, total);
+    }
+
+    // 移除第1行
+    public void setRemoveRow(XWPFTable table) {
+        table.removeRow(0);
     }
 
     // 将 table 所需的数据值填充到对应的格子中

@@ -13,7 +13,7 @@ import java.util.HashMap;
  * @date ：2022/7/14
  * @description :
  */
-public class TestCrossTableTemplate {
+public class TestCrossTablePolicy {
     public static void main(String[] args) throws IOException {
         // 准备数据，生成一个构建器
         ConfigureBuilder builder = Configure.newBuilder();
@@ -26,7 +26,7 @@ public class TestCrossTableTemplate {
                 builder.bind("table", crossTablePolicy);
             }
         };
-
+        data.put("title", "2024年测试单位1综合统计表");
         XWPFTemplate template = XWPFTemplate.compile("D:\\test-poitl\\ele02.docx", configure).render(data);
         FileOutputStream out = new FileOutputStream("D:\\test-poitl\\ele02_out.docx");
         template.write(out);
